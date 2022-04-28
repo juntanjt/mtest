@@ -47,7 +47,7 @@ public class MockMakers {
                 args.add(Mockito.any(parameterType));
             }
 
-            OngoingStubbing ongoingStubbing = Mockito.when(mockMethod.getMethod().invoke(mockObject, args));
+            OngoingStubbing ongoingStubbing = Mockito.when(mockMethod.getMethod().invoke(mockObject, args.toArray()));
             for (Mocker responseMocker : responseMockers) {
                 ongoingStubbing = ongoingStubbing.thenReturn(mockResponses.get(responseMocker));
             }

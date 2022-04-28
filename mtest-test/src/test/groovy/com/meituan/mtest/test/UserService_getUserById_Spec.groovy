@@ -13,7 +13,7 @@ import spock.lang.Unroll
 import javax.annotation.Resource
 
 @ContextConfiguration(classes = [UserService_getUserById_Spec.class])
-@ComponentScan("com.meituan.mtest.demo")
+@ComponentScan("com.meituan.mtest.demo.user")
 @Configuration
 class UserService_getUserById_Spec extends MtestBaseCase {
 
@@ -37,9 +37,9 @@ class UserService_getUserById_Spec extends MtestBaseCase {
         Assertions.assertThat(response).usingRecursiveComparison().isEqualTo(expected);
 
         where: "经典之处：表格方式验证用户信息的分支场景"
-        testcase << this.testCase()
-        [uid] << this.request()
-        expected << this.response()
+        testcase << testCase()
+        [uid] << request()
+        expected << expected()
 
     }
 

@@ -33,7 +33,9 @@ abstract class MtestBaseCase extends Specification implements BeanFactoryPostPro
     }
 
     void cleanup() {
-        Mockito.clearInvocations(MtestBaseCase.mockObjects)
+        if (! MtestBaseCase.mockObjects.isEmpty()) {
+            Mockito.clearInvocations(MtestBaseCase.mockObjects.values().toArray())
+        }
     }
 
     abstract TestMethod getTestMethod()
@@ -58,7 +60,7 @@ abstract class MtestBaseCase extends Specification implements BeanFactoryPostPro
         }
     }
 
-    protected Iterable<Object> response() {
+    protected Iterable<Object> expected() {
         TestMethod testMethod = getTestMethod()
         if (testMethod.overload == -1) {
             return DataLoaders.loadResponses(testMethod.getTestClass().getSimpleName(), testMethod.getMethod().getName())

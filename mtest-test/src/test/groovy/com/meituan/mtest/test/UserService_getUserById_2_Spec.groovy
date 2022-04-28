@@ -16,7 +16,7 @@ import spock.lang.Unroll
 import javax.annotation.Resource
 
 @ContextConfiguration(classes = [UserService_getUserById_2_Spec.class])
-@ComponentScan("com.meituan.mtest.demo")
+@ComponentScan("com.meituan.mtest.demo.user")
 @Configuration
 class UserService_getUserById_2_Spec extends Specification implements BeanFactoryPostProcessor {
 
