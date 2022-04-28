@@ -12,12 +12,12 @@ import java.util.Map;
 public class DataLoaders {
 
     public static Iterable<TestCase> loadTestCases(String classSimpleName, String methodName) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + "/testcases.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "/testcase.yaml";
         return loadTestCases(path);
     }
 
     public static Iterable<TestCase> loadTestCases(String classSimpleName, String methodName, int overload) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + "-" + overload + "/testcases.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "-" + overload + "/testcase.yaml";
         return loadTestCases(path);
     }
 
@@ -39,13 +39,13 @@ public class DataLoaders {
     }
 
     public static Iterable<Object[]> loadRequests(String classSimpleName, String methodName) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + "/requests.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "/request.yaml";
         Iterable<TestCase> testCases = loadTestCases(classSimpleName, methodName);
         return loadRequests(path, testCases);
     }
 
     public static Iterable<Object[]> loadRequests(String classSimpleName, String methodName, int overload) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + "-" + overload + "/requests.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "-" + overload + "/request.yaml";
         Iterable<TestCase> testCases = loadTestCases(classSimpleName, methodName, overload);
         return loadRequests(path, testCases);
     }
@@ -72,13 +72,13 @@ public class DataLoaders {
     }
 
     public static Iterable<Object> loadResponses(String classSimpleName, String methodName) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + "/responses.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "/expected.yaml";
         Iterable<TestCase> testCases = loadTestCases(classSimpleName, methodName);
         return loadResponses(path, testCases);
     }
 
     public static Iterable<Object> loadResponses(String classSimpleName, String methodName, int overload) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + "-" + overload + "/responses.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "-" + overload + "/expected.yaml";
         Iterable<TestCase> testCases = loadTestCases(classSimpleName, methodName, overload);
         return loadResponses(path, testCases);
     }
@@ -105,12 +105,12 @@ public class DataLoaders {
     }
 
     public static Map<String, Map<Mocker, Object[]>> loadAllMockRequests(String classSimpleName, String methodName) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName;
+        String path = "mtest-data/" + classSimpleName + "-" + methodName;
         return loadAllMockRequests(path);
     }
 
     public static Map<String, Map<Mocker, Object[]>> loadAllMockRequests(String classSimpleName, String methodName, int overload) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + overload;
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + overload;
         return loadAllMockRequests(path);
     }
 
@@ -119,7 +119,7 @@ public class DataLoaders {
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.startsWith("mock-") && name.endsWith("-requests.yaml");
+                return name.startsWith("mock-") && name.endsWith("-request.yaml");
             }
         });
 
@@ -162,18 +162,18 @@ public class DataLoaders {
     }
 
     public static Map<String, Map<Mocker, Object>> loadAllMockResponses(String classSimpleName, String methodName) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName;
+        String path = "mtest-data/" + classSimpleName + "-" + methodName;
         return loadAllMockResponses(path);
     }
 
     public static Map<String, Map<Mocker, Object>> loadAllMockResponses(String classSimpleName, String methodName, int overload) throws IOException {
-        String path = "mtestdata/" + classSimpleName + "-" + methodName + overload;
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + overload;
         return loadAllMockResponses(path);
     }
 
     private static Map<String, Map<Mocker, Object>> loadAllMockResponses(String path) throws IOException {
         File dir = new ClassPathResource(path).getFile();
-        File[] files = dir.listFiles((dir1, name) -> name.startsWith("mock-") && name.endsWith("-responses.yaml"));
+        File[] files = dir.listFiles((dir1, name) -> name.startsWith("mock-") && name.endsWith("-response.yaml"));
 
         Map<String, Map<Mocker, Object>> allMockResponses = Maps.newHashMap();
         if (files == null || files.length == 0) {

@@ -17,7 +17,7 @@ class Yaml_Spec extends Specification {
         when:
         Yaml yaml = new Yaml()
 
-        InputStream io = new ClassPathResource("mtestdata/UserService-getUserById/testcases.yaml").getInputStream()
+        InputStream io = new ClassPathResource("mtest-data/UserService-getUserById/testcase.yaml").getInputStream()
         List testcases_strs = yaml.load(io)
 
         and:
