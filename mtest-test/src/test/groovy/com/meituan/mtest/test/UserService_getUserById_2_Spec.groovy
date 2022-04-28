@@ -1,9 +1,9 @@
 package com.meituan.mtest.test
 
 import com.meituan.mtest.BeanFactoryPostProcessorUtil
-import com.meituan.mtest.main.user.dao.UserDAO
-import com.meituan.mtest.main.user.service.UserService
-import com.meituan.mtest.main.user.dao.dto.UserDTO
+import com.meituan.mtest.demo.user.dao.UserDAO
+import com.meituan.mtest.demo.user.service.UserService
+import com.meituan.mtest.demo.user.dao.dto.UserDTO
 import org.springframework.beans.BeansException
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
@@ -16,7 +16,7 @@ import spock.lang.Unroll
 import javax.annotation.Resource
 
 @ContextConfiguration(classes = [UserService_getUserById_2_Spec.class])
-@ComponentScan("com.meituan.mtest.main")
+@ComponentScan("com.meituan.mtest.demo")
 @Configuration
 class UserService_getUserById_2_Spec extends Specification implements BeanFactoryPostProcessor {
 

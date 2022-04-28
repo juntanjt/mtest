@@ -3,8 +3,8 @@ package com.meituan.mtest.test
 import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import com.meituan.mtest.TestCase
-import com.meituan.mtest.main.user.dao.dto.UserDTO
-import com.meituan.mtest.main.user.service.vo.UserVO
+import com.meituan.mtest.demo.user.dao.dto.UserDTO
+import com.meituan.mtest.demo.user.service.vo.UserVO
 import org.springframework.core.io.ClassPathResource
 import org.yaml.snakeyaml.Yaml
 import spock.lang.Specification
@@ -17,28 +17,14 @@ class Yaml_Spec extends Specification {
         when:
         Yaml yaml = new Yaml()
 
-        InputStream io = new ClassPathResource("mtestdata/UserService_getUserById/testcases.yaml").getInputStream()
+        InputStream io = new ClassPathResource("mtestdata/UserService-getUserById/testcases.yaml").getInputStream()
         List testcases_strs = yaml.load(io)
 
         and:
         def testcases = Lists.newArrayList()
         for (def testcases_str in testcases_strs) {
             def testcase = new TestCase(code: testcases_str['code'], name: testcases_str['name'])
-            def mocks = Lists.newArrayList()
 
-            if (testcases_str['mocks'] != null) {
-                for (def mock_str in testcases_str['mocks']) {
-                    def mock = new TestCase.Mock()
-                    mock.className = mock_str['className']
-                    mock.methodName = mock_str['methodName']
-                    if (null!=mock_str['order']) {
-                        mock.order = mock_str['order']
-                    }
-
-                    mocks.add(mock)
-                }
-            }
-            testcase.setMocks((TestCase.Mock[]) mocks.toArray())
             testcases.add(testcase)
         }
 

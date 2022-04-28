@@ -20,7 +20,7 @@ class DataLoaders_Spec extends Specification {
         def testcases = DataLoaders.loadTestCases("UserService", "getUserById")
 
         when:
-        def requests = DataLoaders.loadRequests("UserService", "getUserById", testcases)
+        def requests = DataLoaders.loadRequests("UserService", "getUserById")
 
         then:
         requests != null

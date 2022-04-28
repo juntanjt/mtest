@@ -1,0 +1,15 @@
+code1:
+  - !!com.meituan.mtest.demo.user.dao.dto.UserDTO
+    {abbreviation: null, age: null, country: null, id: 1, name: 张三, postCode: null, province: 北京, sex: null, telephone: '13811112222'}
+  - !!com.meituan.mtest.demo.user.dao.dto.UserDTO
+    {abbreviation: null, age: null, country: null, id: 2, name: 李四, postCode: null, province: 上海, sex: null, telephone: '13866667777'}
+  - !!com.meituan.mtest.demo.user.dao.dto.UserDTO
+    {abbreviation: null, age: null, country: null, id: 3, name: 王五, postCode: null, province: 南京, sex: null, telephone: '13833334444'}
+
+code2:
+  - !!com.meituan.mtest.demo.user.dao.dto.UserDTO
+    { abbreviation: null, age: null, country: null, id: 1, name: 张三, postCode: null, province: 北京, sex: null, telephone: '13811112222' }
+  - !!com.meituan.mtest.demo.user.dao.dto.UserDTO
+    { abbreviation: null, age: null, country: null, id: 2, name: 李四, postCode: null, province: 上海, sex: null, telephone: '13866667777' }
+  - !!com.meituan.mtest.demo.user.dao.dto.UserDTO
+    { abbreviation: null, age: null, country: null, id: 3, name: 王五, postCode: null, province: 南京, sex: null, telephone: '13833334444' }
