@@ -1,5 +1,7 @@
 package com.meituan.mtest;
 
+import com.google.common.base.Objects;
+
 import java.lang.reflect.Method;
 
 public class TestMethod {
@@ -39,5 +41,28 @@ public class TestMethod {
 
     public int getOverload() {
         return overload;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestMethod that = (TestMethod) o;
+        return overload == that.overload && Objects.equal(method, that.method) && Objects.equal(testClass, that.testClass) && Objects.equal(beanName, that.beanName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(method, testClass, beanName, overload);
+    }
+
+    @Override
+    public String toString() {
+        return "TestMethod{" +
+                "method=" + method +
+                ", testClass=" + testClass +
+                ", beanName='" + beanName + '\'' +
+                ", overload=" + overload +
+                '}';
     }
 }

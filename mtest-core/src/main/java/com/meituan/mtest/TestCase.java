@@ -1,17 +1,19 @@
 package com.meituan.mtest;
 
+import com.google.common.base.Objects;
+
 public class TestCase {
 
-    private String code;
+    private String id;
 
     private String name;
 
-    public String getCode() {
-        return code;
+    public String getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -22,4 +24,24 @@ public class TestCase {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestCase testCase = (TestCase) o;
+        return Objects.equal(id, testCase.id) && Objects.equal(name, testCase.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "TestCase{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

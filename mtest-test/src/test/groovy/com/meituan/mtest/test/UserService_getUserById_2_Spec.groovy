@@ -1,6 +1,6 @@
 package com.meituan.mtest.test
 
-import com.meituan.mtest.BeanFactoryPostProcessorUtil
+import com.meituan.mtest.SpringBeanRegistryUtil
 import com.meituan.mtest.demo.user.dao.UserDAO
 import com.meituan.mtest.demo.user.service.UserService
 import com.meituan.mtest.demo.user.dao.dto.UserDTO
@@ -59,6 +59,6 @@ class UserService_getUserById_2_Spec extends Specification implements BeanFactor
 
         def userDAO = Mock(UserDAO)
         userDAO.getUserInfo() >> user
-        BeanFactoryPostProcessorUtil.registerSingleton(beanFactory, "userDAO", userDAO)
+        SpringBeanRegistryUtil.registerSingleton(beanFactory, "userDAO", userDAO)
     }
 }

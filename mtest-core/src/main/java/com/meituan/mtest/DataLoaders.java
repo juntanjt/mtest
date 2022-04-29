@@ -30,7 +30,7 @@ public class DataLoaders {
 
         for (Map testcases_map : testcases_maps) {
             TestCase testcase = new TestCase();
-            testcase.setCode((String) testcases_map.get("code"));
+            testcase.setId((String) testcases_map.get("id"));
             testcase.setName((String) testcases_map.get("name"));
 
             testcases.add(testcase);
@@ -60,8 +60,8 @@ public class DataLoaders {
 
         List<Object[]> requests = Lists.newArrayList();
         for (TestCase testCase : testCases) {
-            if (requests_map.containsKey(testCase.getCode())) {
-                Object[] request = ((List) requests_map.get(testCase.getCode())).toArray();
+            if (requests_map.containsKey(testCase.getId())) {
+                Object[] request = ((List) requests_map.get(testCase.getId())).toArray();
                 requests.add(request);
             } else {
                 requests.add(null);
@@ -93,8 +93,8 @@ public class DataLoaders {
 
         List<Object> responses = Lists.newArrayList();
         for (TestCase testCase : testCases) {
-            if (responses_map.containsKey(testCase.getCode())) {
-                Object response = responses_map.get(testCase.getCode());
+            if (responses_map.containsKey(testCase.getId())) {
+                Object response = responses_map.get(testCase.getId());
                 responses.add(response);
             } else {
                 responses.add(null);
@@ -133,8 +133,10 @@ public class DataLoaders {
             String[] split = fileName.split("-");
             mocker.setClassSimpleName(split[1]);
             mocker.setMethodName(split[2]);
-            if (split.length == 6) {
+            if (split.length >= 5) {
                 mocker.setOverload(Integer.valueOf(split[3]));
+            }
+            if (split.length >= 6) {
                 mocker.setOrder(Integer.valueOf(split[4]));
             }
 

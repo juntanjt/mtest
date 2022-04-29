@@ -56,4 +56,14 @@ public class Mocker {
     public int hashCode() {
         return Objects.hashCode(classSimpleName, methodName, overload, order);
     }
+
+    @Override
+    public String toString() {
+        return "Mocker{" +
+                "classSimpleName='" + classSimpleName + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", overload=" + overload +
+                ", order=" + order +
+                '}';
+    }
 }

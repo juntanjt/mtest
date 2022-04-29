@@ -15,13 +15,13 @@ public class MockMakers {
     public static void mock(TestCase testCase, String classSimpleName, String methodName, TestMethod[] mockMethods, Map<String, Object> mockObjects) throws IOException, InvocationTargetException, IllegalAccessException {
         Map<String, Map<Mocker, Object[]>> allMockRequests = DataLoaders.loadAllMockRequests(classSimpleName, methodName);
         Map<String, Map<Mocker, Object>> allMockResponses = DataLoaders.loadAllMockResponses(classSimpleName, methodName);
-        mock(mockMethods, mockObjects, allMockRequests.get(testCase.getCode()), allMockResponses.get(testCase.getCode()));
+        mock(mockMethods, mockObjects, allMockRequests.get(testCase.getId()), allMockResponses.get(testCase.getId()));
     }
 
     public static void mock(TestCase testCase, String classSimpleName, String methodName, int overload, TestMethod[] mockMethods, Map<String, Object> mockObjects) throws IOException, InvocationTargetException, IllegalAccessException {
         Map<String, Map<Mocker, Object[]>> allMockRequests = DataLoaders.loadAllMockRequests(classSimpleName, methodName, overload);
         Map<String, Map<Mocker, Object>> allMockResponses = DataLoaders.loadAllMockResponses(classSimpleName, methodName, overload);
-        mock(mockMethods, mockObjects, allMockRequests.get(testCase.getCode()), allMockResponses.get(testCase.getCode()));
+        mock(mockMethods, mockObjects, allMockRequests.get(testCase.getId()), allMockResponses.get(testCase.getId()));
     }
 
     private static void mock(TestMethod[] mockMethods, Map<String, Object> mockObjects, Map<Mocker, Object[]> mockRequests, Map<Mocker, Object> mockResponses) throws InvocationTargetException, IllegalAccessException {

@@ -21,7 +21,7 @@ class UserService_getUserById_Spec extends MtestBaseCase {
     UserService userService
 
     @Unroll
-    def "#testcase.name 手机号 #expected.telephone"() {
+    def "#testcase 手机号 #expected.telephone"() {
         given: "设置请求参数"
         mock(testcase)
 

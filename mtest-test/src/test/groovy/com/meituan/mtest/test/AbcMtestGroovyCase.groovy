@@ -1,6 +1,6 @@
 package com.meituan.mtest.test;
 
-import com.meituan.mtest.BeanFactoryPostProcessorUtil;
+import com.meituan.mtest.SpringBeanRegistryUtil;
 import com.meituan.mtest.demo.user.dao.UserDAO;
 import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
@@ -15,7 +15,7 @@ abstract class AbcMtestGroovyCase extends Specification implements BeanFactoryPo
     @Override
     void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         UserDAO userDAO = Mockito.mock(UserDAO.class);
-        BeanFactoryPostProcessorUtil.registerSingleton(beanFactory, "userDAO", userDAO);
+        SpringBeanRegistryUtil.registerSingleton(beanFactory, "userDAO", userDAO);
 
         AbcMtestGroovyCase.mocks = [userDAO];
     }

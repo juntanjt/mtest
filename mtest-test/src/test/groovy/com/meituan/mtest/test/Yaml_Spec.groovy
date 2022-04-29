@@ -23,7 +23,7 @@ class Yaml_Spec extends Specification {
         and:
         def testcases = Lists.newArrayList()
         for (def testcases_str in testcases_strs) {
-            def testcase = new TestCase(code: testcases_str['code'], name: testcases_str['name'])
+            def testcase = new TestCase(id: testcases_str['id'], name: testcases_str['name'])
 
             testcases.add(testcase)
         }

@@ -22,14 +22,14 @@ abstract class MtestBaseCase extends Specification implements BeanFactoryPostPro
                 continue
             }
             Object mockObject = Mockito.mock(testMethod.getTestClass())
-            BeanFactoryPostProcessorUtil.registerSingleton(beanFactory, testMethod.getBeanName(), mockObject)
+            SpringBeanRegistryUtil.registerSingleton(beanFactory, testMethod, mockObject)
 
             mockObjects.put(testMethod.getBeanName(), mockObject)
         }
     }
 
     void setup() {
-
+        return
     }
 
     void cleanup() {
