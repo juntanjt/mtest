@@ -7,6 +7,7 @@ import com.meituan.mtest.demo.user.service.UserService
 import org.assertj.core.api.Assertions
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.ImportResource
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Unroll
 
@@ -14,6 +15,7 @@ import javax.annotation.Resource
 
 @ContextConfiguration(classes = [UserService_getUserById_Spec.class])
 @ComponentScan("com.meituan.mtest.demo.user")
+@ImportResource("classpath:spring-ddl.xml")
 @Configuration
 class UserService_getUserById_Spec extends MtestBaseCase {
 

@@ -49,7 +49,7 @@ public class DataLoaders {
 
             testcases.add(testcase);
         }
-        return testcases;
+        return MtestContext.ContextIterable.of(testcases, MtestContext.KeyType.TEST_CASE);
     }
 
     public static Iterable<Object[]> loadRequests(String classSimpleName, String methodName) throws IOException {
@@ -82,7 +82,7 @@ public class DataLoaders {
             }
         }
 
-        return requests;
+        return MtestContext.ContextIterable.of(requests, MtestContext.KeyType.REQUEST);
     }
 
     public static Iterable<Object> loadResponses(String classSimpleName, String methodName) throws IOException {
@@ -115,7 +115,7 @@ public class DataLoaders {
             }
         }
 
-        return responses;
+        return MtestContext.ContextIterable.of(responses, MtestContext.KeyType.EXPECTED);
     }
 
     public static Map<String, Map<Mocker, Object[]>> loadAllMockRequests(String classSimpleName, String methodName) throws IOException {
@@ -130,12 +130,7 @@ public class DataLoaders {
 
     private static Map<String, Map<Mocker, Object[]>> loadAllMockRequests(String path) throws IOException {
         File dir = new ClassPathResource(path).getFile();
-        File[] files = dir.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.startsWith("mock-") && name.endsWith("-request.yaml");
-            }
-        });
+        File[] files = dir.listFiles((dir1, name) -> name.startsWith("mock-") && name.endsWith("-request.yaml"));
 
         Map<String, Map<Mocker, Object[]>> allMockRequests = Maps.newHashMap();
         if (files == null || files.length == 0) {

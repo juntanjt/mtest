@@ -1,15 +1,19 @@
 package com.meituan.mtest
 
 import com.google.common.collect.Maps
+import org.dbunit.IDatabaseTester
 import org.mockito.Mockito;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
 import spock.lang.Specification
 
+import javax.sql.DataSource
+
 abstract class MtestBaseCase extends Specification implements BeanFactoryPostProcessor {
 
-    private static Map<String, Object> mockObjects = Maps.newHashMap()
+    private static final Map<String, Object> mockObjects = Maps.newHashMap()
+    private static IDatabaseTester databaseTester
 
     @Override
     void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -26,21 +30,38 @@ abstract class MtestBaseCase extends Specification implements BeanFactoryPostPro
 
             mockObjects.put(testMethod.getBeanName(), mockObject)
         }
+        databaseTester = DbTesters.newDatabaseTester(getDataSource())
     }
 
     void setup() {
-        return
-    }
-
-    void cleanup() {
-        if (! MtestBaseCase.mockObjects.isEmpty()) {
-            Mockito.clearInvocations(MtestBaseCase.mockObjects.values().toArray())
+        TestMethod testMethod = getTestMethod()
+        if (testMethod.overload == -1) {
+            DbTesters.setUp(testMethod.getTestClass().getSimpleName(), testMethod.getMethod().getName(), MtestContext.getTestCase(), databaseTester)
+        } else {
+            DbTesters.setUp(testMethod.getTestClass().getSimpleName(), testMethod.getMethod().getName(), MtestContext.getTestCase(), testMethod.getOverload(), databaseTester)
         }
     }
 
-    abstract TestMethod getTestMethod()
+    void cleanup() {
+        if (! mockObjects.isEmpty()) {
+            Mockito.clearInvocations(mockObjects.values().toArray())
+        }
+        TestMethod testMethod = getTestMethod()
+        if (testMethod.overload == -1) {
+            DbTesters.verifyData(testMethod.getTestClass().getSimpleName(), testMethod.getMethod().getName(), MtestContext.getTestCase(), databaseTester)
+        } else {
+            DbTesters.verifyData(testMethod.getTestClass().getSimpleName(), testMethod.getMethod().getName(), MtestContext.getTestCase(), testMethod.getOverload(), databaseTester)
+        }
+        DbTesters.tearDown(databaseTester)
+    }
 
-    abstract TestMethod[] getMockMethods()
+    protected abstract TestMethod getTestMethod()
+
+    protected abstract TestMethod[] getMockMethods()
+
+    protected DataSource getDataSource() {
+        return null
+    }
 
     protected Iterable<TestCase> testCase() {
         TestMethod testMethod = getTestMethod()

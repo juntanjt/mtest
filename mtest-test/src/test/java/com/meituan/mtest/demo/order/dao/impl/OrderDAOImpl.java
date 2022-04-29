@@ -4,7 +4,7 @@ import com.meituan.mtest.demo.order.dao.OrderDAO;
 import com.meituan.mtest.demo.order.dao.OrderDO;
 import org.springframework.stereotype.Repository;
 
-@Repository("orderDAO")
+//@Repository("orderDAO")
 public class OrderDAOImpl implements OrderDAO {
 
     @Override
