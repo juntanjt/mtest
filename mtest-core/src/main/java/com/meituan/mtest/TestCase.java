@@ -8,6 +8,8 @@ public class TestCase {
 
     private String name;
 
+    private boolean ignore = false;
+
     public String getId() {
         return id;
     }
@@ -22,6 +24,14 @@ public class TestCase {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isIgnore() {
+        return ignore;
+    }
+
+    public void setIgnore(boolean ignore) {
+        this.ignore = ignore;
     }
 
     @Override

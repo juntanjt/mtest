@@ -1,8 +1,6 @@
 package com.meituan.mtest.test
 
-import com.google.common.collect.Lists
 import com.google.common.collect.Maps
-import com.meituan.mtest.TestCase
 import com.meituan.mtest.demo.user.dao.dto.UserDTO
 import com.meituan.mtest.demo.user.service.vo.UserVO
 import org.springframework.core.io.ClassPathResource
@@ -13,24 +11,14 @@ class Yaml_Spec extends Specification {
 
     def "yaml2java"() {
         given:
+        InputStream io = new ClassPathResource("mtest-data/UserService-getUserById/request.yaml").getInputStream()
 
         when:
         Yaml yaml = new Yaml()
-
-        InputStream io = new ClassPathResource("mtest-data/UserService-getUserById/testcase.yaml").getInputStream()
-        List testcases_strs = yaml.load(io)
-
-        and:
-        def testcases = Lists.newArrayList()
-        for (def testcases_str in testcases_strs) {
-            def testcase = new TestCase(id: testcases_str['id'], name: testcases_str['name'])
-
-            testcases.add(testcase)
-        }
+        Map request_strs = yaml.load(io)
 
         then:
-        testcases_strs != null
-        testcases != null
+        request_strs != null
     }
 
     def "java2yaml"() {

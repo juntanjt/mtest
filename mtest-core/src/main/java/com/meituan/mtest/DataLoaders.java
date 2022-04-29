@@ -2,36 +2,50 @@ package com.meituan.mtest;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import org.springframework.core.io.ClassPathResource;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class DataLoaders {
 
     public static Iterable<TestCase> loadTestCases(String classSimpleName, String methodName) throws IOException {
-        String path = "mtest-data/" + classSimpleName + "-" + methodName + "/testcase.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "/testcase.csv";
         return loadTestCases(path);
     }
 
     public static Iterable<TestCase> loadTestCases(String classSimpleName, String methodName, int overload) throws IOException {
-        String path = "mtest-data/" + classSimpleName + "-" + methodName + "-" + overload + "/testcase.yaml";
+        String path = "mtest-data/" + classSimpleName + "-" + methodName + "-" + overload + "/testcase.csv";
         return loadTestCases(path);
     }
 
     public static Iterable<TestCase> loadTestCases(String path) throws IOException {
         InputStream io = new ClassPathResource(path).getInputStream();
-        Yaml yaml = new Yaml();
-        List<Map> testcases_maps = yaml.load(io);
+        CSVReader csvReader = new CSVReaderBuilder(new InputStreamReader(io)).build();
 
         List<TestCase> testcases = Lists.newArrayList();
 
-        for (Map testcases_map : testcases_maps) {
+        Iterator<String[]> iterator = csvReader.iterator();
+        if (iterator.hasNext()) {
+            //去除第一行的表头，从第二行开始
+            iterator.next();
+        }
+        while (iterator.hasNext()) {
+            String[] next = iterator.next();
+            if (next==null || next.length==0) {
+                continue;
+            }
             TestCase testcase = new TestCase();
-            testcase.setId((String) testcases_map.get("id"));
-            testcase.setName((String) testcases_map.get("name"));
+            testcase.setId(next[0]);
+            testcase.setName(next[1]);
+            if (next.length>=3 && (next[2].equals("1") || next[2].equals("ture"))) {
+                continue;
+            }
 
             testcases.add(testcase);
         }
