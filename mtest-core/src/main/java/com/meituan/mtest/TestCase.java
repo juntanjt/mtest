@@ -2,6 +2,10 @@ package com.meituan.mtest;
 
 import com.google.common.base.Objects;
 
+/**
+ *
+ * @author Jun Tan
+ */
 public class TestCase {
 
     private String id;
@@ -49,9 +53,7 @@ public class TestCase {
 
     @Override
     public String toString() {
-        return "TestCase{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return "id='" + id + '\'' +
+                ", name='" + name + '\'';
     }
 }

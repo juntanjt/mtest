@@ -8,6 +8,10 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import spock.lang.Specification;
 
+/**
+ *
+ * @author Jun Tan
+ */
 abstract class AbcMtestGroovyCase extends Specification implements BeanFactoryPostProcessor {
 
     private static Object[] mocks;

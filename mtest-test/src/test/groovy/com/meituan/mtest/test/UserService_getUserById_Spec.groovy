@@ -1,7 +1,8 @@
 package com.meituan.mtest.test
 
-import com.meituan.mtest.MtestBaseCase
-import com.meituan.mtest.TestMethod
+import com.meituan.mtest.MTest
+import com.meituan.mtest.MTestBaseCase
+import com.meituan.mtest.MockMethod
 import com.meituan.mtest.demo.user.dao.UserDAO
 import com.meituan.mtest.demo.user.service.UserService
 import org.assertj.core.api.Assertions
@@ -13,11 +14,16 @@ import spock.lang.Unroll
 
 import javax.annotation.Resource
 
+/**
+ *
+ * @author Jun Tan
+ */
 @ContextConfiguration(classes = [UserService_getUserById_Spec.class])
 @ComponentScan("com.meituan.mtest.demo.user")
 @ImportResource("classpath:spring-ddl.xml")
 @Configuration
-class UserService_getUserById_Spec extends MtestBaseCase {
+@MTest(testClass = UserService.class, method = "getUserById")
+class UserService_getUserById_Spec extends MTestBaseCase {
 
     @Resource
     UserService userService
@@ -25,7 +31,6 @@ class UserService_getUserById_Spec extends MtestBaseCase {
     @Unroll
     def "#testcase 手机号 #expected.telephone"() {
         given: "设置请求参数"
-        mock(testcase)
 
         when: "获取用户信息"
         def response = userService.getUserById(uid)
@@ -46,14 +51,9 @@ class UserService_getUserById_Spec extends MtestBaseCase {
     }
 
     @Override
-    TestMethod getTestMethod() {
-        return new TestMethod(UserService.class.getMethod('getUserById', int), UserService.class, 'userService')
-    }
-
-    @Override
-    TestMethod[] getMockMethods() {
+    MockMethod[] getMockMethods() {
         return [
-                new TestMethod(UserDAO.class.getMethod('getUserInfo'), UserDAO.class, 'userDAO')
+                new MockMethod(UserDAO.class.getMethod('getUserInfo'), UserDAO.class, 'userDAO')
         ]
     }
 }

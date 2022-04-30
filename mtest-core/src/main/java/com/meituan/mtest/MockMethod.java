@@ -8,9 +8,9 @@ import java.lang.reflect.Method;
  *
  * @author Jun Tan
  */
-public class TestMethod {
+public class MockMethod {
 
-    private String method;
+    private Method method;
 
     private Class testClass;
 
@@ -23,7 +23,7 @@ public class TestMethod {
      * @param method
      * @param testClass
      */
-    public TestMethod(String method, Class testClass) {
+    public MockMethod(Method method, Class testClass) {
         this.method = method;
         this.testClass = testClass;
     }
@@ -34,7 +34,7 @@ public class TestMethod {
      * @param testClass
      * @param beanName
      */
-    public TestMethod(String method, Class testClass, String beanName) {
+    public MockMethod(Method method, Class testClass, String beanName) {
         this.method = method;
         this.testClass = testClass;
         this.beanName = beanName;
@@ -46,7 +46,7 @@ public class TestMethod {
      * @param testClass
      * @param overload
      */
-    public TestMethod(String method, Class testClass, int overload) {
+    public MockMethod(Method method, Class testClass, int overload) {
         this.method = method;
         this.testClass = testClass;
         this.overload = overload;
@@ -59,27 +59,14 @@ public class TestMethod {
      * @param beanName
      * @param overload
      */
-    public TestMethod(String method, Class testClass, String beanName, int overload) {
+    public MockMethod(Method method, Class testClass, String beanName, int overload) {
         this.method = method;
         this.testClass = testClass;
         this.beanName = beanName;
         this.overload = overload;
     }
 
-    /**
-     *
-     * @param mTest
-     */
-    public TestMethod(MTest mTest) {
-        this.method = mTest.method();
-        this.testClass = mTest.testClass();
-        if (! "".equals(mTest.beanName())) {
-            this.beanName = mTest.beanName();
-        }
-        this.overload = mTest.overload();
-    }
-
-    public String getMethod() {
+    public Method getMethod() {
         return method;
     }
 
@@ -99,7 +86,7 @@ public class TestMethod {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TestMethod that = (TestMethod) o;
+        MockMethod that = (MockMethod) o;
         return overload == that.overload && Objects.equal(method, that.method) && Objects.equal(testClass, that.testClass) && Objects.equal(beanName, that.beanName);
     }
 

@@ -15,6 +15,10 @@ import spock.lang.Unroll
 
 import javax.annotation.Resource
 
+/**
+ *
+ * @author Jun Tan
+ */
 @ContextConfiguration(classes = [UserService_getUserById_2_Spec.class])
 //@ComponentScan("com.meituan.mtest.demo.user")
 @ImportResource("classpath:spring-context.xml")

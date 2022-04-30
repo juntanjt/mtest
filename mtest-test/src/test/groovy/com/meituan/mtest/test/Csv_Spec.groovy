@@ -7,6 +7,10 @@ import com.opencsv.CSVReaderBuilder;
 import org.springframework.core.io.ClassPathResource;
 import spock.lang.Specification;
 
+/**
+ *
+ * @author Jun Tan
+ */
 class Csv_Spec extends Specification {
 
     def "csv2java"() {

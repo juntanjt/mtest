@@ -2,6 +2,10 @@ package com.meituan.mtest;
 
 import com.google.common.base.Objects;
 
+/**
+ *
+ * @author Jun Tan
+ */
 public class Mocker {
 
     private String classSimpleName;
@@ -59,11 +63,9 @@ public class Mocker {
 
     @Override
     public String toString() {
-        return "Mocker{" +
-                "classSimpleName='" + classSimpleName + '\'' +
+        return "classSimpleName='" + classSimpleName + '\'' +
                 ", methodName='" + methodName + '\'' +
                 ", overload=" + overload +
-                ", order=" + order +
-                '}';
+                ", order=" + order;
     }
 }

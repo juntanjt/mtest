@@ -7,6 +7,10 @@ import org.springframework.core.io.ClassPathResource
 import org.yaml.snakeyaml.Yaml
 import spock.lang.Specification
 
+/**
+ *
+ * @author Jun Tan
+ */
 class Yaml_Spec extends Specification {
 
     def "yaml2java"() {
