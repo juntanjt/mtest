@@ -57,7 +57,9 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      *
      * @return
      */
-    protected abstract MockMethod[] getMockMethods()
+    protected MockMethod[] getMockMethods() {
+        return null
+    }
 
     /**
      *
