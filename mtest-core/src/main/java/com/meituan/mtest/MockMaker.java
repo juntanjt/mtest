@@ -3,7 +3,6 @@ package com.meituan.mtest;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -21,7 +19,7 @@ public class MockMaker {
 
     private MockMethod[] mockMethods;
     private final Map<String, Object> mockBeanObjects = Maps.newHashMap();
-    private final Map<Class, Object> mockClassObjects = Maps.newHashMap();
+    private final Map<Class<?>, Object> mockClassObjects = Maps.newHashMap();
 
     private MockRequestChecker mockRequestChecker = new DefaultMockRequestChecker();
 
@@ -84,8 +82,8 @@ public class MockMaker {
      */
     public void mock(TestMethod testMethod, TestCase testCase) {
         try {
-            Map<Mocker, Object[]> mockRequests = DataLoaders.loadMockRequests(testMethod, testCase);
-            Map<Mocker, Object> mockResponses = DataLoaders.loadMockResponses(testMethod, testCase);
+            Map<Mocker, List<Object[]>> mockRequests = DataLoaders.loadMockRequests(testMethod, testCase);
+            Map<Mocker, List<Object>> mockResponses = DataLoaders.loadMockResponses(testMethod, testCase);
             mock(mockRequests, mockResponses);
         } catch (Exception e) {
             Throwables.propagate(e);
@@ -100,9 +98,9 @@ public class MockMaker {
      */
     public void mock(String testMethodPath, TestCase testCase) {
         try {
-            Map<Mocker, Object[]> mockRequests = DataLoaders.loadMockRequests(testMethodPath, testCase);
-            Map<Mocker, Object> mockResponses = DataLoaders.loadMockResponses(testMethodPath, testCase);
-            mock(mockRequests, mockResponses);
+            Map<Mocker, List<Object[]>> mockRequestMap = DataLoaders.loadMockRequests(testMethodPath, testCase);
+            Map<Mocker, List<Object>> mockResponseMap = DataLoaders.loadMockResponses(testMethodPath, testCase);
+            mock(mockRequestMap, mockResponseMap);
         } catch (Exception e) {
             Throwables.propagate(e);
             throw new MTestException("mock error", e);
@@ -111,50 +109,32 @@ public class MockMaker {
 
     /**
      *
-     * @param mockRequests
-     * @param mockResponses
+     * @param mockRequestMap
+     * @param mockResponseMap
      */
-    private void mock(Map<Mocker, Object[]> mockRequests, Map<Mocker, Object> mockResponses) {
-
-        Map<Mocker, List<Mocker>> requestMockerMap = getRequestMockers(mockRequests);
-        Map<Mocker, List<Mocker>> responseMockerMap = getResponseMockers(mockResponses);
-
+    private void mock(Map<Mocker, List<Object[]>> mockRequestMap, Map<Mocker, List<Object>> mockResponseMap) {
         for (MockMethod mockMethod : mockMethods) {
-            Mocker baseMocker = new Mocker();
-            baseMocker.setClassSimpleName(mockMethod.getTestClass().getSimpleName());
-            baseMocker.setMethodName(mockMethod.getMethod().getName());
-            baseMocker.setOverload(mockMethod.getOverload());
+            Mocker mocker = new Mocker();
+            mocker.setClassSimpleName(mockMethod.getTestClass().getSimpleName());
+            mocker.setMethodName(mockMethod.getMethod().getName());
+            mocker.setOverload(mockMethod.getOverload());
 
-            mock(mockMethod, requestMockerMap.get(baseMocker), responseMockerMap.get(baseMocker), mockRequests, mockResponses);
+            List<Object[]> mockRequests = mockRequestMap != null ? mockRequestMap.get(mocker) : null;
+            List<Object> mockResponse = mockResponseMap != null ? mockResponseMap.get(mocker) : null;
+
+            mock(mockMethod, mocker, mockRequests, mockResponse);
         }
     }
 
     /**
      *
      * @param mockMethod
-     * @param requestMockers
-     * @param responseMockers
+     * @param mocker
      * @param mockRequests
      * @param mockResponses
      */
-    private void mock(MockMethod mockMethod, List<Mocker> requestMockers, List<Mocker> responseMockers, Map<Mocker, Object[]> mockRequests, Map<Mocker, Object> mockResponses) {
+    private void mock(MockMethod mockMethod, Mocker mocker, List<Object[]> mockRequests, List<Object> mockResponses) {
         try {
-            Set<Mocker> mockerSet = Sets.newHashSet();
-            if (requestMockers != null) {
-                mockerSet.addAll(requestMockers);
-            }
-            if (responseMockers != null) {
-                mockerSet.addAll(responseMockers);
-            }
-            List<Mocker> mockers = Lists.newArrayList(mockerSet);
-            mockers.sort((o1, o2) -> {
-                if (o1.equals(o2)) return 0;
-                if (o1.getClassSimpleName().compareTo(o2.getClassSimpleName())!=0) return o1.getClassSimpleName().compareTo(o2.getClassSimpleName());
-                if (o1.getMethodName().compareTo(o2.getMethodName())!=0) return o1.getMethodName().compareTo(o2.getMethodName());
-                if (o1.getOverload() != o2.getOverload()) return o1.getOverload() - o2.getOverload();
-                return o1.getOrder() - o2.getOrder();
-            });
-
             Object mockObject = getMockObject(mockMethod);
             List<Object> args = Lists.newArrayList();
             for (Class parameterType : mockMethod.getMethod().getParameterTypes()) {
@@ -162,9 +142,14 @@ public class MockMaker {
             }
             OngoingStubbing ongoingStubbing = Mockito.when(mockMethod.getMethod().invoke(mockObject, args.toArray()));
 
-            for (Mocker mocker : mockers) {
-                final Object[] mockRequest = (mockRequests != null) ? mockRequests.get(mocker) : null;
-                final Object mockResponse = (mockResponses != null) ? mockResponses.get(mocker) : null;
+            for (int i=0; ; i++) {
+                final Object[] mockRequest = (mockRequests != null && mockRequests.size()>i) ? mockRequests.get(i) : null;
+                final Object mockResponse = (mockResponses != null && mockResponses.size()>i) ? mockResponses.get(i) : null;
+
+                if (mockRequest == null && mockResponse == null) {
+                    break;
+                }
+
                 Answer answer = invocationOnMock -> {
                     mockRequestChecker.assertEquals(mocker, mockRequest, invocationOnMock.getArguments());
                     return mockResponse;
@@ -206,78 +191,4 @@ public class MockMaker {
         return mockClassObjects.get(mockMethod.getTestClass());
     }
 
-    /**
-     *
-     * @param mockRequests
-     * @return
-     */
-    private Map<Mocker, List<Mocker>> getRequestMockers(Map<Mocker, Object[]> mockRequests) {
-        if (mockRequests==null || mockRequests.isEmpty()){
-            return Maps.newHashMap();
-        }
-        List<Mocker> requestKeys = Lists.newArrayList(mockRequests.keySet());
-        requestKeys.sort((o1, o2) -> {
-            if (o1.equals(o2)) return 0;
-            if (o1.getClassSimpleName().compareTo(o2.getClassSimpleName())!=0) return o1.getClassSimpleName().compareTo(o2.getClassSimpleName());
-            if (o1.getMethodName().compareTo(o2.getMethodName())!=0) return o1.getMethodName().compareTo(o2.getMethodName());
-            if (o1.getOverload() != o2.getOverload()) return o1.getOverload() - o2.getOverload();
-            return o1.getOrder() - o2.getOrder();
-        });
-
-        Map<Mocker, List<Mocker>> requestMockers = Maps.newHashMap();
-        for (Mocker mocker : requestKeys) {
-            Mocker baseMocker = new Mocker();
-            baseMocker.setClassSimpleName(mocker.getClassSimpleName());
-            baseMocker.setMethodName(mocker.getMethodName());
-            baseMocker.setOverload(mocker.getOverload());
-
-            List<Mocker> mockers;
-            if (requestMockers.containsKey(baseMocker)) {
-                mockers = requestMockers.get(baseMocker);
-            } else {
-                mockers = Lists.newArrayList();
-                requestMockers.put(baseMocker, mockers);
-            }
-            mockers.add(mocker);
-        }
-        return requestMockers;
-    }
-
-    /**
-     *
-     * @param mockResponses
-     * @return
-     */
-    private Map<Mocker, List<Mocker>> getResponseMockers(Map<Mocker, Object> mockResponses) {
-        if (mockResponses==null || mockResponses.isEmpty()){
-            return Maps.newHashMap();
-        }
-        List<Mocker> responseKeys = Lists.newArrayList(mockResponses.keySet());
-        responseKeys.sort((o1, o2) -> {
-            if (o1.equals(o2)) return 0;
-            if (o1.getClassSimpleName().compareTo(o2.getClassSimpleName())!=0) return o1.getClassSimpleName().compareTo(o2.getClassSimpleName());
-            if (o1.getMethodName().compareTo(o2.getMethodName())!=0) return o1.getMethodName().compareTo(o2.getMethodName());
-            if (o1.getOverload() != o2.getOverload()) return o1.getOverload() - o2.getOverload();
-            if (o1.getClassSimpleName().compareTo(o2.getClassSimpleName())!=0) return o1.getClassSimpleName().compareTo(o2.getClassSimpleName());
-            return o1.getOrder() - o2.getOrder();
-        });
-
-        Map<Mocker, List<Mocker>> responseMockers = Maps.newHashMap();
-        for (Mocker mocker : responseKeys) {
-            Mocker baseMocker = new Mocker();
-            baseMocker.setClassSimpleName(mocker.getClassSimpleName());
-            baseMocker.setMethodName(mocker.getMethodName());
-            baseMocker.setOverload(mocker.getOverload());
-
-            List<Mocker> mockers;
-            if (responseMockers.containsKey(baseMocker)) {
-                mockers = responseMockers.get(baseMocker);
-            } else {
-                mockers = Lists.newArrayList();
-                responseMockers.put(baseMocker, mockers);
-            }
-            mockers.add(mocker);
-        }
-        return responseMockers;
-    }
 }

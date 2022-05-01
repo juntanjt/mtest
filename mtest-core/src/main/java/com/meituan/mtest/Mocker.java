@@ -14,8 +14,6 @@ public class Mocker {
 
     private int overload = -1;
 
-    private int order = -1;
-
     public String getClassSimpleName() {
         return classSimpleName;
     }
@@ -40,32 +38,23 @@ public class Mocker {
         this.overload = overload;
     }
 
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mocker mocker = (Mocker) o;
-        return overload == mocker.overload && order == mocker.order && Objects.equal(classSimpleName, mocker.classSimpleName) && Objects.equal(methodName, mocker.methodName);
+        return overload == mocker.overload && Objects.equal(classSimpleName, mocker.classSimpleName) && Objects.equal(methodName, mocker.methodName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(classSimpleName, methodName, overload, order);
+        return Objects.hashCode(classSimpleName, methodName, overload);
     }
 
     @Override
     public String toString() {
         return "classSimpleName='" + classSimpleName + '\'' +
                 ", methodName='" + methodName + '\'' +
-                ", overload=" + overload +
-                ", order=" + order;
+                ", overload=" + overload;
     }
 }

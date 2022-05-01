@@ -13,6 +13,7 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -159,8 +160,8 @@ public class DataLoaders {
      * @param testCase
      * @return
      */
-    public static Map<Mocker, Object[]> loadMockRequests(TestMethod testMethod, TestCase testCase) {
-        Map<String, Map<Mocker, Object[]>> allMockRequests = loadAllMockRequests(testMethod);
+    public static Map<Mocker, List<Object[]>> loadMockRequests(TestMethod testMethod, TestCase testCase) {
+        Map<String, Map<Mocker, List<Object[]>>> allMockRequests = loadAllMockRequests(testMethod);
         return allMockRequests.get(testCase.getId());
     }
 
@@ -170,8 +171,8 @@ public class DataLoaders {
      * @param testCase
      * @return
      */
-    public static Map<Mocker, Object[]> loadMockRequests(String testMethodPath, TestCase testCase) {
-        Map<String, Map<Mocker, Object[]>> allMockRequests = loadAllMockRequests(testMethodPath);
+    public static Map<Mocker, List<Object[]>> loadMockRequests(String testMethodPath, TestCase testCase) {
+        Map<String, Map<Mocker, List<Object[]>>> allMockRequests = loadAllMockRequests(testMethodPath);
         return allMockRequests.get(testCase.getId());
     }
 
@@ -180,7 +181,7 @@ public class DataLoaders {
      * @param testMethod
      * @return
      */
-    private static Map<String, Map<Mocker, Object[]>> loadAllMockRequests(TestMethod testMethod) {
+    private static Map<String, Map<Mocker, List<Object[]>>> loadAllMockRequests(TestMethod testMethod) {
         String testMethodPath = PathConvention.getTestMethodPath(testMethod);
         return loadAllMockRequests(testMethodPath);
     }
@@ -190,9 +191,9 @@ public class DataLoaders {
      * @param testMethodPath
      * @return
      */
-    private static Map<String, Map<Mocker, Object[]>> loadAllMockRequests(String testMethodPath) {
+    private static Map<String, Map<Mocker, List<Object[]>>> loadAllMockRequests(String testMethodPath) {
         try {
-            Map<String, Map<Mocker, Object[]>> allMockRequests = Maps.newHashMap();
+            Map<String, Map<Mocker, List<Object[]>>> allMockRequests = Maps.newHashMap();
 
             Resource dir = new ClassPathResource(testMethodPath);
             if (! dir.exists() || ! dir.getFile().isDirectory()) {
@@ -206,18 +207,41 @@ public class DataLoaders {
             for (File file : files) {
                 Mocker mocker = PathConvention.getMocker(file.getName());
 
-                Map requestMap = loadYaml(file);
+                Map<String, List> requestMap = loadYaml(file);
                 if (requestMap == null || requestMap.isEmpty()) {
                     continue;
                 }
 
-                for (Object code : requestMap.keySet()) {
-                    Map<Mocker, Object[]> mockRequests = allMockRequests.get(code);
+                Map<String/** code*/, Map<Integer/** order */, Object[]>> requestCodeOrderMap = Maps.newHashMap();
+
+                for (String key : requestMap.keySet()) {
+                    String[] codes = key.split("\\(|\\)");
+                    Map<Integer/** order */, Object[]> requestOrderMap = requestCodeOrderMap.get(codes[0]);
+                    if (requestOrderMap == null) {
+                        requestOrderMap = Maps.newHashMap();
+                        requestCodeOrderMap.put(codes[0], requestOrderMap);
+                    }
+                    if (codes.length == 1) {
+                        requestOrderMap.put(0, requestMap.get(key).toArray());
+                    } else {
+                        requestOrderMap.put(Integer.valueOf(codes[1]), requestMap.get(key).toArray());
+                    }
+                }
+                for (String code : requestCodeOrderMap.keySet()) {
+                    Map<Mocker, List<Object[]>> mockRequests = allMockRequests.get(code);
                     if (mockRequests == null) {
                         mockRequests = Maps.newHashMap();
-                        allMockRequests.put((String) code, mockRequests);
+                        allMockRequests.put(code, mockRequests);
                     }
-                    mockRequests.put(mocker, ((List) requestMap.get(code)).toArray());
+                    List<Object[]> requests = Lists.newArrayList();
+                    for (int i=0; ; i++) {
+                        if (requestCodeOrderMap.get(code).containsKey(i)) {
+                            requests.add(requestCodeOrderMap.get(code).get(i));
+                        } else {
+                            break;
+                        }
+                    }
+                    mockRequests.put(mocker, requests);
                 }
             }
 
@@ -234,8 +258,8 @@ public class DataLoaders {
      * @param testCase
      * @return
      */
-    public static Map<Mocker, Object> loadMockResponses(TestMethod testMethod, TestCase testCase) {
-        Map<String, Map<Mocker, Object>> allMockResponses = loadAllMockResponses(testMethod);
+    public static Map<Mocker, List<Object>> loadMockResponses(TestMethod testMethod, TestCase testCase) {
+        Map<String, Map<Mocker, List<Object>>> allMockResponses = loadAllMockResponses(testMethod);
         return allMockResponses.get(testCase.getId());
     }
 
@@ -245,8 +269,8 @@ public class DataLoaders {
      * @param testCase
      * @return
      */
-    public static Map<Mocker, Object> loadMockResponses(String testMethodPath, TestCase testCase) {
-        Map<String, Map<Mocker, Object>> allMockResponses = loadAllMockResponses(testMethodPath);
+    public static Map<Mocker, List<Object>> loadMockResponses(String testMethodPath, TestCase testCase) {
+        Map<String, Map<Mocker, List<Object>>> allMockResponses = loadAllMockResponses(testMethodPath);
         return allMockResponses.get(testCase.getId());
     }
 
@@ -255,7 +279,7 @@ public class DataLoaders {
      * @param testMethod
      * @return
      */
-    private static Map<String, Map<Mocker, Object>> loadAllMockResponses(TestMethod testMethod) {
+    private static Map<String, Map<Mocker, List<Object>>> loadAllMockResponses(TestMethod testMethod) {
         String testMethodPath = PathConvention.getTestMethodPath(testMethod);
         return loadAllMockResponses(testMethodPath);
     }
@@ -265,9 +289,9 @@ public class DataLoaders {
      * @param testMethodPath
      * @return
      */
-    private static Map<String, Map<Mocker, Object>> loadAllMockResponses(String testMethodPath) {
+    private static Map<String, Map<Mocker, List<Object>>> loadAllMockResponses(String testMethodPath) {
         try {
-            Map<String, Map<Mocker, Object>> allMockResponses = Maps.newHashMap();
+            Map<String, Map<Mocker, List<Object>>> allMockResponses = Maps.newHashMap();
 
             Resource dir = new ClassPathResource(testMethodPath);
             if (! dir.exists() || ! dir.getFile().isDirectory()) {
@@ -281,18 +305,41 @@ public class DataLoaders {
             for (File file : files) {
                 Mocker mocker = PathConvention.getMocker(file.getName());
 
-                Map responseMap = loadYaml(file);
+                Map<String, Object> responseMap = loadYaml(file);
                 if (responseMap == null || responseMap.isEmpty()) {
                     continue;
                 }
 
-                for (Object code : responseMap.keySet()) {
-                    Map<Mocker, Object> mockResponses = allMockResponses.get(code);
+                Map<String/** code*/, Map<Integer/** order */, Object>> responseCodeOrderMap = Maps.newHashMap();
+
+                for (String key : responseMap.keySet()) {
+                    String[] codes = key.split("\\(|\\)");
+                    Map<Integer/** order */, Object> responseOrderMap = responseCodeOrderMap.get(codes[0]);
+                    if (responseOrderMap == null) {
+                        responseOrderMap = Maps.newHashMap();
+                        responseCodeOrderMap.put(codes[0], responseOrderMap);
+                    }
+                    if (codes.length == 1) {
+                        responseOrderMap.put(0, responseMap.get(key));
+                    } else {
+                        responseOrderMap.put(Integer.valueOf(codes[1]), responseMap.get(key));
+                    }
+                }
+                for (String code : responseCodeOrderMap.keySet()) {
+                    Map<Mocker, List<Object>> mockResponses = allMockResponses.get(code);
                     if (mockResponses == null) {
                         mockResponses = Maps.newHashMap();
-                        allMockResponses.put((String) code, mockResponses);
+                        allMockResponses.put(code, mockResponses);
                     }
-                    mockResponses.put(mocker, responseMap.get(code));
+                    List<Object> responses = Lists.newArrayList();
+                    for (int i=0; ; i++) {
+                        if (responseCodeOrderMap.get(code).containsKey(i)) {
+                            responses.add(responseCodeOrderMap.get(code).get(i));
+                        } else {
+                            break;
+                        }
+                    }
+                    mockResponses.put(mocker, responses);
                 }
             }
 

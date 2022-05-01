@@ -79,9 +79,6 @@ public class PathConvention {
         if (split.length >= 5) {
             mocker.setOverload(Integer.valueOf(split[3]));
         }
-        if (split.length >= 6) {
-            mocker.setOrder(Integer.valueOf(split[4]));
-        }
         return mocker;
     }
 
