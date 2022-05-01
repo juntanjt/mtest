@@ -6,9 +6,11 @@ import org.assertj.core.util.Lists;
 import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
+import org.dbunit.dataset.CompositeDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -23,6 +25,7 @@ import java.util.Map;
 public class DBTester {
 
     private IDatabaseTester databaseTester;
+    private boolean isH2Database;
     private DBChecker dbChecker = new DefaultDBChecker();
     private final Map<String, DBChecker> dbCheckers = Maps.newHashMap();
 
@@ -55,9 +58,11 @@ public class DBTester {
         try {
             if (dataSource != null) {
                 databaseTester = new DataSourceDatabaseTester(dataSource);
+                isH2Database = false;
             } else {
                 databaseTester = new JdbcDatabaseTester("org.h2.Driver",
                         "jdbc:h2:mem:PCTDiscount;MODE=MYSQL;DB_CLOSE_DELAY=-1");
+                isH2Database = true;
             }
         } catch (Exception e) {
             throw new MTestException("init database tester error", e);
@@ -89,11 +94,24 @@ public class DBTester {
      */
     public void cleanup() {
         try {
-            dbCheckers.clear();
-            databaseTester.onTearDown();
+            IDataSet dataSet = databaseTester.getConnection().createDataSet();
+            if (dataSet != null) {
+                databaseTester.setDataSet(dataSet);
+                if (isH2Database) {
+                    databaseTester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+                }
+                databaseTester.onTearDown();
+            }
         } catch (Exception e) {
             throw new MTestException("db tester cleanup error", e);
         }
+    }
+
+    /**
+     *
+     */
+    public void cleanDBChecker() {
+        dbCheckers.clear();
     }
 
     /**
@@ -114,13 +132,17 @@ public class DBTester {
      */
     public void setUp(List<String> paths) {
         try {
+            List<IDataSet> dataSets = Lists.newArrayList();
             for (String path : paths) {
                 IDataSet dataSet = loadDataSet(path);
                 if (dataSet != null) {
-                    databaseTester.setDataSet(loadDataSet(path));
+                    dataSets.add(dataSet);
                 }
             }
-            databaseTester.onSetup();
+            if (! dataSets.isEmpty()) {
+                databaseTester.setDataSet(new CompositeDataSet(dataSets.toArray(new IDataSet[0])));
+                databaseTester.onSetup();
+            }
         } catch (Exception e) {
             Throwables.propagateIfInstanceOf(e, MTestException.class);
             throw new MTestException("db tester setUp error, paths [" + paths.toArray() + "]", e);

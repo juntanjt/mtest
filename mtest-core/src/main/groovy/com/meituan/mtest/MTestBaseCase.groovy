@@ -1,5 +1,6 @@
 package com.meituan.mtest
 
+import com.google.common.collect.Maps
 import org.springframework.beans.BeansException
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
@@ -14,25 +15,43 @@ import javax.sql.DataSource
  */
 abstract class MTestBaseCase extends Specification implements BeanFactoryPostProcessor {
 
-    private static final MockMaker mockMaker = MockMaker.newInstance()
-    private static final DBTester dbTester = DBTester.newInstance()
+    private static final Map<Class, MockMaker> mockMakerMap = Maps.newHashMap()
+    private static final Map<Class, DBTester> dbTesterMap = Maps.newHashMap()
+
+    @Shared
+    private final MockMaker mockMaker = MockMaker.newInstance()
+    @Shared
+    private final DBTester dbTester = DBTester.newInstance()
     @Shared
     private TestMethod sharedTestMethod
 
     @Override
     void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        mockMaker.initMockObjects(getMockMethods(), beanFactory)
-        dbTester.initDatabaseTester(getDataSource())
+        // Spring bean class name
+        String className = this.getClass().getName().split('\\$')[0]
+        Class thisClass = Class.forName(className)
+        mockMakerMap.get(thisClass).initMockObjects(getMockMethods(), beanFactory)
+        dbTesterMap.get(thisClass).initDatabaseTester(getDataSource())
     }
 
     /**
      * Spock setupSpec
      */
     void setupSpec() {
+        mockMakerMap.put(this.getClass(), mockMaker)
+        dbTesterMap.put(this.getClass(), dbTester)
         sharedTestMethod = getTestMethod()
+
         mockMaker.registerMockRequestChecker(getMockRequestChecker())
         dbTester.registerDBChecker(getDBChecker())
         dbTester.registerDBCheckers(getDBCheckers())
+    }
+
+    /**
+     * Spock cleanupSpec
+     */
+    void cleanupSpec() {
+        dbTester.cleanDBChecker()
     }
 
     /**

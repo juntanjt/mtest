@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class MockMaker {
 
-    private MockMethod[] mockMethods;
+    private List<MockMethod> mockMethods;
     private final Map<String, Object> mockBeanObjects = Maps.newHashMap();
     private final Map<Class<?>, Object> mockClassObjects = Maps.newHashMap();
 
@@ -44,7 +44,11 @@ public class MockMaker {
      */
     public void initMockObjects(MockMethod[] mockMethods, ConfigurableListableBeanFactory beanFactory) {
         try {
-            this.mockMethods = mockMethods;
+            if (mockMethods==null || mockMethods.length==0) {
+                return;
+            }
+            this.mockMethods = Lists.newArrayList(mockMethods);
+
             for (MockMethod mockMethod : mockMethods) {
                 Object mockObject = getMockObject(mockMethod);
                 if (mockObject != null) {
@@ -113,6 +117,9 @@ public class MockMaker {
      * @param mockResponseMap
      */
     private void mock(Map<Mocker, List<Object[]>> mockRequestMap, Map<Mocker, List<Object>> mockResponseMap) {
+        if (mockMethods==null || mockMethods.isEmpty()) {
+            return;
+        }
         for (MockMethod mockMethod : mockMethods) {
             Mocker mocker = new Mocker();
             mocker.setClassSimpleName(mockMethod.getTestClass().getSimpleName());
