@@ -2,6 +2,8 @@ package com.meituan.mtest;
 
 import com.google.common.base.Objects;
 
+import java.util.StringJoiner;
+
 /**
  *
  * @author Jun Tan
@@ -14,28 +16,32 @@ public class Mocker {
 
     private int overload = -1;
 
-    public String getClassSimpleName() {
-        return classSimpleName;
+    /**
+     *
+     * @param classSimpleName
+     * @param methodName
+     */
+    public Mocker(String classSimpleName, String methodName) {
+        this.classSimpleName = classSimpleName;
+        this.methodName = methodName;
     }
 
-    public void setClassSimpleName(String classSimpleName) {
+    public Mocker(String classSimpleName, String methodName, int overload) {
         this.classSimpleName = classSimpleName;
+        this.methodName = methodName;
+        this.overload = overload;
+    }
+
+    public String getClassSimpleName() {
+        return classSimpleName;
     }
 
     public String getMethodName() {
         return methodName;
     }
 
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
     public int getOverload() {
         return overload;
-    }
-
-    public void setOverload(int overload) {
-        this.overload = overload;
     }
 
     @Override
@@ -53,8 +59,10 @@ public class Mocker {
 
     @Override
     public String toString() {
-        return "classSimpleName='" + classSimpleName + '\'' +
-                ", methodName='" + methodName + '\'' +
-                ", overload=" + overload;
+        return new StringJoiner(", ", Mocker.class.getSimpleName() + "[", "]")
+                .add("classSimpleName='" + classSimpleName + "'")
+                .add("methodName='" + methodName + "'")
+                .add("overload=" + overload)
+                .toString();
     }
 }

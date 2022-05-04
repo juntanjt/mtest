@@ -2,6 +2,8 @@ package com.meituan.mtest;
 
 import com.google.common.base.Objects;
 
+import java.util.StringJoiner;
+
 /**
  *
  * @author Jun Tan
@@ -14,28 +16,38 @@ public class TestCase {
 
     private boolean ignore = false;
 
-    public String getId() {
-        return id;
+    /**
+     *
+     * @param id
+     * @param name
+     */
+    public TestCase(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public void setId(String id) {
+    /**
+     *
+     * @param id
+     * @param name
+     * @param ignore
+     */
+    public TestCase(String id, String name, boolean ignore) {
         this.id = id;
+        this.name = name;
+        this.ignore = ignore;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public boolean isIgnore() {
         return ignore;
-    }
-
-    public void setIgnore(boolean ignore) {
-        this.ignore = ignore;
     }
 
     @Override
@@ -43,17 +55,19 @@ public class TestCase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestCase testCase = (TestCase) o;
-        return Objects.equal(id, testCase.id) && Objects.equal(name, testCase.name);
+        return ignore == testCase.ignore && Objects.equal(id, testCase.id) && Objects.equal(name, testCase.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, name);
+        return Objects.hashCode(id, name, ignore);
     }
 
     @Override
     public String toString() {
-        return "id='" + id + '\'' +
-                ", name='" + name + '\'';
+        return new StringJoiner("")
+                .add("id='" + id + "', ")
+                .add("name=" + name)
+                .toString();
     }
 }

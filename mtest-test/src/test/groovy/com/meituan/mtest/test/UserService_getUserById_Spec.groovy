@@ -53,7 +53,7 @@ class UserService_getUserById_Spec extends MTestBaseCase {
     @Override
     MockMethod[] getMockMethods() {
         return [
-                new MockMethod(UserDAO.class.getMethod('getUserInfo'), UserDAO.class, 'userDAO')
+                new MockMethod(UserDAO.class, UserDAO.class.getMethod('getUserInfo'), 'userDAO')
         ]
     }
 }

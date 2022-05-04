@@ -6,9 +6,11 @@ import org.dbunit.Assertion;
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
+
 import java.sql.Types;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jun Tan
@@ -17,6 +19,8 @@ public class DefaultDBChecker implements DBChecker {
 
     private static final char IGNORE_CHAR = '_';
 
+    private Map<String, DBChecker> dbCheckerMap;
+
     /**
      *
      * @param expectedTable
@@ -24,6 +28,19 @@ public class DefaultDBChecker implements DBChecker {
      */
     @Override
     public void assertEquals(String tableName, ITable expectedTable, ITable actualTable) {
+        if (dbCheckerMap != null && dbCheckerMap.get(tableName) != null) {
+            dbCheckerMap.get(tableName).assertEquals(tableName, expectedTable, actualTable);
+        } else {
+            assertEquals(expectedTable, actualTable);
+        }
+    }
+
+    /**
+     *
+     * @param expectedTable
+     * @param actualTable
+     */
+    private void assertEquals(ITable expectedTable, ITable actualTable) {
         try {
             if (expectedTable.getRowCount() == 0) {
                 Assertion.assertEquals(expectedTable, actualTable);
@@ -82,6 +99,11 @@ public class DefaultDBChecker implements DBChecker {
                 break;
         }
         return ignore;
+    }
+
+    public DefaultDBChecker setDbCheckerMap(Map<String, DBChecker> dbCheckerMap) {
+        this.dbCheckerMap = dbCheckerMap;
+        return this;
     }
 }
 

@@ -72,14 +72,12 @@ public class PathConvention {
      * @return
      */
     public static Mocker getMocker(String fileName) {
-        Mocker mocker = new Mocker();
         String[] split = fileName.split("-");
-        mocker.setClassSimpleName(split[1]);
-        mocker.setMethodName(split[2]);
-        if (split.length >= 5) {
-            mocker.setOverload(Integer.valueOf(split[3]));
+        if (split.length <= 4) {
+            return new Mocker(split[1], split[2]);
+        } else {
+            return new Mocker(split[1], split[2], Integer.valueOf(split[3]));
         }
-        return mocker;
     }
 
     /**

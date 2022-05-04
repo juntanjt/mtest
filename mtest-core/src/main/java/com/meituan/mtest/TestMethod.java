@@ -2,7 +2,7 @@ package com.meituan.mtest;
 
 import com.google.common.base.Objects;
 
-import java.lang.reflect.Method;
+import java.util.StringJoiner;
 
 /**
  *
@@ -10,9 +10,9 @@ import java.lang.reflect.Method;
  */
 public class TestMethod {
 
-    private String method;
-
     private Class testClass;
+
+    private String method;
 
     private String beanName;
 
@@ -20,48 +20,48 @@ public class TestMethod {
 
     /**
      *
-     * @param method
      * @param testClass
+     * @param method
      */
-    public TestMethod(String method, Class testClass) {
-        this.method = method;
+    public TestMethod(Class testClass, String method) {
         this.testClass = testClass;
+        this.method = method;
     }
 
     /**
      *
-     * @param method
      * @param testClass
+     * @param method
      * @param beanName
      */
-    public TestMethod(String method, Class testClass, String beanName) {
-        this.method = method;
+    public TestMethod(Class testClass, String method, String beanName) {
         this.testClass = testClass;
+        this.method = method;
         this.beanName = beanName;
     }
 
     /**
      *
-     * @param method
      * @param testClass
+     * @param method
      * @param overload
      */
-    public TestMethod(String method, Class testClass, int overload) {
-        this.method = method;
+    public TestMethod(Class testClass, String method, int overload) {
         this.testClass = testClass;
+        this.method = method;
         this.overload = overload;
     }
 
     /**
      *
-     * @param method
      * @param testClass
+     * @param method
      * @param beanName
      * @param overload
      */
-    public TestMethod(String method, Class testClass, String beanName, int overload) {
-        this.method = method;
+    public TestMethod(Class testClass, String method, String beanName, int overload) {
         this.testClass = testClass;
+        this.method = method;
         this.beanName = beanName;
         this.overload = overload;
     }
@@ -79,12 +79,12 @@ public class TestMethod {
         this.overload = mTest.overload();
     }
 
-    public String getMethod() {
-        return method;
-    }
-
     public Class getTestClass() {
         return testClass;
+    }
+
+    public String getMethod() {
+        return method;
     }
 
     public String getBeanName() {
@@ -100,19 +100,21 @@ public class TestMethod {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestMethod that = (TestMethod) o;
-        return overload == that.overload && Objects.equal(method, that.method) && Objects.equal(testClass, that.testClass) && Objects.equal(beanName, that.beanName);
+        return overload == that.overload && Objects.equal(testClass, that.testClass) && Objects.equal(method, that.method) && Objects.equal(beanName, that.beanName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(method, testClass, beanName, overload);
+        return Objects.hashCode(testClass, method, beanName, overload);
     }
 
     @Override
     public String toString() {
-        return "method=" + method +
-                ", testClass=" + testClass +
-                ", beanName='" + beanName + '\'' +
-                ", overload=" + overload;
+        return new StringJoiner("")
+                .add("testClass=" + testClass)
+                .add("method='" + method + "'")
+                .add("beanName='" + beanName + "'")
+                .add("overload=" + overload)
+                .toString();
     }
 }

@@ -25,61 +25,6 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
     @Shared
     private TestMethod sharedTestMethod
 
-    @Override
-    void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        // Spring bean class name
-        String className = this.getClass().getName().split('\\$')[0]
-        Class thisClass = Class.forName(className)
-        mockMakerMap.get(thisClass).initMockObjects(getMockMethods(), beanFactory)
-        dbTesterMap.get(thisClass).initDatabaseTester(getDataSource())
-    }
-
-    /**
-     * Spock setupSpec
-     */
-    void setupSpec() {
-        mockMakerMap.put(this.getClass(), mockMaker)
-        dbTesterMap.put(this.getClass(), dbTester)
-        sharedTestMethod = getTestMethod()
-
-        mockMaker.registerMockRequestChecker(getMockRequestChecker())
-        dbTester.registerDBChecker(getDBChecker())
-        dbTester.registerDBCheckers(getDBCheckers())
-    }
-
-    /**
-     * Spock cleanupSpec
-     */
-    void cleanupSpec() {
-        dbTester.cleanDBChecker()
-    }
-
-    /**
-     * Spock setup
-     */
-    void setup() {
-        mockMaker.mock(sharedTestMethod, MTestContext.getTestCase())
-        dbTester.setUp(sharedTestMethod, MTestContext.getTestCase())
-    }
-
-    /**
-     * Spock cleanup
-     */
-    void cleanup() {
-        dbTester.verifyData(sharedTestMethod, MTestContext.getTestCase())
-
-        mockMaker.cleanup()
-        dbTester.cleanup()
-    }
-
-    /**
-     *
-     * @return
-     */
-    protected MockMethod[] getMockMethods() {
-        return null
-    }
-
     /**
      *
      * @return
@@ -96,7 +41,7 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      *
      * @return
      */
-    protected DataSource getDataSource() {
+    protected MockMethod[] getMockMethods() {
         return null
     }
 
@@ -112,7 +57,7 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      *
      * @return
      */
-    protected DBChecker getDBChecker() {
+    protected DataSource getDataSource() {
         return null
     }
 
@@ -120,7 +65,7 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      *
      * @return
      */
-    protected Map<String, DBChecker> getDBCheckers() {
+    protected DBChecker getDBChecker() {
         return null
     }
 
@@ -146,6 +91,51 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      */
     protected Iterable<Object> expected() {
         return DataLoaders.loadExpecteds(getTestMethod())
+    }
+
+    @Override
+    void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        // Spring bean class name
+        String className = this.getClass().getName().split('\\$')[0]
+        Class thisClass = Class.forName(className)
+        mockMakerMap.get(thisClass).initMockObjects(getMockMethods(), beanFactory)
+        dbTesterMap.get(thisClass).initDatabaseTester(getDataSource())
+    }
+
+    /**
+     * Spock setupSpec
+     */
+    void setupSpec() {
+        mockMakerMap.put(this.getClass(), mockMaker)
+        dbTesterMap.put(this.getClass(), dbTester)
+        sharedTestMethod = getTestMethod()
+
+        mockMaker.registerMockRequestChecker(getMockRequestChecker())
+        dbTester.registerDBChecker(getDBChecker())
+    }
+
+    /**
+     * Spock cleanupSpec
+     */
+    void cleanupSpec() {
+    }
+
+    /**
+     * Spock setup
+     */
+    void setup() {
+        mockMaker.mock(sharedTestMethod, MTestContext.getTestCase())
+        dbTester.setUp(sharedTestMethod, MTestContext.getTestCase())
+    }
+
+    /**
+     * Spock cleanup
+     */
+    void cleanup() {
+        dbTester.verifyData(sharedTestMethod, MTestContext.getTestCase())
+
+        mockMaker.cleanup()
+        dbTester.cleanup()
     }
 
 }

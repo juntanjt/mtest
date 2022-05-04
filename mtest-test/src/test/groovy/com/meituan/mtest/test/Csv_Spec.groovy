@@ -32,9 +32,7 @@ class Csv_Spec extends Specification {
             if (next==null || next.length==0) {
                 continue;
             }
-            TestCase testcase = new TestCase();
-            testcase.setId(next[0]);
-            testcase.setName(next[1]);
+            TestCase testcase = new TestCase(next[0], next[1])
             if (next.length>=3 && next[2]!=null && (next[2].equals("1") || next[2].equals("ture"))) {
                 continue;
             }

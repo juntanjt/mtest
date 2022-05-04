@@ -1,7 +1,6 @@
 package com.meituan.mtest;
 
 import com.google.common.base.Throwables;
-import com.google.common.collect.Maps;
 import org.assertj.core.util.Lists;
 import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.IDatabaseTester;
@@ -26,8 +25,8 @@ public class DBTester {
 
     private IDatabaseTester databaseTester;
     private boolean isH2Database;
+
     private DBChecker dbChecker = new DefaultDBChecker();
-    private final Map<String, DBChecker> dbCheckers = Maps.newHashMap();
 
     /**
      *
@@ -109,13 +108,6 @@ public class DBTester {
 
     /**
      *
-     */
-    public void cleanDBChecker() {
-        dbCheckers.clear();
-    }
-
-    /**
-     *
      * @param testMethod
      * @param testCase
      */
@@ -187,11 +179,6 @@ public class DBTester {
                 return;
             }
             for (String tableName : tableNames) {
-                DBChecker dbChecker = dbCheckers.get(tableName);
-                if (dbChecker == null) {
-                    dbChecker = this.dbChecker;
-                }
-
                 ITable expectedTable = expectedDataSet.getTable(tableName);
 
                 IDataSet databaseDataSet = databaseTester.getConnection().createDataSet();
