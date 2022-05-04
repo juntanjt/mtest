@@ -1,6 +1,7 @@
 package com.meituan.mtest;
 
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 
 import java.util.StringJoiner;
 
@@ -73,7 +74,7 @@ public class TestMethod {
     public TestMethod(MTest mTest) {
         this.method = mTest.method();
         this.testClass = mTest.testClass();
-        if (! "".equals(mTest.beanName())) {
+        if (! Strings.isNullOrEmpty(mTest.beanName())) {
             this.beanName = mTest.beanName();
         }
         this.overload = mTest.overload();

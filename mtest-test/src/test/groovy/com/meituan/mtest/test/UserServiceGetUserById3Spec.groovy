@@ -2,13 +2,20 @@ package com.meituan.mtest.test
 
 import com.meituan.mtest.SpringBeanRegistryUtil
 import com.meituan.mtest.demo.user.dao.UserDAO
-import com.meituan.mtest.demo.user.service.UserService
 import com.meituan.mtest.demo.user.dao.dto.UserDTO
+import com.meituan.mtest.demo.user.service.UserService
+import org.dbunit.Assertion
+import org.dbunit.JdbcDatabaseTester
+import org.dbunit.dataset.IDataSet
+import org.dbunit.dataset.ITable
+import org.dbunit.dataset.filter.DefaultColumnFilter
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder
 import org.springframework.beans.BeansException
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.ImportResource
+import org.springframework.core.io.ClassPathResource
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -19,11 +26,11 @@ import javax.annotation.Resource
  *
  * @author Jun Tan
  */
-@ContextConfiguration(classes = [UserService_getUserById_2_Spec.class])
+@ContextConfiguration(classes = [UserServiceGetUserById3Spec.class])
 //@ComponentScan("com.meituan.mtest.demo.user")
 @ImportResource("classpath:spring-context.xml")
 @Configuration
-class UserService_getUserById_2_Spec extends Specification implements BeanFactoryPostProcessor {
+class UserServiceGetUserById3Spec extends Specification implements BeanFactoryPostProcessor {
 
     @Resource
     UserService userService
@@ -31,6 +38,25 @@ class UserService_getUserById_2_Spec extends Specification implements BeanFactor
     @Unroll
     def "手机号 #user.telephone"() {
         given: "设置请求参数"
+        def databaseTester = new JdbcDatabaseTester("org.h2.Driver",
+                "jdbc:h2:mem:PCTDiscount;MODE=MYSQL;DB_CLOSE_DELAY=-1")
+
+        IDataSet setUpDataSet = new FlatXmlDataSetBuilder().build(new ClassPathResource("mtest-data/UserService-getUserById/db-data/id1-setUp.xml").getInputStream());
+        databaseTester.setDataSet(setUpDataSet)
+        databaseTester.onSetup()
+
+        // Fetch database data after executing your code
+        IDataSet databaseDataSet = databaseTester.getConnection().createDataSet();
+        ITable actualTable = databaseDataSet.getTable("USER_TABLE");
+
+        // Load expected data from an XML dataset
+        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new ClassPathResource("mtest-data/UserService-getUserById/db-data/id1-expected.xml").getInputStream());
+        ITable expectedTable = expectedDataSet.getTable("USER_TABLE");
+
+        // Assert actual database table match expected table
+        ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualTable,
+                expectedTable.getTableMetaData().getColumns());
+        Assertion.assertEquals(expectedTable, filteredTable);
 
         when: "获取用户信息"
         def response = userService.getUserById(uid)
@@ -41,6 +67,9 @@ class UserService_getUserById_2_Spec extends Specification implements BeanFactor
             postCode == postCodeResult
             telephone == telephoneResult
         }
+
+        and:
+        databaseTester.onTearDown()
 
         where: "经典之处：表格方式验证用户信息的分支场景"
         uid | user1                        || postCodeResult | telephoneResult

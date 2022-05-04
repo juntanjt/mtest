@@ -18,12 +18,12 @@ import javax.annotation.Resource
  *
  * @author Jun Tan
  */
-@ContextConfiguration(classes = [UserService_getUserById_Spec.class])
+@ContextConfiguration(classes = [UserServiceGetUserByIdSpec.class])
 @ComponentScan("com.meituan.mtest.demo.user")
 @ImportResource("classpath:spring-ddl.xml")
 @Configuration
 @MTest(testClass = UserService.class, method = "getUserById")
-class UserService_getUserById_Spec extends MTestBaseCase {
+class UserServiceGetUserByIdSpec extends MTestBaseCase {
 
     @Resource
     UserService userService

@@ -192,7 +192,7 @@ public class DataLoaders {
         try {
             Map<String, Map<Mocker, List<Object[]>>> allMockRequests = Maps.newHashMap();
 
-            Resource dir = new ClassPathResource(testMethodPath);
+            Resource dir = new ClassPathResource(PathConvention.getMockFileDir(testMethodPath));
             if (! dir.exists() || ! dir.getFile().isDirectory()) {
                 return allMockRequests;
             }
@@ -290,7 +290,7 @@ public class DataLoaders {
         try {
             Map<String, Map<Mocker, List<Object>>> allMockResponses = Maps.newHashMap();
 
-            Resource dir = new ClassPathResource(testMethodPath);
+            Resource dir = new ClassPathResource(PathConvention.getMockFileDir(testMethodPath));
             if (! dir.exists() || ! dir.getFile().isDirectory()) {
                 return allMockResponses;
             }

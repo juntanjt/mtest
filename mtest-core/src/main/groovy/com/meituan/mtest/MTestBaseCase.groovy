@@ -1,5 +1,6 @@
 package com.meituan.mtest
 
+import com.google.common.base.Throwables
 import com.google.common.collect.Maps
 import org.springframework.beans.BeansException
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor
@@ -132,10 +133,20 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      * Spock cleanup
      */
     void cleanup() {
-        dbTester.verifyData(sharedTestMethod, MTestContext.getTestCase())
-
-        mockMaker.cleanup()
-        dbTester.cleanup()
+        try {
+            dbTester.verifyData(sharedTestMethod, MTestContext.getTestCase())
+        } catch(Exception e) {
+            Throwables.propagateIfInstanceOf(e, MTestException.class);
+        } finally {
+            try {
+                mockMaker.cleanup()
+            } catch(Exception e1) {
+            }
+            try {
+                dbTester.cleanup()
+            } catch(Exception e1) {
+            }
+        }
     }
 
 }

@@ -53,8 +53,17 @@ public class PathConvention {
      * @param dir
      * @return
      */
+    public static String getMockFileDir(String dir) {
+        return dir + "/mock";
+    }
+
+    /**
+     *
+     * @param dir
+     * @return
+     */
     public static File[] getMockRequestFiles(File dir) {
-        return dir.listFiles((dir1, name) -> name.startsWith("mock-") && name.endsWith("-request.yaml"));
+        return dir.listFiles((dir1, name) -> name.endsWith("-request.yaml"));
     }
 
     /**
@@ -63,7 +72,7 @@ public class PathConvention {
      * @return
      */
     public static File[] getMockResponseFiles(File dir) {
-        return dir.listFiles((dir1, name) -> name.startsWith("mock-") && name.endsWith("-response.yaml"));
+        return dir.listFiles((dir1, name) -> name.endsWith("-response.yaml"));
     }
 
     /**
@@ -73,10 +82,10 @@ public class PathConvention {
      */
     public static Mocker getMocker(String fileName) {
         String[] split = fileName.split("-");
-        if (split.length <= 4) {
-            return new Mocker(split[1], split[2]);
+        if (split.length <= 3) {
+            return new Mocker(split[0], split[1]);
         } else {
-            return new Mocker(split[1], split[2], Integer.valueOf(split[3]));
+            return new Mocker(split[0], split[1], Integer.valueOf(split[3]));
         }
     }
 
