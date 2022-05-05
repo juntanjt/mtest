@@ -1,389 +1,0 @@
-[INFO] Scanning for projects...
-[WARNING] 
-[WARNING] Some problems were encountered while building the effective model for com.meituan.mtest:mtest-test:jar:1.0-SNAPSHOT
-[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> version 1.18.24 vs 1.18.16 @ line 99, column 17
-[WARNING] 
-[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
-[WARNING] 
-[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
-[WARNING] 
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Build Order:
-[INFO] 
-[INFO] mtest                                                              [pom]
-[INFO] mtest-core                                                         [jar]
-[INFO] mtest-test                                                         [jar]
-[INFO] 
-[INFO] ----------------------< com.meituan.mtest:mtest >-----------------------
-[INFO] Building mtest 1.0-SNAPSHOT                                        [1/3]
-[INFO] --------------------------------[ pom ]---------------------------------
-[INFO] 
-[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ mtest ---
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-10/doxia-sink-api-1.0-alpha-10.pom
-Progress (1): 1.3 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-10/doxia-sink-api-1.0-alpha-10.pom (1.3 kB at 527 B/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia/1.0-alpha-10/doxia-1.0-alpha-10.pom
-Progress (1): 2.9/9.1 kBProgress (1): 7.0/9.1 kBProgress (1): 9.1 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia/1.0-alpha-10/doxia-1.0-alpha-10.pom (9.1 kB at 190 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-parent/6/maven-parent-6.pom
-Progress (1): 4.1/20 kBProgress (1): 8.2/20 kBProgress (1): 12/20 kB Progress (1): 16/20 kBProgress (1): 18/20 kBProgress (1): 20 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-parent/6/maven-parent-6.pom (20 kB at 62 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/reporting/maven-reporting-impl/2.0.5/maven-reporting-impl-2.0.5.pom
-Progress (1): 4.1/4.3 kBProgress (1): 4.3 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/reporting/maven-reporting-impl/2.0.5/maven-reporting-impl-2.0.5.pom (4.3 kB at 74 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-core/1.0/doxia-core-1.0.pom
-Progress (1): 2.4 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-core/1.0/doxia-core-1.0.pom (2.4 kB at 42 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/1.5.7/plexus-utils-1.5.7.pom
-Progress (1): 2.9/8.1 kBProgress (1): 7.0/8.1 kBProgress (1): 8.1 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/1.5.7/plexus-utils-1.5.7.pom (8.1 kB at 168 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-site-renderer/1.0/doxia-site-renderer-1.0.pom
-Progress (1): 4.1/4.4 kBProgress (1): 4.4 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-site-renderer/1.0/doxia-site-renderer-1.0.pom (4.4 kB at 110 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-sitetools/1.0/doxia-sitetools-1.0.pom
-Progress (1): 4.1/9.6 kBProgress (1): 8.2/9.6 kBProgress (1): 9.6 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-sitetools/1.0/doxia-sitetools-1.0.pom (9.6 kB at 65 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/3.1/commons-collections-3.1.pom
-Progress (1): 4.1/6.2 kBProgress (1): 6.2 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/3.1/commons-collections-3.1.pom (6.2 kB at 138 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-decoration-model/1.0/doxia-decoration-model-1.0.pom
-Progress (1): 3.1 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-decoration-model/1.0/doxia-decoration-model-1.0.pom (3.1 kB at 71 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/3.2/commons-collections-3.2.pom
-Progress (1): 468 B                   Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/3.2/commons-collections-3.2.pom (468 B at 8.4 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-apt/1.0/doxia-module-apt-1.0.pom
-Progress (1): 2.2 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-apt/1.0/doxia-module-apt-1.0.pom (2.2 kB at 46 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-modules/1.0/doxia-modules-1.0.pom
-Progress (1): 2.4 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-modules/1.0/doxia-modules-1.0.pom (2.4 kB at 31 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.pom
-Progress (1): 2.7 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.pom (2.7 kB at 58 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xdoc/1.0/doxia-module-xdoc-1.0.pom
-Progress (1): 2.2 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xdoc/1.0/doxia-module-xdoc-1.0.pom (2.2 kB at 9.2 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xhtml/1.0/doxia-module-xhtml-1.0.pom
-Progress (1): 1.6 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xhtml/1.0/doxia-module-xhtml-1.0.pom (1.6 kB at 32 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-doxia-tools/1.0.2/maven-doxia-tools-1.0.2.pom
-Progress (1): 4.1/5.8 kBProgress (1): 5.8 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-doxia-tools/1.0.2/maven-doxia-tools-1.0.2.pom (5.8 kB at 130 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-shared-components/11/maven-shared-components-11.pom
-Progress (1): 4.1/8.3 kBProgress (1): 7.3/8.3 kBProgress (1): 8.3 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-shared-components/11/maven-shared-components-11.pom (8.3 kB at 144 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-io/commons-io/1.4/commons-io-1.4.pom
-Progress (1): 4.1/13 kBProgress (1): 8.2/13 kBProgress (1): 12/13 kB Progress (1): 13 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-io/commons-io/1.4/commons-io-1.4.pom (13 kB at 277 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/commons/commons-parent/7/commons-parent-7.pom
-Progress (1): 4.1/17 kBProgress (1): 8.2/17 kBProgress (1): 12/17 kB Progress (1): 16/17 kBProgress (1): 17 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/commons/commons-parent/7/commons-parent-7.pom (17 kB at 417 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/2.0/commons-collections-2.0.pom
-Progress (1): 217 B                   Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/2.0/commons-collections-2.0.pom (217 B at 1.9 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/2.1/commons-collections-2.1.pom
-Progress (1): 2.9/3.3 kBProgress (1): 3.3 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-collections/commons-collections/2.1/commons-collections-2.1.pom (3.3 kB at 79 kB/s)
-[WARNING] The artifact xml-apis:xml-apis:jar:2.0.2 has been relocated to xml-apis:xml-apis:jar:1.0.b2
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.pom
-Progress (1): 3.5 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.pom (3.5 kB at 76 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/3.0.10/plexus-utils-3.0.10.pom
-Progress (1): 3.1 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/3.0.10/plexus-utils-3.0.10.pom (3.1 kB at 81 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.pom
-Progress (1): 2.2 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.pom (2.2 kB at 32 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/3.0.9/plexus-utils-3.0.9.pom
-Progress (1): 3.1 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/3.0.9/plexus-utils-3.0.9.pom (3.1 kB at 47 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-analyzer/1.4/maven-dependency-analyzer-1.4.pom
-Progress (1): 4.1/5.3 kBProgress (1): 5.3 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-analyzer/1.4/maven-dependency-analyzer-1.4.pom (5.3 kB at 84 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/asm/asm/3.3.1/asm-3.3.1.pom
-Progress (1): 266 B                   Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/asm/asm/3.3.1/asm-3.3.1.pom (266 B at 943 B/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/asm/asm-parent/3.3.1/asm-parent-3.3.1.pom
-Progress (1): 4.1/4.3 kBProgress (1): 4.3 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/asm/asm-parent/3.3.1/asm-parent-3.3.1.pom (4.3 kB at 59 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-project/2.0.5/maven-project-2.0.5.pom
-Progress (1): 1.8 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-project/2.0.5/maven-project-2.0.5.pom (1.8 kB at 40 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven/2.0.5/maven-2.0.5.pom
-Progress (1): 4.1/5.7 kBProgress (1): 5.7 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven/2.0.5/maven-2.0.5.pom (5.7 kB at 139 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-settings/2.0.5/maven-settings-2.0.5.pom
-Progress (1): 1.7 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-settings/2.0.5/maven-settings-2.0.5.pom (1.7 kB at 34 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-model/2.0.5/maven-model-2.0.5.pom
-Progress (1): 2.7 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-model/2.0.5/maven-model-2.0.5.pom (2.7 kB at 59 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-profile/2.0.5/maven-profile-2.0.5.pom
-Progress (1): 1.7 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-profile/2.0.5/maven-profile-2.0.5.pom (1.7 kB at 10 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact-manager/2.0.5/maven-artifact-manager-2.0.5.pom
-Progress (1): 1.8 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact-manager/2.0.5/maven-artifact-manager-2.0.5.pom (1.8 kB at 40 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-repository-metadata/2.0.5/maven-repository-metadata-2.0.5.pom
-Progress (1): 1.5 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-repository-metadata/2.0.5/maven-repository-metadata-2.0.5.pom (1.5 kB at 36 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact/2.0.5/maven-artifact-2.0.5.pom
-Progress (1): 727 B                   Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact/2.0.5/maven-artifact-2.0.5.pom (727 B at 18 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-tree/2.1/maven-dependency-tree-2.1.pom
-Progress (1): 2.9/7.0 kBProgress (1): 7.0 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-tree/2.1/maven-dependency-tree-2.1.pom (7.0 kB at 170 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-project/2.2.0/maven-project-2.2.0.pom
-Progress (1): 2.8 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-project/2.2.0/maven-project-2.2.0.pom (2.8 kB at 53 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven/2.2.0/maven-2.2.0.pom
-Progress (1): 4.1/23 kBProgress (1): 8.2/23 kBProgress (1): 12/23 kB Progress (1): 16/23 kBProgress (1): 19/23 kBProgress (1): 23 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven/2.2.0/maven-2.2.0.pom (23 kB at 262 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-settings/2.2.0/maven-settings-2.2.0.pom
-Progress (1): 2.2 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-settings/2.2.0/maven-settings-2.2.0.pom (2.2 kB at 8.6 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-model/2.2.0/maven-model-2.2.0.pom
-Progress (1): 2.9/3.3 kBProgress (1): 3.3 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-model/2.2.0/maven-model-2.2.0.pom (3.3 kB at 41 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-profile/2.2.0/maven-profile-2.2.0.pom
-Progress (1): 2.2 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-profile/2.2.0/maven-profile-2.2.0.pom (2.2 kB at 52 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact-manager/2.2.0/maven-artifact-manager-2.2.0.pom
-Progress (1): 3.2 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact-manager/2.2.0/maven-artifact-manager-2.2.0.pom (3.2 kB at 78 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-repository-metadata/2.2.0/maven-repository-metadata-2.2.0.pom
-Progress (1): 1.9 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-repository-metadata/2.2.0/maven-repository-metadata-2.2.0.pom (1.9 kB at 43 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact/2.2.0/maven-artifact-2.2.0.pom
-Progress (1): 1.6 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact/2.2.0/maven-artifact-2.2.0.pom (1.6 kB at 36 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-plugin-registry/2.2.0/maven-plugin-registry-2.2.0.pom
-Progress (1): 2.0 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-plugin-registry/2.2.0/maven-plugin-registry-2.2.0.pom (2.0 kB at 13 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.pom
-Progress (1): 2.0 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.pom (2.0 kB at 49 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/eclipse/aether/aether/0.9.0.M2/aether-0.9.0.M2.pom
-Progress (1): 4.1/28 kBProgress (1): 8.2/28 kBProgress (1): 12/28 kB Progress (1): 16/28 kBProgress (1): 20/28 kBProgress (1): 25/28 kBProgress (1): 28 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/eclipse/aether/aether/0.9.0.M2/aether-0.9.0.M2.pom (28 kB at 371 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-common-artifact-filters/1.4/maven-common-artifact-filters-1.4.pom
-Progress (1): 3.8 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-common-artifact-filters/1.4/maven-common-artifact-filters-1.4.pom (3.8 kB at 85 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact/2.0.8/maven-artifact-2.0.8.pom
-Progress (1): 1.6 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact/2.0.8/maven-artifact-2.0.8.pom (1.6 kB at 39 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven/2.0.8/maven-2.0.8.pom
-Progress (1): 3.0/12 kBProgress (1): 7.0/12 kBProgress (1): 11/12 kB Progress (1): 12 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven/2.0.8/maven-2.0.8.pom (12 kB at 269 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-model/2.0.8/maven-model-2.0.8.pom
-Progress (1): 3.1 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-model/2.0.8/maven-model-2.0.8.pom (3.1 kB at 54 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-project/2.0.8/maven-project-2.0.8.pom
-Progress (1): 2.7 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-project/2.0.8/maven-project-2.0.8.pom (2.7 kB at 68 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-settings/2.0.8/maven-settings-2.0.8.pom
-Progress (1): 2.1 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-settings/2.0.8/maven-settings-2.0.8.pom (2.1 kB at 8.3 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-profile/2.0.8/maven-profile-2.0.8.pom
-Progress (1): 2.0 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-profile/2.0.8/maven-profile-2.0.8.pom (2.0 kB at 33 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact-manager/2.0.8/maven-artifact-manager-2.0.8.pom
-Progress (1): 2.7 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-artifact-manager/2.0.8/maven-artifact-manager-2.0.8.pom (2.7 kB at 56 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-repository-metadata/2.0.8/maven-repository-metadata-2.0.8.pom
-Progress (1): 1.9 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-repository-metadata/2.0.8/maven-repository-metadata-2.0.8.pom (1.9 kB at 43 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-plugin-registry/2.0.8/maven-plugin-registry-2.0.8.pom
-Progress (1): 2.0 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-plugin-registry/2.0.8/maven-plugin-registry-2.0.8.pom (2.0 kB at 46 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-plugin-api/2.0.8/maven-plugin-api-2.0.8.pom
-Progress (1): 1.5 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/maven-plugin-api/2.0.8/maven-plugin-api-2.0.8.pom (1.5 kB at 36 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.pom
-Progress (1): 4.0 kB                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/2.1/plexus-utils-2.1.pom (4.0 kB at 35 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-invoker/2.0.11/maven-invoker-2.0.11.pom
-Progress (1): 4.1/5.1 kBProgress (1): 5.1 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-invoker/2.0.11/maven-invoker-2.0.11.pom (5.1 kB at 115 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-lang/commons-lang/2.6/commons-lang-2.6.pom
-Progress (1): 4.1/17 kBProgress (1): 6.8/17 kBProgress (1): 11/17 kB Progress (1): 15/17 kBProgress (1): 17 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-lang/commons-lang/2.6/commons-lang-2.6.pom (17 kB at 171 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/commons/commons-parent/17/commons-parent-17.pom
-Progress (1): 4.1/31 kBProgress (1): 6.8/31 kBProgress (1): 11/31 kB Progress (1): 15/31 kBProgress (1): 19/31 kBProgress (1): 23/31 kBProgress (1): 27/31 kBProgress (1): 31 kB                      Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/commons/commons-parent/17/commons-parent-17.pom (31 kB at 367 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/reporting/maven-reporting-api/3.0/maven-reporting-api-3.0.jar
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/reporting/maven-reporting-impl/2.0.5/maven-reporting-impl-2.0.5.jar
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-core/1.0/doxia-core-1.0.jar
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-doxia-tools/1.0.2/maven-doxia-tools-1.0.2.jar
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-io/commons-io/1.4/commons-io-1.4.jar
-Progress (1): 2.9/11 kBProgress (1): 7.0/11 kBProgress (1): 11 kB                       Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/reporting/maven-reporting-api/3.0/maven-reporting-api-3.0.jar (11 kB at 254 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar
-Progress (1): 4.1/55 kBProgress (2): 4.1/55 kB | 4.1/41 kBProgress (2): 8.2/55 kB | 4.1/41 kBProgress (2): 12/55 kB | 4.1/41 kB Progress (2): 12/55 kB | 8.2/41 kBProgress (2): 12/55 kB | 11/41 kB Progress (3): 12/55 kB | 11/41 kB | 2.9/109 kBProgress (3): 12/55 kB | 11/41 kB | 6.7/109 kBProgress (3): 12/55 kB | 11/41 kB | 11/109 kB Progress (4): 12/55 kB | 11/41 kB | 11/109 kB | 2.9/21 kBProgress (5): 12/55 kB | 11/41 kB | 11/109 kB | 2.9/21 kB | 4.1/10 kBProgress (5): 12/55 kB | 11/41 kB | 11/109 kB | 7.0/21 kB | 4.1/10 kBProgress (5): 12/55 kB | 11/41 kB | 11/109 kB | 7.0/21 kB | 8.2/10 kBProgress (5): 12/55 kB | 11/41 kB | 11/109 kB | 11/21 kB | 8.2/10 kB Progress (5): 12/55 kB | 11/41 kB | 11/109 kB | 11/21 kB | 10 kB                                                                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar (10 kB at 117 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-site-renderer/1.0/doxia-site-renderer-1.0.jar
-Progress (4): 16/55 kB | 11/41 kB | 11/109 kB | 11/21 kBProgress (4): 20/55 kB | 11/41 kB | 11/109 kB | 11/21 kBProgress (4): 24/55 kB | 11/41 kB | 11/109 kB | 11/21 kBProgress (4): 24/55 kB | 11/41 kB | 13/109 kB | 11/21 kBProgress (4): 24/55 kB | 11/41 kB | 17/109 kB | 11/21 kBProgress (4): 24/55 kB | 11/41 kB | 19/109 kB | 11/21 kBProgress (4): 24/55 kB | 11/41 kB | 22/109 kB | 11/21 kBProgress (4): 24/55 kB | 11/41 kB | 25/109 kB | 11/21 kBProgress (4): 24/55 kB | 13/41 kB | 25/109 kB | 11/21 kBProgress (4): 24/55 kB | 17/41 kB | 25/109 kB | 11/21 kBProgress (4): 24/55 kB | 19/41 kB | 25/109 kB | 11/21 kBProgress (4): 24/55 kB | 22/41 kB | 25/109 kB | 11/21 kBProgress (4): 24/55 kB | 25/41 kB | 25/109 kB | 11/21 kBProgress (4): 24/55 kB | 25/41 kB | 25/109 kB | 14/21 kBProgress (4): 24/55 kB | 25/41 kB | 25/109 kB | 18/21 kBProgress (4): 27/55 kB | 25/41 kB | 25/109 kB | 18/21 kBProgress (5): 27/55 kB | 25/41 kB | 25/109 kB | 18/21 kB | 4.1/47 kBProgress (5): 27/55 kB | 25/41 kB | 28/109 kB | 18/21 kB | 4.1/47 kBProgress (5): 31/55 kB | 25/41 kB | 28/109 kB | 18/21 kB | 4.1/47 kBProgress (5): 31/55 kB | 25/41 kB | 28/109 kB | 21 kB | 4.1/47 kB   Progress (5): 31/55 kB | 25/41 kB | 28/109 kB | 21 kB | 8.2/47 kBProgress (5): 35/55 kB | 25/41 kB | 28/109 kB | 21 kB | 8.2/47 kBProgress (5): 35/55 kB | 25/41 kB | 32/109 kB | 21 kB | 8.2/47 kBProgress (5): 39/55 kB | 25/41 kB | 32/109 kB | 21 kB | 8.2/47 kBProgress (5): 39/55 kB | 25/41 kB | 32/109 kB | 21 kB | 12/47 kB                                                                 Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/reporting/maven-reporting-impl/2.0.5/maven-reporting-impl-2.0.5.jar (21 kB at 132 kB/s)
-Progress (4): 39/55 kB | 25/41 kB | 37/109 kB | 12/47 kB                                                        Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-decoration-model/1.0/doxia-decoration-model-1.0.jar
-Progress (4): 39/55 kB | 25/41 kB | 37/109 kB | 16/47 kBProgress (4): 39/55 kB | 25/41 kB | 40/109 kB | 16/47 kBProgress (4): 39/55 kB | 29/41 kB | 40/109 kB | 16/47 kBProgress (4): 39/55 kB | 33/41 kB | 40/109 kB | 16/47 kBProgress (4): 39/55 kB | 36/41 kB | 40/109 kB | 16/47 kBProgress (4): 39/55 kB | 38/41 kB | 40/109 kB | 16/47 kBProgress (4): 39/55 kB | 38/41 kB | 42/109 kB | 16/47 kBProgress (4): 39/55 kB | 38/41 kB | 42/109 kB | 20/47 kBProgress (4): 43/55 kB | 38/41 kB | 42/109 kB | 20/47 kBProgress (4): 43/55 kB | 41 kB | 42/109 kB | 20/47 kB                                                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-doxia-tools/1.0.2/maven-doxia-tools-1.0.2.jar (41 kB at 100 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-apt/1.0/doxia-module-apt-1.0.jar
-Progress (4): 43/55 kB | 42/109 kB | 20/47 kB | 2.9/49 kBProgress (4): 43/55 kB | 42/109 kB | 20/47 kB | 5.5/49 kBProgress (4): 43/55 kB | 46/109 kB | 20/47 kB | 5.5/49 kBProgress (4): 43/55 kB | 50/109 kB | 20/47 kB | 5.5/49 kBProgress (4): 43/55 kB | 50/109 kB | 25/47 kB | 5.5/49 kBProgress (4): 48/55 kB | 50/109 kB | 25/47 kB | 5.5/49 kBProgress (4): 48/55 kB | 50/109 kB | 25/47 kB | 8.0/49 kBProgress (4): 48/55 kB | 55/109 kB | 25/47 kB | 8.0/49 kBProgress (5): 48/55 kB | 55/109 kB | 25/47 kB | 8.0/49 kB | 2.9/47 kBProgress (5): 48/55 kB | 55/109 kB | 25/47 kB | 12/49 kB | 2.9/47 kB Progress (5): 52/55 kB | 55/109 kB | 25/47 kB | 12/49 kB | 2.9/47 kBProgress (5): 52/55 kB | 55/109 kB | 25/47 kB | 16/49 kB | 2.9/47 kBProgress (5): 52/55 kB | 58/109 kB | 25/47 kB | 16/49 kB | 2.9/47 kBProgress (5): 52/55 kB | 58/109 kB | 25/47 kB | 19/49 kB | 2.9/47 kBProgress (5): 55 kB | 58/109 kB | 25/47 kB | 19/49 kB | 2.9/47 kB                                                                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-core/1.0/doxia-core-1.0.jar (55 kB at 118 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.jar
-Progress (4): 60/109 kB | 25/47 kB | 19/49 kB | 2.9/47 kBProgress (4): 60/109 kB | 29/47 kB | 19/49 kB | 2.9/47 kBProgress (4): 60/109 kB | 32/47 kB | 19/49 kB | 2.9/47 kBProgress (4): 64/109 kB | 32/47 kB | 19/49 kB | 2.9/47 kBProgress (4): 68/109 kB | 32/47 kB | 19/49 kB | 2.9/47 kBProgress (4): 71/109 kB | 32/47 kB | 19/49 kB | 2.9/47 kBProgress (4): 71/109 kB | 32/47 kB | 22/49 kB | 2.9/47 kBProgress (4): 71/109 kB | 32/47 kB | 25/49 kB | 2.9/47 kBProgress (4): 71/109 kB | 32/47 kB | 28/49 kB | 2.9/47 kBProgress (4): 71/109 kB | 32/47 kB | 31/49 kB | 2.9/47 kBProgress (4): 71/109 kB | 32/47 kB | 33/49 kB | 2.9/47 kBProgress (4): 71/109 kB | 32/47 kB | 33/49 kB | 5.5/47 kBProgress (4): 71/109 kB | 32/47 kB | 33/49 kB | 8.0/47 kBProgress (5): 71/109 kB | 32/47 kB | 33/49 kB | 8.0/47 kB | 4.1/19 kBProgress (5): 71/109 kB | 32/47 kB | 33/49 kB | 8.0/47 kB | 6.7/19 kBProgress (5): 71/109 kB | 32/47 kB | 33/49 kB | 8.0/47 kB | 11/19 kB Progress (5): 71/109 kB | 32/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 75/109 kB | 32/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 75/109 kB | 35/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 75/109 kB | 39/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 78/109 kB | 39/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 82/109 kB | 39/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 86/109 kB | 39/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 86/109 kB | 41/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 88/109 kB | 41/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 33/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 36/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 40/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 44/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 46/49 kB | 8.0/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 46/49 kB | 11/47 kB | 14/19 kB Progress (5): 88/109 kB | 45/47 kB | 46/49 kB | 15/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 46/49 kB | 17/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 46/49 kB | 19/47 kB | 14/19 kBProgress (5): 88/109 kB | 45/47 kB | 46/49 kB | 19/47 kB | 18/19 kBProgress (5): 88/109 kB | 45/47 kB | 46/49 kB | 19/47 kB | 19 kB                                                                   Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.jar (19 kB at 34 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xdoc/1.0/doxia-module-xdoc-1.0.jar
-Progress (4): 91/109 kB | 45/47 kB | 46/49 kB | 19/47 kBProgress (4): 91/109 kB | 47 kB | 46/49 kB | 19/47 kB                                                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-site-renderer/1.0/doxia-site-renderer-1.0.jar (47 kB at 83 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xhtml/1.0/doxia-module-xhtml-1.0.jar
-Progress (3): 93/109 kB | 46/49 kB | 19/47 kBProgress (3): 97/109 kB | 46/49 kB | 19/47 kBProgress (3): 101/109 kB | 46/49 kB | 19/47 kBProgress (3): 105/109 kB | 46/49 kB | 19/47 kBProgress (3): 105/109 kB | 49 kB | 19/47 kB                                              Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-decoration-model/1.0/doxia-decoration-model-1.0.jar (49 kB at 84 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.jar
-Progress (2): 105/109 kB | 24/47 kBProgress (2): 105/109 kB | 28/47 kBProgress (2): 105/109 kB | 31/47 kBProgress (2): 108/109 kB | 31/47 kBProgress (3): 108/109 kB | 31/47 kB | 2.9/28 kBProgress (3): 108/109 kB | 31/47 kB | 7.0/28 kBProgress (3): 108/109 kB | 31/47 kB | 11/28 kB Progress (3): 108/109 kB | 31/47 kB | 14/28 kBProgress (4): 108/109 kB | 31/47 kB | 14/28 kB | 2.9/22 kBProgress (4): 108/109 kB | 31/47 kB | 14/28 kB | 7.0/22 kBProgress (4): 108/109 kB | 31/47 kB | 14/28 kB | 11/22 kB Progress (4): 108/109 kB | 31/47 kB | 14/28 kB | 14/22 kBProgress (4): 109 kB | 31/47 kB | 14/28 kB | 14/22 kB                                                         Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-io/commons-io/1.4/commons-io-1.4.jar (109 kB at 173 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/3.0.9/plexus-utils-3.0.9.jar
-Progress (3): 31/47 kB | 18/28 kB | 14/22 kBProgress (3): 35/47 kB | 18/28 kB | 14/22 kBProgress (3): 35/47 kB | 18/28 kB | 17/22 kBProgress (3): 39/47 kB | 18/28 kB | 17/22 kBProgress (3): 39/47 kB | 23/28 kB | 17/22 kBProgress (3): 43/47 kB | 23/28 kB | 17/22 kBProgress (3): 43/47 kB | 23/28 kB | 21/22 kBProgress (4): 43/47 kB | 23/28 kB | 21/22 kB | 2.9/186 kBProgress (4): 43/47 kB | 23/28 kB | 22 kB | 2.9/186 kB   Progress (4): 43/47 kB | 27/28 kB | 22 kB | 2.9/186 kBProgress (5): 43/47 kB | 27/28 kB | 22 kB | 2.9/186 kB | 4.1/232 kBProgress (5): 43/47 kB | 27/28 kB | 22 kB | 7.0/186 kB | 4.1/232 kBProgress (5): 43/47 kB | 28 kB | 22 kB | 7.0/186 kB | 4.1/232 kB                                                                   Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xhtml/1.0/doxia-module-xhtml-1.0.jar (22 kB at 31 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.jar
-Progress (4): 43/47 kB | 28 kB | 7.0/186 kB | 8.2/232 kBProgress (4): 43/47 kB | 28 kB | 11/186 kB | 8.2/232 kB                                                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-xdoc/1.0/doxia-module-xdoc-1.0.jar (28 kB at 40 kB/s)
-Progress (3): 43/47 kB | 11/186 kB | 12/232 kB                                              Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-analyzer/1.4/maven-dependency-analyzer-1.4.jar
-Progress (3): 43/47 kB | 15/186 kB | 12/232 kBProgress (3): 43/47 kB | 15/186 kB | 16/232 kBProgress (3): 43/47 kB | 15/186 kB | 20/232 kBProgress (3): 43/47 kB | 15/186 kB | 25/232 kBProgress (3): 43/47 kB | 15/186 kB | 27/232 kBProgress (3): 43/47 kB | 15/186 kB | 31/232 kBProgress (3): 43/47 kB | 15/186 kB | 35/232 kBProgress (3): 43/47 kB | 18/186 kB | 35/232 kBProgress (3): 43/47 kB | 21/186 kB | 35/232 kBProgress (3): 43/47 kB | 23/186 kB | 35/232 kBProgress (3): 43/47 kB | 26/186 kB | 35/232 kBProgress (3): 43/47 kB | 28/186 kB | 35/232 kBProgress (3): 43/47 kB | 32/186 kB | 35/232 kBProgress (3): 47 kB | 32/186 kB | 35/232 kB                                              Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/doxia/doxia-module-apt/1.0/doxia-module-apt-1.0.jar (47 kB at 59 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/asm/asm/3.3.1/asm-3.3.1.jar
-Progress (3): 32/186 kB | 35/232 kB | 4.1/58 kBProgress (3): 32/186 kB | 35/232 kB | 8.2/58 kBProgress (3): 32/186 kB | 35/232 kB | 12/58 kB Progress (3): 32/186 kB | 35/232 kB | 14/58 kBProgress (4): 32/186 kB | 35/232 kB | 14/58 kB | 4.1/27 kBProgress (4): 32/186 kB | 35/232 kB | 14/58 kB | 8.2/27 kBProgress (4): 32/186 kB | 35/232 kB | 14/58 kB | 12/27 kB Progress (4): 32/186 kB | 35/232 kB | 14/58 kB | 14/27 kBProgress (4): 32/186 kB | 38/232 kB | 14/58 kB | 14/27 kBProgress (4): 32/186 kB | 41/232 kB | 14/58 kB | 14/27 kBProgress (4): 32/186 kB | 44/232 kB | 14/58 kB | 14/27 kBProgress (4): 32/186 kB | 47/232 kB | 14/58 kB | 14/27 kBProgress (4): 32/186 kB | 50/232 kB | 14/58 kB | 14/27 kBProgress (4): 32/186 kB | 52/232 kB | 14/58 kB | 14/27 kBProgress (4): 35/186 kB | 52/232 kB | 14/58 kB | 14/27 kBProgress (4): 38/186 kB | 52/232 kB | 14/58 kB | 14/27 kBProgress (4): 41/186 kB | 52/232 kB | 14/58 kB | 14/27 kBProgress (4): 44/186 kB | 52/232 kB | 14/58 kB | 14/27 kBProgress (4): 46/186 kB | 52/232 kB | 14/58 kB | 14/27 kBProgress (4): 50/186 kB | 52/232 kB | 14/58 kB | 14/27 kBProgress (4): 50/186 kB | 52/232 kB | 18/58 kB | 14/27 kBProgress (4): 50/186 kB | 52/232 kB | 18/58 kB | 17/27 kBProgress (4): 50/186 kB | 52/232 kB | 22/58 kB | 17/27 kBProgress (4): 50/186 kB | 52/232 kB | 22/58 kB | 21/27 kBProgress (4): 50/186 kB | 52/232 kB | 22/58 kB | 25/27 kBProgress (4): 50/186 kB | 52/232 kB | 26/58 kB | 25/27 kBProgress (4): 50/186 kB | 52/232 kB | 30/58 kB | 25/27 kBProgress (4): 50/186 kB | 52/232 kB | 30/58 kB | 27 kB                                                         Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-analyzer/1.4/maven-dependency-analyzer-1.4.jar (27 kB at 32 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-tree/2.1/maven-dependency-tree-2.1.jar
-Progress (4): 50/186 kB | 52/232 kB | 30/58 kB | 4.1/44 kBProgress (4): 50/186 kB | 52/232 kB | 30/58 kB | 8.2/44 kBProgress (4): 50/186 kB | 52/232 kB | 30/58 kB | 11/44 kB Progress (4): 50/186 kB | 55/232 kB | 30/58 kB | 11/44 kBProgress (4): 50/186 kB | 59/232 kB | 30/58 kB | 11/44 kBProgress (4): 50/186 kB | 61/232 kB | 30/58 kB | 11/44 kBProgress (4): 50/186 kB | 65/232 kB | 30/58 kB | 11/44 kBProgress (4): 50/186 kB | 69/232 kB | 30/58 kB | 11/44 kBProgress (4): 50/186 kB | 71/232 kB | 30/58 kB | 11/44 kBProgress (4): 54/186 kB | 71/232 kB | 30/58 kB | 11/44 kBProgress (4): 56/186 kB | 71/232 kB | 30/58 kB | 11/44 kBProgress (4): 59/186 kB | 71/232 kB | 30/58 kB | 11/44 kBProgress (4): 63/186 kB | 71/232 kB | 30/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 30/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 34/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 36/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 38/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 43/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 45/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 47/58 kB | 11/44 kBProgress (4): 66/186 kB | 71/232 kB | 47/58 kB | 14/44 kBProgress (4): 66/186 kB | 71/232 kB | 47/58 kB | 18/44 kBProgress (4): 66/186 kB | 76/232 kB | 47/58 kB | 18/44 kBProgress (4): 66/186 kB | 76/232 kB | 47/58 kB | 23/44 kBProgress (5): 66/186 kB | 76/232 kB | 47/58 kB | 23/44 kB | 4.1/60 kBProgress (5): 66/186 kB | 80/232 kB | 47/58 kB | 23/44 kB | 4.1/60 kBProgress (5): 66/186 kB | 84/232 kB | 47/58 kB | 23/44 kB | 4.1/60 kBProgress (5): 66/186 kB | 88/232 kB | 47/58 kB | 23/44 kB | 4.1/60 kBProgress (5): 66/186 kB | 88/232 kB | 47/58 kB | 23/44 kB | 7.3/60 kBProgress (5): 66/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 7.3/60 kBProgress (5): 66/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 11/60 kB Progress (5): 66/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 16/60 kBProgress (5): 70/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 16/60 kBProgress (5): 73/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 16/60 kBProgress (5): 77/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 16/60 kBProgress (5): 79/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 16/60 kBProgress (5): 82/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 16/60 kBProgress (5): 84/186 kB | 90/232 kB | 47/58 kB | 23/44 kB | 16/60 kBProgress (5): 84/186 kB | 90/232 kB | 51/58 kB | 23/44 kB | 16/60 kBProgress (5): 84/186 kB | 90/232 kB | 55/58 kB | 23/44 kB | 16/60 kBProgress (5): 84/186 kB | 90/232 kB | 58/58 kB | 23/44 kB | 16/60 kBProgress (5): 84/186 kB | 90/232 kB | 58 kB | 23/44 kB | 16/60 kB                                                                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.jar (58 kB at 63 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.jar
-Progress (4): 84/186 kB | 95/232 kB | 23/44 kB | 16/60 kBProgress (4): 84/186 kB | 99/232 kB | 23/44 kB | 16/60 kBProgress (4): 84/186 kB | 99/232 kB | 23/44 kB | 19/60 kBProgress (4): 84/186 kB | 103/232 kB | 23/44 kB | 19/60 kBProgress (4): 84/186 kB | 103/232 kB | 23/44 kB | 23/60 kBProgress (4): 84/186 kB | 107/232 kB | 23/44 kB | 23/60 kBProgress (4): 84/186 kB | 107/232 kB | 23/44 kB | 27/60 kBProgress (4): 84/186 kB | 111/232 kB | 23/44 kB | 27/60 kBProgress (4): 84/186 kB | 111/232 kB | 23/44 kB | 31/60 kBProgress (4): 84/186 kB | 111/232 kB | 26/44 kB | 31/60 kBProgress (4): 84/186 kB | 111/232 kB | 30/44 kB | 31/60 kBProgress (4): 84/186 kB | 111/232 kB | 34/44 kB | 31/60 kBProgress (4): 87/186 kB | 111/232 kB | 34/44 kB | 31/60 kBProgress (4): 87/186 kB | 111/232 kB | 37/44 kB | 31/60 kBProgress (4): 91/186 kB | 111/232 kB | 37/44 kB | 31/60 kBProgress (4): 95/186 kB | 111/232 kB | 37/44 kB | 31/60 kBProgress (4): 99/186 kB | 111/232 kB | 37/44 kB | 31/60 kBProgress (4): 103/186 kB | 111/232 kB | 37/44 kB | 31/60 kBProgress (5): 103/186 kB | 111/232 kB | 37/44 kB | 31/60 kB | 4.1/134 kBProgress (5): 103/186 kB | 111/232 kB | 37/44 kB | 31/60 kB | 8.2/134 kBProgress (5): 103/186 kB | 111/232 kB | 37/44 kB | 31/60 kB | 12/134 kB Progress (5): 103/186 kB | 111/232 kB | 37/44 kB | 31/60 kB | 16/134 kBProgress (5): 103/186 kB | 113/232 kB | 37/44 kB | 31/60 kB | 16/134 kBProgress (5): 103/186 kB | 117/232 kB | 37/44 kB | 31/60 kB | 16/134 kBProgress (5): 103/186 kB | 121/232 kB | 37/44 kB | 31/60 kB | 16/134 kBProgress (5): 103/186 kB | 123/232 kB | 37/44 kB | 31/60 kB | 16/134 kBProgress (5): 103/186 kB | 128/232 kB | 37/44 kB | 31/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 31/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 33/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 36/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 38/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 41/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 44/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 16/134 kBProgress (5): 103/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 19/134 kBProgress (5): 106/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 19/134 kBProgress (5): 106/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 22/134 kBProgress (5): 110/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 22/134 kBProgress (5): 110/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 26/134 kBProgress (5): 113/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 26/134 kBProgress (5): 113/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 30/134 kBProgress (5): 116/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 30/134 kBProgress (5): 116/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 34/134 kBProgress (5): 120/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 34/134 kBProgress (5): 122/186 kB | 130/232 kB | 37/44 kB | 47/60 kB | 34/134 kBProgress (5): 122/186 kB | 130/232 kB | 41/44 kB | 47/60 kB | 34/134 kBProgress (5): 122/186 kB | 130/232 kB | 44/44 kB | 47/60 kB | 34/134 kBProgress (5): 122/186 kB | 130/232 kB | 44 kB | 47/60 kB | 34/134 kB                                                                       Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/asm/asm/3.3.1/asm-3.3.1.jar (44 kB at 41 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-common-artifact-filters/1.4/maven-common-artifact-filters-1.4.jar
-Progress (4): 122/186 kB | 134/232 kB | 47/60 kB | 34/134 kBProgress (4): 122/186 kB | 138/232 kB | 47/60 kB | 34/134 kBProgress (4): 122/186 kB | 142/232 kB | 47/60 kB | 34/134 kBProgress (4): 122/186 kB | 145/232 kB | 47/60 kB | 34/134 kBProgress (4): 122/186 kB | 148/232 kB | 47/60 kB | 34/134 kBProgress (4): 122/186 kB | 150/232 kB | 47/60 kB | 34/134 kBProgress (4): 122/186 kB | 150/232 kB | 50/60 kB | 34/134 kBProgress (4): 122/186 kB | 150/232 kB | 54/60 kB | 34/134 kBProgress (4): 122/186 kB | 150/232 kB | 57/60 kB | 34/134 kBProgress (4): 122/186 kB | 150/232 kB | 60 kB | 34/134 kB                                                            Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-dependency-tree/2.1/maven-dependency-tree-2.1.jar (60 kB at 54 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-invoker/2.0.11/maven-invoker-2.0.11.jar
-Progress (3): 122/186 kB | 150/232 kB | 38/134 kBProgress (3): 122/186 kB | 150/232 kB | 41/134 kBProgress (3): 122/186 kB | 150/232 kB | 45/134 kBProgress (3): 126/186 kB | 150/232 kB | 45/134 kBProgress (3): 126/186 kB | 150/232 kB | 49/134 kBProgress (3): 130/186 kB | 150/232 kB | 49/134 kBProgress (3): 130/186 kB | 150/232 kB | 52/134 kBProgress (3): 135/186 kB | 150/232 kB | 52/134 kBProgress (3): 139/186 kB | 150/232 kB | 52/134 kBProgress (3): 143/186 kB | 150/232 kB | 52/134 kBProgress (4): 143/186 kB | 150/232 kB | 52/134 kB | 4.1/32 kBProgress (4): 143/186 kB | 150/232 kB | 52/134 kB | 8.2/32 kBProgress (4): 143/186 kB | 150/232 kB | 52/134 kB | 12/32 kB Progress (4): 143/186 kB | 154/232 kB | 52/134 kB | 12/32 kBProgress (4): 143/186 kB | 158/232 kB | 52/134 kB | 12/32 kBProgress (4): 143/186 kB | 162/232 kB | 52/134 kB | 12/32 kBProgress (4): 143/186 kB | 166/232 kB | 52/134 kB | 12/32 kBProgress (4): 143/186 kB | 169/232 kB | 52/134 kB | 12/32 kBProgress (4): 143/186 kB | 172/232 kB | 52/134 kB | 12/32 kBProgress (4): 143/186 kB | 174/232 kB | 52/134 kB | 12/32 kBProgress (4): 143/186 kB | 174/232 kB | 57/134 kB | 12/32 kBProgress (4): 143/186 kB | 174/232 kB | 61/134 kB | 12/32 kBProgress (4): 143/186 kB | 174/232 kB | 65/134 kB | 12/32 kBProgress (4): 143/186 kB | 174/232 kB | 69/134 kB | 12/32 kBProgress (4): 143/186 kB | 174/232 kB | 71/134 kB | 12/32 kBProgress (4): 145/186 kB | 174/232 kB | 71/134 kB | 12/32 kBProgress (4): 148/186 kB | 174/232 kB | 71/134 kB | 12/32 kBProgress (4): 151/186 kB | 174/232 kB | 71/134 kB | 12/32 kBProgress (4): 156/186 kB | 174/232 kB | 71/134 kB | 12/32 kBProgress (4): 160/186 kB | 174/232 kB | 71/134 kB | 12/32 kBProgress (4): 164/186 kB | 174/232 kB | 71/134 kB | 12/32 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 12/32 kB | 4.1/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 12/32 kB | 8.2/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 12/32 kB | 12/29 kB Progress (5): 164/186 kB | 174/232 kB | 71/134 kB | 12/32 kB | 14/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 12/32 kB | 17/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 14/32 kB | 17/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 18/32 kB | 17/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 21/32 kB | 17/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 23/32 kB | 17/29 kBProgress (5): 164/186 kB | 174/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 177/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 181/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 184/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 187/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 189/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 192/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 71/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 76/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 80/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 83/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 85/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 88/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 17/29 kBProgress (5): 164/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 21/29 kBProgress (5): 167/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 21/29 kBProgress (5): 167/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 25/29 kBProgress (5): 171/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 25/29 kBProgress (5): 171/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 29/29 kBProgress (5): 175/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 29/29 kBProgress (5): 175/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 29 kB   Progress (5): 179/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 29 kBProgress (5): 183/186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 29 kBProgress (5): 186 kB | 196/232 kB | 92/134 kB | 26/32 kB | 29 kB                                                                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-invoker/2.0.11/maven-invoker-2.0.11.jar (29 kB at 24 kB/s)
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-lang/commons-lang/2.6/commons-lang-2.6.jar
-Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.jar (186 kB at 156 kB/s)
-Progress (3): 196/232 kB | 92/134 kB | 30/32 kBProgress (3): 196/232 kB | 92/134 kB | 32 kB   Progress (3): 200/232 kB | 92/134 kB | 32 kBProgress (3): 204/232 kB | 92/134 kB | 32 kBProgress (3): 208/232 kB | 92/134 kB | 32 kBProgress (3): 211/232 kB | 92/134 kB | 32 kB                                            Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/apache/maven/shared/maven-common-artifact-filters/1.4/maven-common-artifact-filters-1.4.jar (32 kB at 22 kB/s)
-Progress (2): 215/232 kB | 92/134 kBProgress (2): 217/232 kB | 92/134 kBProgress (2): 221/232 kB | 92/134 kBProgress (2): 221/232 kB | 96/134 kBProgress (2): 221/232 kB | 99/134 kBProgress (2): 221/232 kB | 103/134 kBProgress (2): 221/232 kB | 106/134 kBProgress (2): 221/232 kB | 108/134 kBProgress (2): 226/232 kB | 108/134 kBProgress (2): 226/232 kB | 112/134 kBProgress (2): 226/232 kB | 116/134 kBProgress (2): 226/232 kB | 120/134 kBProgress (2): 226/232 kB | 124/134 kBProgress (2): 226/232 kB | 128/134 kBProgress (2): 226/232 kB | 132/134 kBProgress (2): 226/232 kB | 134 kB                                     Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/eclipse/aether/aether-util/0.9.0.M2/aether-util-0.9.0.M2.jar (134 kB at 91 kB/s)
-Progress (2): 226/232 kB | 4.1/284 kBProgress (2): 226/232 kB | 8.2/284 kBProgress (2): 226/232 kB | 11/284 kB Progress (2): 226/232 kB | 13/284 kBProgress (2): 226/232 kB | 16/284 kBProgress (2): 226/232 kB | 19/284 kBProgress (2): 226/232 kB | 22/284 kBProgress (2): 229/232 kB | 22/284 kBProgress (2): 229/232 kB | 25/284 kBProgress (2): 229/232 kB | 28/284 kBProgress (2): 229/232 kB | 31/284 kBProgress (2): 229/232 kB | 35/284 kBProgress (2): 229/232 kB | 39/284 kBProgress (2): 229/232 kB | 43/284 kBProgress (2): 232 kB | 43/284 kB                                    Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/org/codehaus/plexus/plexus-utils/3.0.9/plexus-utils-3.0.9.jar (232 kB at 151 kB/s)
-Progress (1): 46/284 kBProgress (1): 50/284 kBProgress (1): 52/284 kBProgress (1): 57/284 kBProgress (1): 59/284 kBProgress (1): 63/284 kBProgress (1): 66/284 kBProgress (1): 70/284 kBProgress (1): 75/284 kBProgress (1): 79/284 kBProgress (1): 83/284 kBProgress (1): 87/284 kBProgress (1): 90/284 kBProgress (1): 93/284 kBProgress (1): 96/284 kBProgress (1): 98/284 kBProgress (1): 101/284 kBProgress (1): 103/284 kBProgress (1): 106/284 kBProgress (1): 108/284 kBProgress (1): 111/284 kBProgress (1): 113/284 kBProgress (1): 116/284 kBProgress (1): 120/284 kBProgress (1): 124/284 kBProgress (1): 128/284 kBProgress (1): 132/284 kBProgress (1): 136/284 kBProgress (1): 140/284 kBProgress (1): 144/284 kBProgress (1): 148/284 kBProgress (1): 150/284 kBProgress (1): 153/284 kBProgress (1): 157/284 kBProgress (1): 161/284 kBProgress (1): 165/284 kBProgress (1): 169/284 kBProgress (1): 172/284 kBProgress (1): 176/284 kBProgress (1): 179/284 kBProgress (1): 183/284 kBProgress (1): 186/284 kBProgress (1): 188/284 kBProgress (1): 192/284 kBProgress (1): 195/284 kBProgress (1): 199/284 kBProgress (1): 201/284 kBProgress (1): 205/284 kBProgress (1): 207/284 kBProgress (1): 210/284 kBProgress (1): 212/284 kBProgress (1): 215/284 kBProgress (1): 217/284 kBProgress (1): 220/284 kBProgress (1): 224/284 kBProgress (1): 226/284 kBProgress (1): 230/284 kBProgress (1): 233/284 kBProgress (1): 235/284 kBProgress (1): 238/284 kBProgress (1): 240/284 kBProgress (1): 243/284 kBProgress (1): 247/284 kBProgress (1): 250/284 kBProgress (1): 254/284 kBProgress (1): 257/284 kBProgress (1): 261/284 kBProgress (1): 265/284 kBProgress (1): 268/284 kBProgress (1): 271/284 kBProgress (1): 275/284 kBProgress (1): 277/284 kBProgress (1): 281/284 kBProgress (1): 284 kB                        Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/commons-lang/commons-lang/2.6/commons-lang-2.6.jar (284 kB at 144 kB/s)
-[INFO] com.meituan.mtest:mtest:pom:1.0-SNAPSHOT
-[INFO] 
-[INFO] --------------------< com.meituan.mtest:mtest-core >--------------------
-[INFO] Building mtest-core 1.0-SNAPSHOT                                   [2/3]
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
-[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ mtest-core ---
-[INFO] com.meituan.mtest:mtest-core:jar:1.0-SNAPSHOT
-[INFO] +- com.google.guava:guava:jar:18.0:compile
-[INFO] +- org.yaml:snakeyaml:jar:1.27:compile
-[INFO] +- com.opencsv:opencsv:jar:5.4:compile
-[INFO] |  +- org.apache.commons:commons-lang3:jar:3.11:compile
-[INFO] |  +- org.apache.commons:commons-text:jar:1.9:compile
-[INFO] |  +- commons-beanutils:commons-beanutils:jar:1.9.4:compile
-[INFO] |  \- org.apache.commons:commons-collections4:jar:4.4:compile
-[INFO] +- org.assertj:assertj-core:jar:3.18.0:compile
-[INFO] +- org.mockito:mockito-core:jar:4.3.1:compile
-[INFO] |  +- net.bytebuddy:byte-buddy:jar:1.12.7:compile
-[INFO] |  +- net.bytebuddy:byte-buddy-agent:jar:1.12.7:compile
-[INFO] |  \- org.objenesis:objenesis:jar:3.2:compile
-[INFO] +- org.powermock:powermock-api-mockito2:jar:2.0.9:compile
-[INFO] |  \- org.powermock:powermock-api-support:jar:2.0.9:compile
-[INFO] |     +- org.powermock:powermock-reflect:jar:2.0.9:compile
-[INFO] |     \- org.powermock:powermock-core:jar:2.0.9:compile
-[INFO] |        \- org.javassist:javassist:jar:3.27.0-GA:compile
-[INFO] +- org.springframework:spring-core:jar:4.3.7.RELEASE:compile
-[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
-[INFO] +- org.springframework:spring-beans:jar:4.3.7.RELEASE:compile
-[INFO] +- org.codehaus.groovy:groovy-all:pom:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-ant:jar:3.0.9:compile
-[INFO] |  |  +- org.apache.ant:ant:jar:1.10.11:compile
-[INFO] |  |  +- org.apache.ant:ant-junit:jar:1.10.11:runtime
-[INFO] |  |  |  \- com.sun:tools:jar:1.8.0:system
-[INFO] |  |  +- org.apache.ant:ant-launcher:jar:1.10.11:runtime
-[INFO] |  |  \- org.apache.ant:ant-antlr:jar:1.10.11:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-astbuilder:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-cli-picocli:jar:3.0.9:compile
-[INFO] |  |  \- info.picocli:picocli:jar:4.6.1:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-console:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-datetime:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-docgenerator:jar:3.0.9:compile
-[INFO] |  |  \- com.thoughtworks.qdox:qdox:jar:1.12.1:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-groovydoc:jar:3.0.9:compile
-[INFO] |  |  \- com.github.javaparser:javaparser-core:jar:3.23.0:compile
-[INFO] |  +- org.codehaus.groovy:groovy-groovysh:jar:3.0.9:compile
-[INFO] |  |  \- jline:jline:jar:2.14.6:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-jmx:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-json:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-jsr223:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-macro:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-nio:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-servlet:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-sql:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-swing:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-templates:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-test:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-test-junit5:jar:3.0.9:compile
-[INFO] |  |  +- org.junit.jupiter:junit-jupiter-api:jar:5.7.2:compile
-[INFO] |  |  +- org.junit.platform:junit-platform-launcher:jar:1.7.2:runtime
-[INFO] |  |  \- org.junit.jupiter:junit-jupiter-engine:jar:5.7.2:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-testng:jar:3.0.9:compile
-[INFO] |  |  \- org.testng:testng:jar:7.4.0:runtime
-[INFO] |  |     +- com.beust:jcommander:jar:1.78:runtime
-[INFO] |  |     \- org.webjars:jquery:jar:3.5.1:runtime
-[INFO] |  \- org.codehaus.groovy:groovy-xml:jar:3.0.9:compile
-[INFO] +- org.spockframework:spock-core:jar:2.0-groovy-3.0:compile
-[INFO] |  +- org.junit.platform:junit-platform-engine:jar:1.7.2:compile
-[INFO] |  |  +- org.apiguardian:apiguardian-api:jar:1.1.0:compile
-[INFO] |  |  +- org.opentest4j:opentest4j:jar:1.2.0:compile
-[INFO] |  |  \- org.junit.platform:junit-platform-commons:jar:1.7.2:compile
-[INFO] |  \- org.hamcrest:hamcrest:jar:2.2:compile
-[INFO] +- org.dbunit:dbunit:jar:2.5.1:compile
-[INFO] |  +- org.slf4j:slf4j-api:jar:1.7.12:compile
-[INFO] |  +- junit:junit:jar:4.12:compile
-[INFO] |  |  \- org.hamcrest:hamcrest-core:jar:1.3:compile
-[INFO] |  +- commons-collections:commons-collections:jar:3.2.1:compile
-[INFO] |  \- org.apache.poi:poi-ooxml:jar:3.11:compile
-[INFO] |     +- org.apache.poi:poi:jar:3.11:compile
-[INFO] |     |  \- commons-codec:commons-codec:jar:1.9:compile
-[INFO] |     \- org.apache.poi:poi-ooxml-schemas:jar:3.11:compile
-[INFO] |        \- org.apache.xmlbeans:xmlbeans:jar:2.6.0:compile
-[INFO] |           \- stax:stax-api:jar:1.0.1:compile
-[INFO] \- com.h2database:h2:jar:1.4.200:compile
-[INFO] 
-[INFO] --------------------< com.meituan.mtest:mtest-test >--------------------
-[INFO] Building mtest-test 1.0-SNAPSHOT                                   [3/3]
-[INFO] --------------------------------[ jar ]---------------------------------
-Downloading from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/com/meituan/mtest/mtest-core/1.0-SNAPSHOT/maven-metadata.xml
-Progress (1): 983 B                   Downloaded from meituan-dianping: http://pixel.sankuai.com/repository/mtdp/com/meituan/mtest/mtest-core/1.0-SNAPSHOT/maven-metadata.xml (983 B at 8.7 kB/s)
-[INFO] 
-[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ mtest-test ---
-[INFO] com.meituan.mtest:mtest-test:jar:1.0-SNAPSHOT
-[INFO] +- com.meituan.mtest:mtest-core:jar:1.0-SNAPSHOT:compile
-[INFO] |  \- com.opencsv:opencsv:jar:5.4:compile
-[INFO] |     +- org.apache.commons:commons-lang3:jar:3.11:compile
-[INFO] |     +- org.apache.commons:commons-text:jar:1.9:compile
-[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.9.4:compile
-[INFO] |     \- org.apache.commons:commons-collections4:jar:4.4:compile
-[INFO] +- org.projectlombok:lombok:jar:1.18.16:provided
-[INFO] +- org.springframework:spring-core:jar:4.3.7.RELEASE:compile
-[INFO] |  \- commons-logging:commons-logging:jar:1.2:compile
-[INFO] +- org.springframework:spring-beans:jar:4.3.7.RELEASE:compile
-[INFO] +- org.springframework:spring-context:jar:4.3.7.RELEASE:compile
-[INFO] |  +- org.springframework:spring-aop:jar:4.3.7.RELEASE:compile
-[INFO] |  \- org.springframework:spring-expression:jar:4.3.7.RELEASE:compile
-[INFO] +- org.springframework:spring-test:jar:4.3.7.RELEASE:test
-[INFO] +- org.springframework:spring-jdbc:jar:4.3.7.RELEASE:test
-[INFO] |  \- org.springframework:spring-tx:jar:4.3.7.RELEASE:test
-[INFO] +- org.yaml:snakeyaml:jar:1.27:compile
-[INFO] +- org.assertj:assertj-core:jar:3.18.0:test
-[INFO] +- com.google.guava:guava:jar:18.0:compile
-[INFO] +- org.mockito:mockito-core:jar:4.3.1:test
-[INFO] |  +- net.bytebuddy:byte-buddy:jar:1.12.7:test
-[INFO] |  +- net.bytebuddy:byte-buddy-agent:jar:1.12.7:test
-[INFO] |  \- org.objenesis:objenesis:jar:3.2:test
-[INFO] +- org.powermock:powermock-api-mockito2:jar:2.0.9:test
-[INFO] |  \- org.powermock:powermock-api-support:jar:2.0.9:test
-[INFO] |     +- org.powermock:powermock-reflect:jar:2.0.9:test
-[INFO] |     \- org.powermock:powermock-core:jar:2.0.9:test
-[INFO] |        \- org.javassist:javassist:jar:3.27.0-GA:test
-[INFO] +- org.powermock:powermock-module-junit4:jar:2.0.9:test
-[INFO] |  +- org.powermock:powermock-module-junit4-common:jar:2.0.9:test
-[INFO] |  +- junit:junit:jar:4.12:compile
-[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test
-[INFO] +- org.codehaus.groovy:groovy-all:pom:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-ant:jar:3.0.9:compile
-[INFO] |  |  +- org.apache.ant:ant:jar:1.10.11:compile
-[INFO] |  |  +- org.apache.ant:ant-junit:jar:1.10.11:runtime
-[INFO] |  |  |  \- com.sun:tools:jar:1.8.0:system
-[INFO] |  |  +- org.apache.ant:ant-launcher:jar:1.10.11:runtime
-[INFO] |  |  \- org.apache.ant:ant-antlr:jar:1.10.11:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-astbuilder:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-cli-picocli:jar:3.0.9:compile
-[INFO] |  |  \- info.picocli:picocli:jar:4.6.1:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-console:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-datetime:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-docgenerator:jar:3.0.9:compile
-[INFO] |  |  \- com.thoughtworks.qdox:qdox:jar:1.12.1:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-groovydoc:jar:3.0.9:compile
-[INFO] |  |  \- com.github.javaparser:javaparser-core:jar:3.23.0:compile
-[INFO] |  +- org.codehaus.groovy:groovy-groovysh:jar:3.0.9:compile
-[INFO] |  |  \- jline:jline:jar:2.14.6:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-jmx:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-json:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-jsr223:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-macro:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-nio:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-servlet:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-sql:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-swing:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-templates:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-test:jar:3.0.9:compile
-[INFO] |  +- org.codehaus.groovy:groovy-test-junit5:jar:3.0.9:compile
-[INFO] |  |  \- org.junit.platform:junit-platform-launcher:jar:1.7.2:runtime
-[INFO] |  +- org.codehaus.groovy:groovy-testng:jar:3.0.9:compile
-[INFO] |  |  \- org.testng:testng:jar:7.4.0:runtime
-[INFO] |  |     +- com.beust:jcommander:jar:1.78:runtime
-[INFO] |  |     \- org.webjars:jquery:jar:3.5.1:runtime
-[INFO] |  \- org.codehaus.groovy:groovy-xml:jar:3.0.9:compile
-[INFO] +- org.junit.jupiter:junit-jupiter-api:jar:5.8.2:test
-[INFO] |  +- org.opentest4j:opentest4j:jar:1.2.0:runtime
-[INFO] |  +- org.junit.platform:junit-platform-commons:jar:1.8.2:runtime
-[INFO] |  \- org.apiguardian:apiguardian-api:jar:1.1.2:runtime
-[INFO] +- org.junit.jupiter:junit-jupiter-engine:jar:5.8.2:test
-[INFO] |  \- org.junit.platform:junit-platform-engine:jar:1.8.2:runtime
-[INFO] +- org.spockframework:spock-core:jar:2.0-groovy-3.0:test
-[INFO] |  \- org.hamcrest:hamcrest:jar:2.2:test
-[INFO] +- org.junit.vintage:junit-vintage-engine:jar:5.8.2:test
-[INFO] +- org.spockframework:spock-junit4:jar:2.0-groovy-3.0:test
-[INFO] +- org.spockframework:spock-spring:jar:2.0-groovy-3.0:test
-[INFO] +- com.h2database:h2:jar:1.4.200:test
-[INFO] +- org.dbunit:dbunit:jar:2.5.1:test
-[INFO] |  +- org.slf4j:slf4j-api:jar:1.7.12:test
-[INFO] |  +- commons-collections:commons-collections:jar:3.2.1:compile
-[INFO] |  \- org.apache.poi:poi-ooxml:jar:3.11:test
-[INFO] |     +- org.apache.poi:poi:jar:3.11:test
-[INFO] |     |  \- commons-codec:commons-codec:jar:1.9:test
-[INFO] |     \- org.apache.poi:poi-ooxml-schemas:jar:3.11:test
-[INFO] |        \- org.apache.xmlbeans:xmlbeans:jar:2.6.0:test
-[INFO] |           \- stax:stax-api:jar:1.0.1:test
-[INFO] \- com.github.springtestdbunit:spring-test-dbunit:jar:1.2.0:test
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary for mtest 1.0-SNAPSHOT:
-[INFO] 
-[INFO] mtest .............................................. SUCCESS [ 10.315 s]
-[INFO] mtest-core ......................................... SUCCESS [  0.268 s]
-[INFO] mtest-test ......................................... SUCCESS [  0.231 s]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  11.067 s
-[INFO] Finished at: 2022-05-05T20:39:47+08:00
-[INFO] ------------------------------------------------------------------------
