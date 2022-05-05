@@ -1,5 +1,6 @@
 package com.meituan.mtest.demo.user.service.impl;
 
+import com.meituan.mtest.MTestException;
 import com.meituan.mtest.demo.user.dao.MoneyDAO;
 import com.meituan.mtest.demo.user.dao.UserDAO;
 import com.meituan.mtest.demo.user.service.UserService;
@@ -20,6 +21,10 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     public UserVO getUserById(int uid) {
+        if (uid == -1) {
+            throw new MTestException("uid="+uid);
+        }
+
         List<UserDTO> users = userDAO.getUserInfo();
         UserDTO userDTO = users.stream().filter(u -> u.getId() == uid).findFirst().orElse(null);
         UserVO userVO = new UserVO();

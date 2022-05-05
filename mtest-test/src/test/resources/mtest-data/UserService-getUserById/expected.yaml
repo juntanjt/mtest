@@ -13,11 +13,3 @@ id2:
   abbreviation: "沪"
   postCode: "200000"
   telephone: "138****7777"
-
-id3:
-  !!com.meituan.mtest.demo.user.service.vo.UserVO
-  id: 3
-  name: "王五"
-  abbreviation: null
-  postCode: null
-  telephone: "138****4444"

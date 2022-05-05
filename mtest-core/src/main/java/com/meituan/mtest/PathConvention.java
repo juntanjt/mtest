@@ -35,6 +35,15 @@ public class PathConvention {
      * @param testMethod
      * @return
      */
+    public static String getExceptionPath(TestMethod testMethod) {
+        return getTestMethodPath(testMethod) + "/exception.yaml";
+    }
+
+    /**
+     *
+     * @param testMethod
+     * @return
+     */
     public static String getRequestPath(TestMethod testMethod) {
         return getTestMethodPath(testMethod) + "/request.yaml";
     }
@@ -46,6 +55,15 @@ public class PathConvention {
      */
     public static String getExpectedPath(TestMethod testMethod) {
         return getTestMethodPath(testMethod) + "/expected.yaml";
+    }
+
+    /**
+     *
+     * @param testMethod
+     * @return
+     */
+    public static String getExpectedExceptionPath(TestMethod testMethod) {
+        return getTestMethodPath(testMethod) + "/expectedException.yaml";
     }
 
     /**

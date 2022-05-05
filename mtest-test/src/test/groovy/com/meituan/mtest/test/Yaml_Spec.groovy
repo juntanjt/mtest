@@ -1,6 +1,7 @@
 package com.meituan.mtest.test
 
 import com.google.common.collect.Maps
+import com.meituan.mtest.MTestException
 import com.meituan.mtest.demo.user.dao.dto.UserDTO
 import com.meituan.mtest.demo.user.service.vo.UserVO
 import org.springframework.core.io.ClassPathResource
@@ -19,10 +20,10 @@ class Yaml_Spec extends Specification {
 
         when:
         Yaml yaml = new Yaml()
-        Map request_strs = yaml.load(io)
+        Map request_map = yaml.load(io)
 
         then:
-        request_strs != null
+        request_map != null
     }
 
     def "java2yaml"() {
@@ -54,6 +55,37 @@ class Yaml_Spec extends Specification {
         println(userDTOs_yaml)
         println(userVOs_yaml)
         println(userVO_map_yaml)
+    }
+
+    def "yaml2java exception"() {
+        given:
+        InputStream io = new ClassPathResource("mtest-data/UserService-getUserById/exception.yaml").getInputStream()
+
+        when:
+        Yaml yaml = new Yaml()
+        Map exception_map = yaml.load(io)
+
+        then:
+        exception_map != null
+    }
+
+    def "java2yaml exception"() {
+        given:
+        def expectedException1 = new MTestException("abc")
+        def expectedException2 = new MTestException("efg")
+
+        def expectedException_map = Maps.newHashMap()
+        expectedException_map.put('code1', expectedException1)
+        expectedException_map.put('code1', expectedException2)
+
+        Yaml yaml = new Yaml();
+
+        when:
+        def expectedException_yaml = yaml.dump(expectedException_map)
+
+        then:
+        expectedException_yaml != null
+//        println(expectedException_yaml)
     }
 
 }

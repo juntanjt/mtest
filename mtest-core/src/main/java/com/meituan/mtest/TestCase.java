@@ -10,9 +10,14 @@ import java.util.StringJoiner;
  */
 public class TestCase {
 
+    public static final int NORMAL = 0;
+    public static final int EXCEPTION = 1;
+
     private String id;
 
     private String name;
+
+    private boolean isException;
 
     private boolean ignore = false;
 
@@ -21,20 +26,16 @@ public class TestCase {
      * @param id
      * @param name
      */
-    public TestCase(String id, String name) {
+    public TestCase(String id, String name, boolean isException) {
         this.id = id;
         this.name = name;
+        this.isException = isException;
     }
 
-    /**
-     *
-     * @param id
-     * @param name
-     * @param ignore
-     */
-    public TestCase(String id, String name, boolean ignore) {
+    public TestCase(String id, String name, boolean isException, boolean ignore) {
         this.id = id;
         this.name = name;
+        this.isException = isException;
         this.ignore = ignore;
     }
 
@@ -46,6 +47,10 @@ public class TestCase {
         return name;
     }
 
+    public boolean isException() {
+        return isException;
+    }
+
     public boolean isIgnore() {
         return ignore;
     }
@@ -55,12 +60,12 @@ public class TestCase {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TestCase testCase = (TestCase) o;
-        return ignore == testCase.ignore && Objects.equal(id, testCase.id) && Objects.equal(name, testCase.name);
+        return isException == testCase.isException && ignore == testCase.ignore && Objects.equal(id, testCase.id) && Objects.equal(name, testCase.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id, name, ignore);
+        return Objects.hashCode(id, name, isException, ignore);
     }
 
     @Override

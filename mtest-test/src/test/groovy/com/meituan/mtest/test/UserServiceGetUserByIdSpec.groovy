@@ -3,6 +3,7 @@ package com.meituan.mtest.test
 import com.meituan.mtest.MTest
 import com.meituan.mtest.MTestBaseCase
 import com.meituan.mtest.MockMethod
+import com.meituan.mtest.TestCase
 import com.meituan.mtest.demo.user.dao.UserDAO
 import com.meituan.mtest.demo.user.service.UserService
 import org.assertj.core.api.Assertions
@@ -47,7 +48,25 @@ class UserServiceGetUserByIdSpec extends MTestBaseCase {
         testcase << testCase()
         [uid] << request()
         expected << expected()
+    }
 
+    @Unroll
+    def "#testcase exception"() {
+        given: "设置请求参数"
+
+        when: "获取用户信息"
+        def response = userService.getUserById(uid)
+
+        then: "验证异常"
+        def exception = thrown(expectedException.class)
+        with(exception) {
+            message == expectedException.message
+        }
+
+        where: "经典之处：表格方式验证用户信息的分支场景"
+        testcase << testCase(TestCase.EXCEPTION)
+        [uid] << request(TestCase.EXCEPTION)
+        expectedException << expectedException()
     }
 
     @Override

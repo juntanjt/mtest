@@ -1,5 +1,6 @@
 package com.meituan.mtest;
 
+import com.google.common.base.Strings;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -13,6 +14,7 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -26,7 +28,24 @@ public class DataLoaders {
      * @return
      */
     public static Iterable<TestCase> loadTestCases(TestMethod testMethod) {
-        return loadTestCases(PathConvention.getTestCasePath(testMethod));
+        Iterable<TestCase> testCases = loadTestCases(PathConvention.getTestCasePath(testMethod));
+        if (! testCases.iterator().hasNext()) {
+            return testCases;
+        }
+        return Lists.newArrayList(testCases).stream().filter(testCase -> ! testCase.isException()).collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @param testMethod
+     * @return
+     */
+    public static Iterable<TestCase> loadExceptionTestCases(TestMethod testMethod) {
+        Iterable<TestCase> testCases = loadTestCases(PathConvention.getTestCasePath(testMethod));
+        if (! testCases.iterator().hasNext()) {
+            return testCases;
+        }
+        return Lists.newArrayList(testCases).stream().filter(testCase -> testCase.isException()).collect(Collectors.toList());
     }
 
     /**
@@ -34,7 +53,7 @@ public class DataLoaders {
      * @param path
      * @return
      */
-    public static Iterable<TestCase> loadTestCases(String path) {
+    private static Iterable<TestCase> loadTestCases(String path) {
         try {
             Iterator<String[]> iterator = loadCsv(path);
             if (iterator == null) {
@@ -51,14 +70,16 @@ public class DataLoaders {
                 if (next == null || next.length == 0) {
                     continue;
                 }
-                TestCase testcase = new TestCase(next[0], next[1]);
-                if (next.length >= 3 && "1".equals(next[2]) || "ture".equals(next[2])) {
+                boolean isException = false;
+                if (next.length >= 3 && "1".equals(next[2].trim()) || "ture".equals(next[2].trim())) {
+                    isException = true;
+                }
+                if (next.length >= 4 && "1".equals(next[3].trim()) || "ture".equals(next[3].trim())) {
                     continue;
                 }
-
-                testcases.add(testcase);
+                testcases.add(new TestCase(next[0].trim(), next[1].trim(), isException));
             }
-            return MTestContext.ContextIterable.of(testcases, MTestContext.KeyType.TEST_CASE);
+            return testcases;
         } catch (Exception e) {
             Throwables.propagateIfInstanceOf(e, MTestException.class);
             throw new MTestException("load test case error. file [" + path + "]", e);
@@ -68,24 +89,22 @@ public class DataLoaders {
     /**
      *
      * @param testMethod
+     * @param testCases
      * @return
      */
-    public static Iterable<Object[]> loadRequests(TestMethod testMethod) {
-        String testCasePath = PathConvention.getTestCasePath(testMethod);
+    public static Iterable<Object[]> loadRequests(TestMethod testMethod, Iterable<TestCase> testCases) {
         String requestPath = PathConvention.getRequestPath(testMethod);
-        return loadRequests(testCasePath, requestPath);
+        return loadRequests(requestPath, testCases);
     }
 
     /**
      *
-     * @param testCasePath
      * @param requestPath
+     * @param testCases
      * @return
      */
-    private static Iterable<Object[]> loadRequests(String testCasePath, String requestPath) {
+    private static Iterable<Object[]> loadRequests(String requestPath, Iterable<TestCase> testCases) {
         try {
-            Iterable<TestCase> testCases = loadTestCases(testCasePath);
-
             Map requestMap = loadYaml(requestPath);
             if (requestMap == null || requestMap.isEmpty()) {
                 return Lists.newArrayList();
@@ -101,7 +120,7 @@ public class DataLoaders {
                 }
             }
 
-            return MTestContext.ContextIterable.of(requests, MTestContext.KeyType.REQUEST);
+            return requests;
         } catch (Exception e) {
             Throwables.propagateIfInstanceOf(e, MTestException.class);
             throw new MTestException("load request error. file [" + requestPath + "]", e);
@@ -111,24 +130,22 @@ public class DataLoaders {
     /**
      *
      * @param testMethod
+     * @param testCases
      * @return
      */
-    public static Iterable<Object> loadExpecteds(TestMethod testMethod) {
-        String testCasePath = PathConvention.getTestCasePath(testMethod);
+    public static Iterable<Object> loadExpecteds(TestMethod testMethod, Iterable<TestCase> testCases) {
         String expectedPath = PathConvention.getExpectedPath(testMethod);
-        return loadExpecteds(testCasePath, expectedPath);
+        return loadExpecteds(expectedPath, testCases);
     }
 
     /**
      *
-     * @param testCasePath
      * @param expectedPath
+     * @param testCases
      * @return
      */
-    private static Iterable<Object> loadExpecteds(String testCasePath, String expectedPath) {
+    private static Iterable<Object> loadExpecteds(String expectedPath, Iterable<TestCase> testCases) {
         try {
-            Iterable<TestCase> testCases = loadTestCases(testCasePath);
-
             Map expectedMap = loadYaml(expectedPath);
             if (expectedMap == null || expectedMap.isEmpty()) {
                 return Lists.newArrayList();
@@ -137,17 +154,58 @@ public class DataLoaders {
             List<Object> expecteds = Lists.newArrayList();
             for (TestCase testCase : testCases) {
                 if (expectedMap.containsKey(testCase.getId())) {
-                    Object response = expectedMap.get(testCase.getId());
-                    expecteds.add(response);
+                    Object expected = expectedMap.get(testCase.getId());
+                    expecteds.add(expected);
                 } else {
                     expecteds.add(null);
                 }
             }
 
-            return MTestContext.ContextIterable.of(expecteds, MTestContext.KeyType.EXPECTED);
+            return expecteds;
         } catch (Exception e) {
             Throwables.propagateIfInstanceOf(e, MTestException.class);
             throw new MTestException("load expected error. file [" + expectedPath + "]", e);
+        }
+    }
+
+    /**
+     *
+     * @param testMethod
+     * @param testCases
+     * @return
+     */
+    public static Iterable<Throwable> loadExceptions(TestMethod testMethod, Iterable<TestCase> testCases) {
+        String exceptionPath = PathConvention.getExceptionPath(testMethod);
+        return loadExceptions(exceptionPath, testCases);
+    }
+
+    /**
+     *
+     * @param exceptionPath
+     * @param testCases
+     * @return
+     */
+    private static Iterable<Throwable> loadExceptions(String exceptionPath, Iterable<TestCase> testCases) {
+        try {
+            Map<String, Throwable> exceptionMap = loadYaml(exceptionPath);
+            if (exceptionMap == null || exceptionMap.isEmpty()) {
+                return Lists.newArrayList();
+            }
+
+            List<Throwable> exceptions = Lists.newArrayList();
+            for (TestCase testCase : testCases) {
+                if (exceptionMap.containsKey(testCase.getId())) {
+                    Throwable expectedException = exceptionMap.get(testCase.getId());
+                    exceptions.add(expectedException);
+                } else {
+                    exceptions.add(null);
+                }
+            }
+
+            return exceptions;
+        } catch (Exception e) {
+            Throwables.propagateIfInstanceOf(e, MTestException.class);
+            throw new MTestException("load exception error. file [" + exceptionPath + "]", e);
         }
     }
 
@@ -212,16 +270,30 @@ public class DataLoaders {
                 Map<String/** code*/, Map<Integer/** order */, Object[]>> requestCodeOrderMap = Maps.newHashMap();
 
                 for (String key : requestMap.keySet()) {
-                    String[] codes = key.split("\\(|\\)");
-                    Map<Integer/** order */, Object[]> requestOrderMap = requestCodeOrderMap.get(codes[0]);
-                    if (requestOrderMap == null) {
-                        requestOrderMap = Maps.newHashMap();
-                        requestCodeOrderMap.put(codes[0], requestOrderMap);
+                    List<?> request = requestMap.get(key);
+
+                    // code split by ","
+                    String[] codes = key.split(",");
+                    if (codes == null || codes.length==0) {
+                        continue;
                     }
-                    if (codes.length == 1) {
-                        requestOrderMap.put(0, requestMap.get(key).toArray());
-                    } else {
-                        requestOrderMap.put(Integer.valueOf(codes[1]), requestMap.get(key).toArray());
+                    for (String code : codes) {
+                        code = code.trim();
+                        if (Strings.isNullOrEmpty(code)) {
+                            continue;
+                        }
+                        // example: code1(0), code1(1)
+                        String[] codeInfo = code.split("\\(|\\)");
+                        Map<Integer/** order */, Object[]> requestOrderMap = requestCodeOrderMap.get(codeInfo[0].trim());
+                        if (requestOrderMap == null) {
+                            requestOrderMap = Maps.newHashMap();
+                            requestCodeOrderMap.put(codeInfo[0].trim(), requestOrderMap);
+                        }
+                        if (codeInfo.length == 1) {
+                            requestOrderMap.put(0, request.toArray());
+                        } else {
+                            requestOrderMap.put(Integer.valueOf(codeInfo[1].trim()), request.toArray());
+                        }
                     }
                 }
                 for (String code : requestCodeOrderMap.keySet()) {
@@ -310,16 +382,30 @@ public class DataLoaders {
                 Map<String/** code*/, Map<Integer/** order */, Object>> responseCodeOrderMap = Maps.newHashMap();
 
                 for (String key : responseMap.keySet()) {
-                    String[] codes = key.split("\\(|\\)");
-                    Map<Integer/** order */, Object> responseOrderMap = responseCodeOrderMap.get(codes[0]);
-                    if (responseOrderMap == null) {
-                        responseOrderMap = Maps.newHashMap();
-                        responseCodeOrderMap.put(codes[0], responseOrderMap);
+                    Object response = responseMap.get(key);
+
+                    // code split by ","
+                    String[] codes = key.split(",");
+                    if (codes == null || codes.length==0) {
+                        continue;
                     }
-                    if (codes.length == 1) {
-                        responseOrderMap.put(0, responseMap.get(key));
-                    } else {
-                        responseOrderMap.put(Integer.valueOf(codes[1]), responseMap.get(key));
+                    for (String code : codes) {
+                        code = code.trim();
+                        if (Strings.isNullOrEmpty(code)) {
+                            continue;
+                        }
+                        // example: code1(0), code1(1)
+                        String[] codeInfo = code.split("\\(|\\)");
+                        Map<Integer/** order */, Object> responseOrderMap = responseCodeOrderMap.get(codeInfo[0].trim());
+                        if (responseOrderMap == null) {
+                            responseOrderMap = Maps.newHashMap();
+                            responseCodeOrderMap.put(codeInfo[0].trim(), responseOrderMap);
+                        }
+                        if (codes.length == 1) {
+                            responseOrderMap.put(0, response);
+                        } else {
+                            responseOrderMap.put(Integer.valueOf(codeInfo[1].trim()), response);
+                        }
                     }
                 }
                 for (String code : responseCodeOrderMap.keySet()) {

@@ -32,12 +32,14 @@ class Csv_Spec extends Specification {
             if (next==null || next.length==0) {
                 continue;
             }
-            TestCase testcase = new TestCase(next[0], next[1])
-            if (next.length>=3 && next[2]!=null && (next[2].equals("1") || next[2].equals("ture"))) {
+            boolean isException = false;
+            if (next.length >= 3 && "1".equals(next[2]) || "ture".equals(next[2])) {
+                isException = true;
+            }
+            if (next.length >= 4 && "1".equals(next[3]) || "ture".equals(next[3])) {
                 continue;
             }
-
-            testcases.add(testcase);
+            testcases.add(new TestCase(next[0], next[1], isException));
         }
 
         then:

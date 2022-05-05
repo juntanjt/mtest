@@ -11,16 +11,31 @@ import java.util.Map;
  */
 public class MTestContext {
 
-    private static ThreadLocal<TestCase> testCase = new ThreadLocal<>();
-    private static ThreadLocal<Object[]> request = new ThreadLocal<>();
-    private static ThreadLocal<Object> expected = new ThreadLocal<>();
-    private static ThreadLocal<Map<String, Object>> context = new ThreadLocal<>();
+    private ThreadLocal<TestCase> testCase = new ThreadLocal<>();
+    private ThreadLocal<Object[]> request = new ThreadLocal<>();
+    private ThreadLocal<Object> expected = new ThreadLocal<>();
+    private ThreadLocal<Throwable> exception = new ThreadLocal<>();
+    private ThreadLocal<Map<String, Object>> context = new ThreadLocal<>();
+
+    /**
+     *
+     */
+    private MTestContext() {
+    }
 
     /**
      *
      * @return
      */
-    public static TestCase getTestCase() {
+    public static MTestContext newInstance() {
+        return new MTestContext();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public TestCase getTestCase() {
         return testCase.get();
     }
 
@@ -28,7 +43,7 @@ public class MTestContext {
      *
      * @return
      */
-    public static Object[] getRequest() {
+    public Object[] getRequest() {
         return request.get();
     }
 
@@ -36,8 +51,12 @@ public class MTestContext {
      *
      * @return
      */
-    public static Object getExpected() {
+    public Object getExpected() {
         return expected.get();
+    }
+
+    public Throwable getException() {
+        return exception.get();
     }
 
     /**
@@ -45,7 +64,7 @@ public class MTestContext {
      * @param key
      * @return
      */
-    public static Object get(String key) {
+    public Object get(String key) {
         if (context.get()!=null) {
             return context.get().get(key);
         } else {
@@ -72,19 +91,22 @@ public class MTestContext {
         testCase.remove();
         request.remove();
         expected.remove();
+        exception.remove();
         context.remove();
     }
 
     /**
      *
      */
-    public static enum KeyType {
+    public enum KeyType {
         /** TEST_CASE */
         TEST_CASE,
         /** REQUEST */
         REQUEST,
         /** EXPECTED */
         EXPECTED,
+        /** EXCEPTION */
+        EXCEPTION,
     }
 
     /**
@@ -93,26 +115,30 @@ public class MTestContext {
     public static class ContextIterable implements Iterable {
 
         private Iterable iterable;
+        private MTestContext context;
         private KeyType keyType;
 
         /**
          *
          * @param iterable
+         * @param context
          * @param keyType
          */
-        private ContextIterable(Iterable iterable, KeyType keyType) {
+        private ContextIterable(Iterable iterable, MTestContext context, KeyType keyType) {
             this.iterable = iterable;
+            this.context = context;
             this.keyType = keyType;
         }
 
         /**
          *
          * @param iterable
+         * @param context
          * @param keyType
          * @return
          */
-        public static ContextIterable of(Iterable iterable, KeyType keyType) {
-            return new ContextIterable(iterable, keyType);
+        public static ContextIterable of(Iterable iterable, MTestContext context, KeyType keyType) {
+            return new ContextIterable(iterable, context, keyType);
         }
 
         /**
@@ -133,13 +159,16 @@ public class MTestContext {
                     Object value = iterator.next();
                     switch (keyType){
                         case TEST_CASE:
-                            MTestContext.testCase.set((TestCase) value);
+                            context.testCase.set((TestCase) value);
                             break;
                         case REQUEST:
-                            MTestContext.request.set((Object[]) value);
+                            context.request.set((Object[]) value);
                             break;
                         case EXPECTED:
-                            MTestContext.expected.set(value);
+                            context.expected.set(value);
+                            break;
+                        case EXCEPTION:
+                            context.exception.set((Throwable) value);
                             break;
                         default:
                             throw new IllegalStateException("Unexpected value: " + keyType);

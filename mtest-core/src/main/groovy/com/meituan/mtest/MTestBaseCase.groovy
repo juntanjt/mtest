@@ -24,7 +24,73 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
     @Shared
     private final DBTester dbTester = DBTester.newInstance()
     @Shared
+    private MTestContext context = MTestContext.newInstance()
+
+    @Shared
     private TestMethod sharedTestMethod
+
+    /**
+     *
+     * @return
+     */
+    protected Iterable<TestCase> testCase() {
+        return MTestContext.ContextIterable.of(DataLoaders.loadTestCases(getTestMethod()), context, MTestContext.KeyType.TEST_CASE)
+    }
+
+    /**
+     *
+     * @param testCaseType
+     * @return
+     */
+    protected Iterable<TestCase> testCase(int testCaseType) {
+        if (testCaseType == TestCase.NORMAL) {
+            return MTestContext.ContextIterable.of(DataLoaders.loadTestCases(getTestMethod()), context, MTestContext.KeyType.TEST_CASE)
+        } else {
+            return MTestContext.ContextIterable.of(DataLoaders.loadExceptionTestCases(getTestMethod()), context, MTestContext.KeyType.TEST_CASE)
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected Iterable<Object[]> request() {
+        Iterable<TestCase> testCases = testCase()
+        return MTestContext.ContextIterable.of(DataLoaders.loadRequests(getTestMethod(), testCases), context, MTestContext.KeyType.REQUEST)
+    }
+
+    /**
+     *
+     * @param testCaseType
+     * @return
+     */
+    protected Iterable<Object[]> request(int testCaseType) {
+        if (testCaseType == TestCase.NORMAL) {
+            Iterable<TestCase> testCases = testCase()
+            return MTestContext.ContextIterable.of(DataLoaders.loadRequests(getTestMethod(), testCases), context, MTestContext.KeyType.REQUEST)
+        } else {
+            Iterable<TestCase> testCases = testCase(TestCase.EXCEPTION)
+            return MTestContext.ContextIterable.of(DataLoaders.loadRequests(getTestMethod(), testCases), context, MTestContext.KeyType.REQUEST)
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected Iterable<Object> expected() {
+        Iterable<TestCase> testCases = testCase()
+        return MTestContext.ContextIterable.of(DataLoaders.loadExpecteds(getTestMethod(), testCases), context, MTestContext.KeyType.EXPECTED)
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected Iterable<Throwable> expectedException() {
+        Iterable<TestCase> testCases = testCase(TestCase.EXCEPTION)
+        return MTestContext.ContextIterable.of(DataLoaders.loadExceptions(getTestMethod(), testCases), context, MTestContext.KeyType.EXCEPTION)
+    }
 
     /**
      *
@@ -58,14 +124,6 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      *
      * @return
      */
-    protected DataSource getDataSource() {
-        return null
-    }
-
-    /**
-     *
-     * @return
-     */
     protected DBChecker getDBChecker() {
         return null
     }
@@ -74,24 +132,8 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      *
      * @return
      */
-    protected Iterable<TestCase> testCase() {
-        return DataLoaders.loadTestCases(getTestMethod())
-    }
-
-    /**
-     *
-     * @return
-     */
-    protected Iterable<Object[]> request() {
-        return DataLoaders.loadRequests(getTestMethod())
-    }
-
-    /**
-     *
-     * @return
-     */
-    protected Iterable<Object> expected() {
-        return DataLoaders.loadExpecteds(getTestMethod())
+    protected DataSource getDataSource() {
+        return null
     }
 
     @Override
@@ -125,16 +167,17 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      * Spock setup
      */
     void setup() {
-        mockMaker.mock(sharedTestMethod, MTestContext.getTestCase())
-        dbTester.setUp(sharedTestMethod, MTestContext.getTestCase())
+        mockMaker.mock(sharedTestMethod, context.getTestCase())
+        dbTester.setUp(sharedTestMethod, context.getTestCase())
     }
 
     /**
      * Spock cleanup
      */
     void cleanup() {
+        context.cleanup()
         try {
-            dbTester.verifyData(sharedTestMethod, MTestContext.getTestCase())
+            dbTester.verifyData(sharedTestMethod, context.getTestCase())
         } catch(Exception e) {
             Throwables.propagateIfInstanceOf(e, MTestException.class);
         } finally {
