@@ -11,7 +11,6 @@ import org.springframework.core.io.Resource;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -55,18 +54,15 @@ public class DataLoaders {
      */
     private static Iterable<TestCase> loadTestCases(String path) {
         try {
-            Iterator<String[]> iterator = loadCsv(path);
-            if (iterator == null) {
+            List<String[]> list = loadCsv(path);
+            if (list == null || list.isEmpty()) {
                 throw new MTestException("load test case error, file [" + path + "] not exist");
             }
 
-            if (iterator.hasNext()) {
-                //去除第一行的表头，从第二行开始
-                iterator.next();
-            }
             List<TestCase> testcases = Lists.newArrayList();
-            while (iterator.hasNext()) {
-                String[] next = iterator.next();
+            //去除第一行的表头，从第二行开始
+            for (int i=1; i<list.size(); i++) {
+                String[] next = list.get(i);
                 if (next == null || next.length == 0) {
                     continue;
                 }
@@ -438,16 +434,25 @@ public class DataLoaders {
      * @param path
      * @return
      */
-    private static Iterator<String[]> loadCsv(String path) {
+    private static List<String[]> loadCsv(String path) {
+        CSVReader csvReader = null;
         try {
             Resource resource = new ClassPathResource(path);
             if (! resource.exists()) {
                 return null;
             }
-            CSVReader csvReader = new CSVReaderBuilder(new InputStreamReader(resource.getInputStream())).build();
-            return csvReader.iterator();
+            csvReader = new CSVReaderBuilder(new InputStreamReader(resource.getInputStream())).build();
+            return csvReader.readAll();
         } catch (Exception e) {
             throw Throwables.propagate(e);
+        } finally {
+            if (csvReader != null) {
+                try {
+                    csvReader.close();
+                } catch (Exception e) {
+                    throw Throwables.propagate(e);
+                }
+            }
         }
     }
 
@@ -456,15 +461,24 @@ public class DataLoaders {
      * @param file
      * @return
      */
-    private static Iterator<String[]> loadCsv(File file) {
+    private static List<String[]> loadCsv(File file) {
+        CSVReader csvReader = null;
         try {
             if (! file.exists()) {
                 return null;
             }
-            CSVReader csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(file))).build();
-            return csvReader.iterator();
+            csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(file))).build();
+            return csvReader.readAll();
         } catch (Exception e) {
             throw Throwables.propagate(e);
+        } finally {
+            if (csvReader != null) {
+                try {
+                    csvReader.close();
+                } catch (Exception e) {
+                    throw Throwables.propagate(e);
+                }
+            }
         }
     }
 
@@ -475,15 +489,25 @@ public class DataLoaders {
      * @return
      */
     private static <T> T loadYaml(String path) {
+        InputStream inputStream = null;
         try {
             Resource resource = new ClassPathResource(path);
             if (! resource.exists()) {
                 return null;
             }
+            inputStream = resource.getInputStream();
             Yaml yaml = new Yaml();
-            return yaml.load(resource.getInputStream());
+            return yaml.load(inputStream);
         } catch (Exception e) {
             throw Throwables.propagate(e);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (Exception e) {
+                    throw Throwables.propagate(e);
+                }
+            }
         }
     }
 
@@ -494,14 +518,24 @@ public class DataLoaders {
      * @return
      */
     private static <T> T loadYaml(File file) {
+        InputStream inputStream = null;
         try {
             if (! file.exists()) {
                 return null;
             }
+            inputStream = new FileInputStream(file);
             Yaml yaml = new Yaml();
-            return yaml.load(new FileInputStream(file));
+            return yaml.load(inputStream);
         } catch (Exception e) {
             throw Throwables.propagate(e);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (Exception e) {
+                    throw Throwables.propagate(e);
+                }
+            }
         }
     }
 
