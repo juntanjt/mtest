@@ -1,14 +1,14 @@
-drop table if exists `USER_TABLE`;
+drop table if exists `TABLE_ORDER`;
 
-CREATE TABLE `USER_TABLE` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(64) NOT NULL,
-  `sex` VARCHAR(16) ,
-  `age` VARCHAR(16) ,
-  `post_code` VARCHAR(64) ,
-  `country` VARCHAR(64) ,
-  `province` VARCHAR(64) ,
-  `abbreviation` VARCHAR(64) ,
+CREATE TABLE `TABLE_ORDER` (
+  `id` INTEGER NOT NULL auto_increment,
+  `user_id` INTEGER NOT NULL,
+  `item_id` INTEGER NOT NULL,
+  `item_count` INTEGER NOT NULL,
+  `amount` DOUBLE NOT NULL,
+  `order_name` VARCHAR(64) ,
+  `address` VARCHAR(1024) ,
   `telephone` VARCHAR(64) ,
+  `create_time` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;

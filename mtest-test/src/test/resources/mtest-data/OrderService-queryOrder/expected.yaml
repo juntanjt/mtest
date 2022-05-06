@@ -1,0 +1,11 @@
+case_id_333: !!com.meituan.mtest.demo.order.service.dto.ResultDTO
+  success: true
+  value: !!com.meituan.mtest.demo.order.service.dto.OrderDTO
+    {address: 上海, amount: 1.5, createTime: !!timestamp '2022-05-01T08:01:40.438Z', itemCount: 1, itemId: 33333,
+     orderId: 1, orderName: 农夫山泉, telephone: '13000000000', userId: 2222}
+
+case_id_444: !!com.meituan.mtest.demo.order.service.dto.ResultDTO
+  success: true
+  value: !!com.meituan.mtest.demo.order.service.dto.OrderDTO
+    {address: 上海, amount: 4.0, createTime: !!timestamp '2022-05-01T08:01:40.438Z', itemCount: 4, itemId: 44444,
+     orderId: 2, orderName: 哇哈哈, telephone: '13000000000', userId: 2222}

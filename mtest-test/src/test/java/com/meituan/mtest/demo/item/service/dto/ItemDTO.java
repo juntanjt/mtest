@@ -9,6 +9,6 @@ public class ItemDTO {
 
     private Long itemId;
     private String itemName;
-    private BigDecimal amount;
+    private BigDecimal price;
 
 }

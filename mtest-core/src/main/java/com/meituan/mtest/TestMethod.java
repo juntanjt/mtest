@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  */
 public class TestMethod {
 
-    private Class testClass;
+    private Class<?> testClass;
 
     private String method;
 
@@ -24,7 +24,7 @@ public class TestMethod {
      * @param testClass
      * @param method
      */
-    public TestMethod(Class testClass, String method) {
+    public TestMethod(Class<?> testClass, String method) {
         this.testClass = testClass;
         this.method = method;
     }
@@ -35,7 +35,7 @@ public class TestMethod {
      * @param method
      * @param beanName
      */
-    public TestMethod(Class testClass, String method, String beanName) {
+    public TestMethod(Class<?> testClass, String method, String beanName) {
         this.testClass = testClass;
         this.method = method;
         this.beanName = beanName;
@@ -47,7 +47,7 @@ public class TestMethod {
      * @param method
      * @param overload
      */
-    public TestMethod(Class testClass, String method, int overload) {
+    public TestMethod(Class<?> testClass, String method, int overload) {
         this.testClass = testClass;
         this.method = method;
         this.overload = overload;
@@ -60,7 +60,7 @@ public class TestMethod {
      * @param beanName
      * @param overload
      */
-    public TestMethod(Class testClass, String method, String beanName, int overload) {
+    public TestMethod(Class<?> testClass, String method, String beanName, int overload) {
         this.testClass = testClass;
         this.method = method;
         this.beanName = beanName;
@@ -80,7 +80,7 @@ public class TestMethod {
         this.overload = mTest.overload();
     }
 
-    public Class getTestClass() {
+    public Class<?> getTestClass() {
         return testClass;
     }
 

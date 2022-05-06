@@ -3,17 +3,15 @@ package com.meituan.mtest;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import org.assertj.core.util.Sets;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.mockito.stubbing.OngoingStubbing;
-import org.powermock.api.mockito.PowerMockito;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  *
@@ -24,7 +22,7 @@ public class MockMaker {
     private List<MockMethod> mockMethods;
     private final Map<String, Object> mockBeanObjects = Maps.newHashMap();
     private final Map<Class<?>, Object> mockClassObjects = Maps.newHashMap();
-    private final Set<Class<?>> mockClassStatics = Sets.newHashSet();
+    private final Map<Class<?>, MockedStatic<?>> mockClassStatics = Maps.newHashMap();
 
     private MockRequestChecker mockRequestChecker = new DefaultMockRequestChecker();
 
@@ -115,8 +113,8 @@ public class MockMaker {
             testClassMap.put(mockMethod.getTestClass(), mockMethod);
         }
         for (Class<?> testClass : testClassMap.keySet()) {
-            PowerMockito.mockStatic(testClass);
-            mockClassStatics.add(testClass);
+            MockedStatic<?> mockedStatic = Mockito.mockStatic(testClass);
+            mockClassStatics.put(testClass, mockedStatic);
         }
     }
 
@@ -177,7 +175,11 @@ public class MockMaker {
             List<Object[]> mockRequests = mockRequestMap != null ? mockRequestMap.get(mocker) : null;
             List<Object> mockResponse = mockResponseMap != null ? mockResponseMap.get(mocker) : null;
 
-            mock(mockMethod, mocker, mockRequests, mockResponse);
+            if (Modifier.isStatic(mockMethod.getMethod().getModifiers())) {
+                mockStatic(mockMethod, mocker, mockRequests, mockResponse);
+            } else {
+                mock(mockMethod, mocker, mockRequests, mockResponse);
+            }
         }
     }
 
@@ -192,10 +194,10 @@ public class MockMaker {
         try {
             Object mockObject = getMockObject(mockMethod);
             List<Object> args = Lists.newArrayList();
-            for (Class parameterType : mockMethod.getMethod().getParameterTypes()) {
+            for (Class<?> parameterType : mockMethod.getMethod().getParameterTypes()) {
                 args.add(Mockito.any(parameterType));
             }
-            OngoingStubbing ongoingStubbing = Mockito.when(mockMethod.getMethod().invoke(mockObject, args.toArray()));
+            OngoingStubbing<?> ongoingStubbing = Mockito.when(mockMethod.getMethod().invoke(mockObject, args.toArray()));
 
             for (int i=0; ; i++) {
                 if ((mockRequests == null || mockRequests.size() <= i) && (mockResponses == null || mockResponses.size() <= i)) {
@@ -204,7 +206,7 @@ public class MockMaker {
                 final Object[] mockRequest = (mockRequests != null && mockRequests.size()>i) ? mockRequests.get(i) : null;
                 final Object mockResponse = (mockResponses != null && mockResponses.size()>i) ? mockResponses.get(i) : null;
 
-                Answer answer = invocationOnMock -> {
+                Answer<?> answer = invocationOnMock -> {
                     mockRequestChecker.assertEquals(mocker, mockRequest, invocationOnMock.getArguments());
                     return mockResponse;
                 };
@@ -213,6 +215,43 @@ public class MockMaker {
             }
         } catch (Exception e) {
             Throwables.propagate(e);
+            throw new MTestException("mock error", e);
+        }
+    }
+
+    /**
+     *
+     * @param mockMethod
+     * @param mocker
+     * @param mockRequests
+     * @param mockResponses
+     */
+    private void mockStatic(MockMethod mockMethod, Mocker mocker, List<Object[]> mockRequests, List<Object> mockResponses) {
+        try {
+            MockedStatic<?> mockedStatic = mockClassStatics.get(mockMethod.getTestClass());
+            List<Object> args = Lists.newArrayList();
+            for (Class<?> parameterType : mockMethod.getMethod().getParameterTypes()) {
+                args.add(Mockito.any(parameterType));
+            }
+            OngoingStubbing<?> ongoingStubbing = mockedStatic.when(() -> mockMethod.getMethod().invoke(null, args.toArray()));
+
+            for (int i=0; ; i++) {
+                if ((mockRequests == null || mockRequests.size() <= i) && (mockResponses == null || mockResponses.size() <= i)) {
+                    break;
+                }
+                final Object[] mockRequest = (mockRequests != null && mockRequests.size()>i) ? mockRequests.get(i) : null;
+                final Object mockResponse = (mockResponses != null && mockResponses.size()>i) ? mockResponses.get(i) : null;
+
+                Answer<?> answer = invocationOnMock -> {
+                    mockRequestChecker.assertEquals(mocker, mockRequest, invocationOnMock.getArguments());
+                    return mockResponse;
+                };
+
+                ongoingStubbing = ongoingStubbing.thenAnswer(answer);
+            }
+        } catch (Exception e) {
+            Throwables.propagate(e);
+            throw new MTestException("mock error", e);
         }
     }
 
@@ -230,10 +269,8 @@ public class MockMaker {
         } catch (Exception e) {
         }
         try {
-            if (! mockClassStatics.isEmpty()) {
-                for (Class<?> mockClassStatic : mockClassStatics) {
-                    PowerMockito.doCallRealMethod().when(mockClassStatic);
-                }
+            for (MockedStatic<?> mockedStatic : mockClassStatics.values()) {
+                mockedStatic.close();
             }
         } catch (Exception e) {
         }

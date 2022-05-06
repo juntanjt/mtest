@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <TABLE_ORDER
+            user_id = "2222"
+            item_id = "33333"
+            item_count = "1"
+            amount = "1.5"
+            order_name = "农夫山泉"
+            address = "上海"
+            telephone = "13000000000"
+            create_time = '2022-05-01 08:01:40.438'
+    />
+</dataset>

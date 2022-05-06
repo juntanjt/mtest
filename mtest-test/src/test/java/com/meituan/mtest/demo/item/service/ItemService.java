@@ -4,6 +4,6 @@ import com.meituan.mtest.demo.item.service.dto.ItemDTO;
 
 public interface ItemService {
 
-    ItemDTO getItemById(Long itemId);
+    ItemDTO queryItemById(Long itemId);
 
 }

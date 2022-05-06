@@ -1,0 +1,3 @@
+case_id_999:
+  !!com.meituan.mtest.demo.order.OrderException
+  ["ERROR_CODE_123", ""]

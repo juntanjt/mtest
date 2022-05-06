@@ -2,13 +2,12 @@ package com.meituan.mtest;
 
 import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.dbunit.Assertion;
 import org.dbunit.dataset.Column;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 
-import java.sql.Types;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ import java.util.Map;
  */
 public class DefaultDBChecker implements DBChecker {
 
-    private static final char IGNORE_CHAR = '_';
+    private static final Map<Class<?>, Object> PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES = Maps.newHashMap();
 
     private Map<String, DBChecker> dbCheckerMap;
 
@@ -52,9 +51,6 @@ public class DefaultDBChecker implements DBChecker {
 
             for (Column column : columns) {
                 Object value = expectedTable.getValue(0, column.getColumnName());
-                if (value == null) {
-                    continue;
-                }
                 boolean ignore = isIgnoreFlagValue(column.getDataType().getSqlType(), value);
                 if (! ignore) {
                     includeds.add(column);
@@ -70,40 +66,38 @@ public class DefaultDBChecker implements DBChecker {
     }
 
     private boolean isIgnoreFlagValue(int sqlType, Object value) {
-        boolean ignore = false;
-        switch (sqlType) {
-            // StringDataType
-            case Types.CHAR:
-            case Types.VARCHAR:
-            case Types.LONGVARCHAR:
-                ignore = String.valueOf(IGNORE_CHAR).equals(value);
-                break;
-            // IntegerDataType, BigIntegerDataType, LongDataType
-            case Types.TINYINT:
-            case Types.SMALLINT:
-            case Types.INTEGER:
-                ignore = Integer.valueOf(Integer.MIN_VALUE).equals(value);
-                break;
-            // FloatDataType, DoubleDataType
-            case Types.FLOAT:
-            case Types.DOUBLE:
-                ignore = Double.valueOf(Integer.MIN_VALUE).equals(value);
-                break;
-            // DateDataType, TimeDataType, TimestampDataType
-            case Types.DATE:
-            case Types.TIME:
-            case Types.TIMESTAMP:
-                ignore = new Date().equals(value);
-                break;
-            default:
-                break;
+        if (value == null) {
+            return true;
         }
-        return ignore;
+        if (PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.containsKey(value.getClass())) {
+            return value.equals(PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.get(value.getClass()));
+        }
+        return false;
     }
 
     public DefaultDBChecker setDbCheckerMap(Map<String, DBChecker> dbCheckerMap) {
         this.dbCheckerMap = dbCheckerMap;
         return this;
+    }
+
+    static {
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Boolean.class, false);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Character.class, '\u0000');
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Byte.class, (byte) 0);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Short.class, (short) 0);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Integer.class, 0);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Long.class, 0L);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Float.class, 0F);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(Double.class, 0D);
+
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(boolean.class, false);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(char.class, '\u0000');
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(byte.class, (byte) 0);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(short.class, (short) 0);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(int.class, 0);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(long.class, 0L);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(float.class, 0F);
+        PRIMITIVE_OR_WRAPPER_DEFAULT_VALUES.put(double.class, 0D);
     }
 }
 

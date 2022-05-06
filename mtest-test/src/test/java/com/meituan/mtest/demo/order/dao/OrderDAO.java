@@ -2,6 +2,8 @@ package com.meituan.mtest.demo.order.dao;
 
 public interface OrderDAO {
 
-    Long insert(OrderDO orderDO);
+    int insert(OrderDO orderDO);
+
+    OrderDO queryById(Long orderId);
 
 }

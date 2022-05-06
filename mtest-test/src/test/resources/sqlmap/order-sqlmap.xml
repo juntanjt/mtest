@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meituan.mtest.demo.order.dao.OrderDAO">
+    <resultMap id="orderMap" type="com.meituan.mtest.demo.order.dao.OrderDO">
+        <id property="id" column="id" javaType="long" jdbcType="INTEGER"></id>
+        <result property="userId" column="user_id" javaType="long" jdbcType="INTEGER"></result>
+        <result property="itemId" column="item_id" javaType="long" jdbcType="INTEGER"></result>
+        <result property="itemCount" column="item_count" javaType="int" jdbcType="INTEGER"></result>
+        <result property="amount" column="amount" javaType="java.math.BigDecimal" jdbcType="DOUBLE"></result>
+        <result property="orderName" column="order_name" javaType="string" jdbcType="VARCHAR"></result>
+        <result property="address" column="address" javaType="string" jdbcType="VARCHAR"></result>
+        <result property="telephone" column="telephone" javaType="string" jdbcType="VARCHAR"></result>
+        <result property="createTime" column="create_time" javaType="java.sql.Date" jdbcType="TIMESTAMP"></result>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.meituan.mtest.demo.order.dao.OrderDO" useGeneratedKeys="true" keyProperty="id">
+        insert into TABLE_ORDER(user_id, item_id, item_count, amount, order_name, address, telephone, create_time)
+        values(#{userId}, #{itemId}, #{itemCount}, #{amount}, #{orderName}, #{address}, #{telephone}, now())
+    </insert>
+    <select id="queryById" parameterType="long" resultMap="orderMap">
+        SELECT * FROM TABLE_ORDER WHERE id = #{id}
+    </select>
+
+</mapper>

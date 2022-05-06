@@ -1,0 +1,5 @@
+case_id_111: !!com.meituan.mtest.demo.order.service.dto.ResultDTO
+  {success: true, value: 1}
+
+case_id_222: !!com.meituan.mtest.demo.order.service.dto.ResultDTO
+  {success: true, value: 2}

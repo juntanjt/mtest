@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  */
 public class MockMethod {
 
-    private Class testClass;
+    private Class<?> testClass;
 
     private Method method;
 
@@ -25,7 +25,7 @@ public class MockMethod {
      * @param method
      * @param beanName
      */
-    public MockMethod(Class testClass, Method method, String beanName) {
+    public MockMethod(Class<?> testClass, Method method, String beanName) {
         this.testClass = testClass;
         this.method = method;
         this.beanName = beanName;
@@ -38,14 +38,14 @@ public class MockMethod {
      * @param beanName
      * @param overload
      */
-    public MockMethod(Class testClass, Method method, String beanName, int overload) {
+    public MockMethod(Class<?> testClass, Method method, String beanName, int overload) {
         this.testClass = testClass;
         this.method = method;
         this.beanName = beanName;
         this.overload = overload;
     }
 
-    public Class getTestClass() {
+    public Class<?> getTestClass() {
         return testClass;
     }
 
