@@ -218,17 +218,6 @@ public class DataLoaders {
 
     /**
      *
-     * @param testMethodPath
-     * @param testCase
-     * @return
-     */
-    public static Map<Mocker, List<Object[]>> loadMockRequests(String testMethodPath, TestCase testCase) {
-        Map<String, Map<Mocker, List<Object[]>>> allMockRequests = loadAllMockRequests(testMethodPath);
-        return allMockRequests.get(testCase.getId());
-    }
-
-    /**
-     *
      * @param testMethod
      * @return
      */
@@ -325,17 +314,6 @@ public class DataLoaders {
      */
     public static Map<Mocker, List<Object>> loadMockResponses(TestMethod testMethod, TestCase testCase) {
         Map<String, Map<Mocker, List<Object>>> allMockResponses = loadAllMockResponses(testMethod);
-        return allMockResponses.get(testCase.getId());
-    }
-
-    /**
-     *
-     * @param testMethodPath
-     * @param testCase
-     * @return
-     */
-    public static Map<Mocker, List<Object>> loadMockResponses(String testMethodPath, TestCase testCase) {
-        Map<String, Map<Mocker, List<Object>>> allMockResponses = loadAllMockResponses(testMethodPath);
         return allMockResponses.get(testCase.getId());
     }
 
@@ -442,32 +420,6 @@ public class DataLoaders {
                 return null;
             }
             csvReader = new CSVReaderBuilder(new InputStreamReader(resource.getInputStream())).build();
-            return csvReader.readAll();
-        } catch (Exception e) {
-            throw Throwables.propagate(e);
-        } finally {
-            if (csvReader != null) {
-                try {
-                    csvReader.close();
-                } catch (Exception e) {
-                    throw Throwables.propagate(e);
-                }
-            }
-        }
-    }
-
-    /**
-     *
-     * @param file
-     * @return
-     */
-    private static List<String[]> loadCsv(File file) {
-        CSVReader csvReader = null;
-        try {
-            if (! file.exists()) {
-                return null;
-            }
-            csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(file))).build();
             return csvReader.readAll();
         } catch (Exception e) {
             throw Throwables.propagate(e);

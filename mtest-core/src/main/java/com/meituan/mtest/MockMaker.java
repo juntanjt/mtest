@@ -146,22 +146,6 @@ public class MockMaker {
 
     /**
      *
-     * @param testMethodPath
-     * @param testCase
-     */
-    public void mock(String testMethodPath, TestCase testCase) {
-        try {
-            Map<Mocker, List<Object[]>> mockRequestMap = DataLoaders.loadMockRequests(testMethodPath, testCase);
-            Map<Mocker, List<Object>> mockResponseMap = DataLoaders.loadMockResponses(testMethodPath, testCase);
-            mock(mockRequestMap, mockResponseMap);
-        } catch (Exception e) {
-            Throwables.propagate(e);
-            throw new MTestException("mock error", e);
-        }
-    }
-
-    /**
-     *
      * @param mockRequestMap
      * @param mockResponseMap
      */

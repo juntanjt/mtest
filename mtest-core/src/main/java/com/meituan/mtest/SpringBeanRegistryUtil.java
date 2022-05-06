@@ -12,20 +12,6 @@ public class SpringBeanRegistryUtil {
     /**
      *
      * @param beanFactory
-     * @param testMethod
-     * @param singletonObject
-     */
-    public static void registerSingleton(ConfigurableListableBeanFactory beanFactory, MockMethod testMethod, Object singletonObject) {
-        if (testMethod.getBeanName() != null) {
-            registerSingleton(beanFactory, testMethod.getBeanName(), singletonObject);
-        } else {
-            registerSingleton(beanFactory, testMethod.getTestClass(), singletonObject);
-        }
-    }
-
-    /**
-     *
-     * @param beanFactory
      * @param beanName
      * @param singletonObject
      */

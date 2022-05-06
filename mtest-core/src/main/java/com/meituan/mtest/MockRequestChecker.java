@@ -1,6 +1,7 @@
 package com.meituan.mtest;
 
 /**
+ *
  * @author Jun Tan
  */
 public interface MockRequestChecker {

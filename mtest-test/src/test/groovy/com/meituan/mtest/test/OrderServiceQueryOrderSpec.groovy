@@ -2,6 +2,8 @@ package com.meituan.mtest.test
 
 import com.meituan.mtest.MTest
 import com.meituan.mtest.MTestBaseCase
+import com.meituan.mtest.MockMethod
+import com.meituan.mtest.demo.item.service.ItemService
 import com.meituan.mtest.demo.order.service.OrderService
 import org.assertj.core.api.Assertions
 import org.springframework.context.annotation.ComponentScan
@@ -46,6 +48,13 @@ class OrderServiceQueryOrderSpec extends MTestBaseCase {
         [userId, orderId] << request()
         expected << expected()
 
+    }
+
+    @Override
+    MockMethod[] getMockMethods() {
+        return [
+                new MockMethod(ItemService.class, ItemService.class.getMethod('queryItemById', Long.class))
+        ]
     }
 
 }

@@ -150,17 +150,8 @@ public class DBTester {
         String testPath = PathConvention.getTestMethodDBExpectedPath(testMethod);
         String casePath = PathConvention.getTestCaseDBExpectedPath(testMethod, testCase);
 
-        verifyData(Lists.newArrayList(testPath, casePath));
-    }
-
-    /**
-     *
-     * @param paths
-     */
-    public void verifyData(List<String> paths) {
-        for (String path : paths) {
-            verifyData(path);
-        }
+        verifyData(testPath);
+        verifyData(casePath);
     }
 
     /**

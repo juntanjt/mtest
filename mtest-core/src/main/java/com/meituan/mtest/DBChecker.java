@@ -3,6 +3,7 @@ package com.meituan.mtest;
 import org.dbunit.dataset.ITable;
 
 /**
+ *
  * @author Jun Tan
  */
 public interface DBChecker {

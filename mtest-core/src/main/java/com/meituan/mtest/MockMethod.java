@@ -23,12 +23,34 @@ public class MockMethod {
      *
      * @param testClass
      * @param method
+     */
+    public MockMethod(Class<?> testClass, Method method) {
+        this.testClass = testClass;
+        this.method = method;
+    }
+
+    /**
+     *
+     * @param testClass
+     * @param method
      * @param beanName
      */
     public MockMethod(Class<?> testClass, Method method, String beanName) {
         this.testClass = testClass;
         this.method = method;
         this.beanName = beanName;
+    }
+
+    /**
+     *
+     * @param testClass
+     * @param method
+     * @param overload
+     */
+    public MockMethod(Class<?> testClass, Method method, int overload) {
+        this.testClass = testClass;
+        this.method = method;
+        this.overload = overload;
     }
 
     /**

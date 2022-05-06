@@ -175,11 +175,11 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      * Spock cleanup
      */
     void cleanup() {
-        context.cleanup()
         try {
             dbTester.verifyData(sharedTestMethod, context.getTestCase())
         } catch(Exception e) {
-            Throwables.propagateIfInstanceOf(e, MTestException.class);
+            Throwables.propagateIfInstanceOf(e, MTestException.class)
+            throw new MTestException("dbTester.verifyData error", e)
         } finally {
             try {
                 mockMaker.cleanup()
@@ -187,6 +187,10 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
             }
             try {
                 dbTester.cleanup()
+            } catch(Exception e1) {
+            }
+            try {
+                context.cleanup()
             } catch(Exception e1) {
             }
         }
