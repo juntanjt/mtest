@@ -93,6 +93,14 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
     }
 
     /**
+     * 
+     * @return
+     */
+    protected MTestContext context() {
+        return context
+    }
+
+    /**
      *
      * @return
      */
