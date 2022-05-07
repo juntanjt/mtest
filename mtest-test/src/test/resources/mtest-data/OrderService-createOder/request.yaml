@@ -3,7 +3,7 @@ case_id_111:
   - !!com.meituan.mtest.demo.order.service.dto.OrderReqDTO
     {address: 上海, itemCount: 1, itemId: 33333, telephone: '13000000000'}
 
-case_id_222:
+case_id_222, case_id_555:
   - 2222
   - !!com.meituan.mtest.demo.order.service.dto.OrderReqDTO
     {address: 上海, itemCount: 4, itemId: 44444, telephone: '13000000000'}

@@ -1,8 +1,8 @@
 case_id_111: !!com.meituan.mtest.demo.item.service.dto.ItemDTO
   {itemId: 33333, price: 1.5, itemName: 农夫山泉}
 
-case_id_222: !!com.meituan.mtest.demo.item.service.dto.ItemDTO
-  {itemId: 4444, price: 1, itemName: 哇哈哈}
+case_id_222, case_id_555(0): !!com.meituan.mtest.demo.item.service.dto.ItemDTO
+  {itemId: 44444, price: 1, itemName: 哇哈哈}
 
 case_id_999:
   null

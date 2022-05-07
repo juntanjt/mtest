@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
 
         OrderDO orderDO = new OrderDO();
         orderDO.setUserId(userId);
-        orderDO.setItemId(orderReqDTO.getItemId());
+        orderDO.setItemId(itemDTO.getItemId());
         orderDO.setItemCount(orderReqDTO.getItemCount());
         // amount
         orderDO.setAmount(itemDTO.getPrice().multiply(BigDecimal.valueOf(orderReqDTO.getItemCount())));

@@ -101,7 +101,8 @@ public class DataLoaders {
      */
     private static Iterable<Object[]> loadRequests(String requestPath, Iterable<TestCase> testCases) {
         try {
-            Map requestMap = loadYaml(requestPath);
+            Map<String, List> yamlMap = loadYaml(requestPath);
+            Map<String, List> requestMap = splitCaseCodeKey(yamlMap);
             if (requestMap == null || requestMap.isEmpty()) {
                 return Lists.newArrayList();
             }
@@ -109,7 +110,7 @@ public class DataLoaders {
             List<Object[]> requests = Lists.newArrayList();
             for (TestCase testCase : testCases) {
                 if (requestMap.containsKey(testCase.getId())) {
-                    Object[] request = ((List) requestMap.get(testCase.getId())).toArray();
+                    Object[] request = (requestMap.get(testCase.getId())).toArray();
                     requests.add(request);
                 } else {
                     requests.add(null);
@@ -142,7 +143,8 @@ public class DataLoaders {
      */
     private static Iterable<Object> loadExpecteds(String expectedPath, Iterable<TestCase> testCases) {
         try {
-            Map expectedMap = loadYaml(expectedPath);
+            Map<String, Object> yamlMap = loadYaml(expectedPath);
+            Map<String, Object> expectedMap = splitCaseCodeKey(yamlMap);
             if (expectedMap == null || expectedMap.isEmpty()) {
                 return Lists.newArrayList();
             }
@@ -183,7 +185,8 @@ public class DataLoaders {
      */
     private static Iterable<Throwable> loadExceptions(String exceptionPath, Iterable<TestCase> testCases) {
         try {
-            Map<String, Throwable> exceptionMap = loadYaml(exceptionPath);
+            Map<String, Throwable> yamlMap = loadYaml(exceptionPath);
+            Map<String, Throwable> exceptionMap = splitCaseCodeKey(yamlMap);
             if (exceptionMap == null || exceptionMap.isEmpty()) {
                 return Lists.newArrayList();
             }
@@ -247,39 +250,10 @@ public class DataLoaders {
             for (File file : files) {
                 Mocker mocker = PathConvention.getMocker(file.getName());
 
-                Map<String, List> requestMap = loadYaml(file);
-                if (requestMap == null || requestMap.isEmpty()) {
+                Map<String, List> yamlMap = loadYaml(file);
+                Map<String/** code*/, Map<Integer/** order */, List>> requestCodeOrderMap = splitMockCaseCodeKey(yamlMap);
+                if (requestCodeOrderMap == null || requestCodeOrderMap.isEmpty()) {
                     continue;
-                }
-
-                Map<String/** code*/, Map<Integer/** order */, Object[]>> requestCodeOrderMap = Maps.newHashMap();
-
-                for (String key : requestMap.keySet()) {
-                    List<?> request = requestMap.get(key);
-
-                    // code split by ","
-                    String[] codes = key.split(",");
-                    if (codes == null || codes.length==0) {
-                        continue;
-                    }
-                    for (String code : codes) {
-                        code = code.trim();
-                        if (Strings.isNullOrEmpty(code)) {
-                            continue;
-                        }
-                        // example: code1(0), code1(1)
-                        String[] codeInfo = code.split("\\(|\\)");
-                        Map<Integer/** order */, Object[]> requestOrderMap = requestCodeOrderMap.get(codeInfo[0].trim());
-                        if (requestOrderMap == null) {
-                            requestOrderMap = Maps.newHashMap();
-                            requestCodeOrderMap.put(codeInfo[0].trim(), requestOrderMap);
-                        }
-                        if (codeInfo.length == 1) {
-                            requestOrderMap.put(0, request.toArray());
-                        } else {
-                            requestOrderMap.put(Integer.valueOf(codeInfo[1].trim()), request.toArray());
-                        }
-                    }
                 }
                 for (String code : requestCodeOrderMap.keySet()) {
                     Map<Mocker, List<Object[]>> mockRequests = allMockRequests.get(code);
@@ -290,7 +264,7 @@ public class DataLoaders {
                     List<Object[]> requests = Lists.newArrayList();
                     for (int i=0; ; i++) {
                         if (requestCodeOrderMap.get(code).containsKey(i)) {
-                            requests.add(requestCodeOrderMap.get(code).get(i));
+                            requests.add(requestCodeOrderMap.get(code).get(i).toArray());
                         } else {
                             break;
                         }
@@ -348,39 +322,10 @@ public class DataLoaders {
             for (File file : files) {
                 Mocker mocker = PathConvention.getMocker(file.getName());
 
-                Map<String, Object> responseMap = loadYaml(file);
-                if (responseMap == null || responseMap.isEmpty()) {
+                Map<String, Object> yamlMap = loadYaml(file);
+                Map<String/** code*/, Map<Integer/** order */, Object>> responseCodeOrderMap = splitMockCaseCodeKey(yamlMap);
+                if (responseCodeOrderMap == null || responseCodeOrderMap.isEmpty()) {
                     continue;
-                }
-
-                Map<String/** code*/, Map<Integer/** order */, Object>> responseCodeOrderMap = Maps.newHashMap();
-
-                for (String key : responseMap.keySet()) {
-                    Object response = responseMap.get(key);
-
-                    // code split by ","
-                    String[] codes = key.split(",");
-                    if (codes == null || codes.length==0) {
-                        continue;
-                    }
-                    for (String code : codes) {
-                        code = code.trim();
-                        if (Strings.isNullOrEmpty(code)) {
-                            continue;
-                        }
-                        // example: code1(0), code1(1)
-                        String[] codeInfo = code.split("\\(|\\)");
-                        Map<Integer/** order */, Object> responseOrderMap = responseCodeOrderMap.get(codeInfo[0].trim());
-                        if (responseOrderMap == null) {
-                            responseOrderMap = Maps.newHashMap();
-                            responseCodeOrderMap.put(codeInfo[0].trim(), responseOrderMap);
-                        }
-                        if (codes.length == 1) {
-                            responseOrderMap.put(0, response);
-                        } else {
-                            responseOrderMap.put(Integer.valueOf(codeInfo[1].trim()), response);
-                        }
-                    }
                 }
                 for (String code : responseCodeOrderMap.keySet()) {
                     Map<Mocker, List<Object>> mockResponses = allMockResponses.get(code);
@@ -405,6 +350,111 @@ public class DataLoaders {
             Throwables.propagateIfInstanceOf(e, MTestException.class);
             throw new MTestException("load mock response error. dir [" + testMethodPath + "]", e);
         }
+    }
+
+    /**
+     *
+     * @param map
+     * @param <T>
+     * @return Map<String(caseCode), T>
+     */
+    private static <T> Map<String, T> splitCaseCodeKey(Map<String, T> map) {
+        if (map == null || map.isEmpty()) {
+            return Maps.newHashMap();
+        }
+
+        Map<String, T> result = Maps.newHashMap();
+        for (String key : map.keySet()) {
+            List<String> caseCodes = splitCaseCodes(key);
+            if (caseCodes == null || caseCodes.isEmpty()) {
+                continue;
+            }
+            for (String caseCode : caseCodes) {
+                if (Strings.isNullOrEmpty(caseCode)) {
+                    continue;
+                }
+                result.put(caseCode, map.get(key));
+            }
+        }
+        return result;
+    }
+
+    /**
+     *
+     * @param map
+     * @param <T>
+     * @return Map<String(caseCode), Map<Integer(order), T>>
+     */
+    private static <T> Map<String, Map<Integer, T>> splitMockCaseCodeKey(Map<String, T> map) {
+        if (map == null || map.isEmpty()) {
+            return Maps.newHashMap();
+        }
+        Map<String/** code*/, Map<Integer/** order */, T>> resultMap = Maps.newHashMap();
+
+        for (String key : map.keySet()) {
+            // code split by ","
+            List<String[]> codeInfos = splitMockCaseCodes(key);
+            if (codeInfos == null || codeInfos.size()==0) {
+                continue;
+            }
+            for (String[] codeInfo : codeInfos) {
+                Map<Integer/** order */, T> orderMap = resultMap.get(codeInfo[0]);
+                if (orderMap == null) {
+                    orderMap = Maps.newHashMap();
+                    resultMap.put(codeInfo[0], orderMap);
+                }
+                if (codeInfo.length == 1) {
+                    orderMap.put(0, map.get(key));
+                } else {
+                    orderMap.put(Integer.valueOf(codeInfo[1]), map.get(key));
+                }
+            }
+        }
+        return resultMap;
+    }
+
+    /**
+     *
+     * @param key
+     * @return
+     */
+    private static List<String> splitCaseCodes(String key) {
+        // code split by ","
+        String[] codeStrs = key.split(",");
+        if (codeStrs == null || codeStrs.length==0) {
+            return Lists.newArrayList();
+        }
+        return Lists.newArrayList(codeStrs).stream().map(s -> s.trim()).collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @param key
+     * @return
+     */
+    private static List<String[]> splitMockCaseCodes(String key) {
+        // code split by ","
+        String[] codeStrs = key.split(",");
+        if (codeStrs == null || codeStrs.length==0) {
+            return Lists.newArrayList();
+        }
+        List<String[]> caseCodes = Lists.newArrayList();
+        for (String codeStr : codeStrs) {
+            codeStr = codeStr.trim();
+            if (Strings.isNullOrEmpty(codeStr)) {
+                continue;
+            }
+            // example: code1(0), code1(1)
+            String[] codeInfo = codeStr.split("\\(|\\)");
+            if (codeInfo == null || codeInfo.length == 0) {
+                continue;
+            } else if (codeInfo.length == 1) {
+                caseCodes.add(new String[] {codeInfo[0].trim()});
+            } else {
+                caseCodes.add(new String[] {codeInfo[0].trim(), codeInfo[1].trim()});
+            }
+        }
+        return caseCodes;
     }
 
     /**

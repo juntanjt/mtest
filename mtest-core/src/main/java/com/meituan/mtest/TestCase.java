@@ -71,8 +71,8 @@ public class TestCase {
     @Override
     public String toString() {
         return new StringJoiner("")
-                .add("id='" + id + "', ")
-                .add("name=" + name)
+                .add(id + ", ")
+                .add(name)
                 .toString();
     }
 }

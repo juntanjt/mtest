@@ -179,19 +179,27 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
             dbTester.verifyData(sharedTestMethod, context.getTestCase())
         } catch(Exception e) {
             Throwables.propagateIfInstanceOf(e, MTestException.class)
-            throw new MTestException("dbTester.verifyData error", e)
+            throw new MTestException("test case cleanup dbTester.verifyData error", e)
         } finally {
+            Exception ee = null;
             try {
                 mockMaker.cleanup()
             } catch(Exception e1) {
+                ee = e1
             }
             try {
                 dbTester.cleanup()
             } catch(Exception e1) {
+                ee = e1
             }
             try {
                 context.cleanup()
             } catch(Exception e1) {
+                ee = e1
+            }
+            if (ee != null) {
+                Throwables.propagateIfInstanceOf(ee, MTestException.class)
+                throw new MTestException("test case cleanup error", ee)
             }
         }
     }
