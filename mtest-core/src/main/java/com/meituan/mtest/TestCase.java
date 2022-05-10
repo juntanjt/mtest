@@ -17,9 +17,19 @@ public class TestCase {
 
     private String name;
 
-    private boolean isException;
+    private boolean isException = false;
 
     private boolean ignore = false;
+
+    /**
+     * 
+     * @param id
+     * @param name
+     */
+    public TestCase(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     /**
      *
