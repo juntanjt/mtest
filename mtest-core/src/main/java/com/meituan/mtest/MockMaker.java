@@ -80,23 +80,23 @@ public class MockMaker {
             return;
         }
         Map<String, MockMethod> beanNameMap = Maps.newHashMap();
-        Map<Class<?>, MockMethod> testClassMap = Maps.newHashMap();
+        Map<Class<?>, MockMethod> mockClassMap = Maps.newHashMap();
         for (MockMethod mockMethod : mockMethods) {
             if (mockMethod.getBeanName() != null) {
                 beanNameMap.put(mockMethod.getBeanName(), mockMethod);
             } else {
-                testClassMap.put(mockMethod.getTestClass(), mockMethod);
+                mockClassMap.put(mockMethod.getMockClass(), mockMethod);
             }
         }
         for (String beanName : beanNameMap.keySet()) {
-            Object mockObject = Mockito.mock(beanNameMap.get(beanName).getTestClass());
+            Object mockObject = Mockito.mock(beanNameMap.get(beanName).getMockClass());
             SpringBeanRegistryUtil.registerSingleton(beanFactory, beanName, mockObject);
             mockBeanObjects.put(beanName, mockObject);
         }
-        for (Class<?> testClass : testClassMap.keySet()) {
-            Object mockObject = Mockito.mock(testClassMap.get(testClass).getTestClass());
-            SpringBeanRegistryUtil.registerSingleton(beanFactory, testClass, mockObject);
-            mockClassObjects.put(testClass, mockObject);
+        for (Class<?> mockClass : mockClassMap.keySet()) {
+            Object mockObject = Mockito.mock(mockClassMap.get(mockClass).getMockClass());
+            SpringBeanRegistryUtil.registerSingleton(beanFactory, mockClass, mockObject);
+            mockClassObjects.put(mockClass, mockObject);
         }
     }
 
@@ -108,13 +108,13 @@ public class MockMaker {
         if (mockMethods==null || mockMethods.isEmpty()) {
             return;
         }
-        Map<Class<?>, MockMethod> testClassMap = Maps.newHashMap();
+        Map<Class<?>, MockMethod> mockClassMap = Maps.newHashMap();
         for (MockMethod mockMethod : mockMethods) {
-            testClassMap.put(mockMethod.getTestClass(), mockMethod);
+            mockClassMap.put(mockMethod.getMockClass(), mockMethod);
         }
-        for (Class<?> testClass : testClassMap.keySet()) {
-            MockedStatic<?> mockedStatic = Mockito.mockStatic(testClass);
-            mockClassStatics.put(testClass, mockedStatic);
+        for (Class<?> mockClass : mockClassMap.keySet()) {
+            MockedStatic<?> mockedStatic = Mockito.mockStatic(mockClass);
+            mockClassStatics.put(mockClass, mockedStatic);
         }
     }
 
@@ -154,7 +154,7 @@ public class MockMaker {
             return;
         }
         for (MockMethod mockMethod : mockMethods) {
-            Mocker mocker = new Mocker(mockMethod.getTestClass().getSimpleName(), mockMethod.getMethod().getName(), mockMethod.getOverload());
+            Mocker mocker = new Mocker(mockMethod.getMockClass().getSimpleName(), mockMethod.getMethod().getName(), mockMethod.getOverload());
 
             List<Object[]> mockRequests = mockRequestMap != null ? mockRequestMap.get(mocker) : null;
             List<Object> mockResponse = mockResponseMap != null ? mockResponseMap.get(mocker) : null;
@@ -199,7 +199,7 @@ public class MockMaker {
             }
         } catch (Exception e) {
             Throwables.propagate(e);
-            throw new MTestException("mock error", e);
+            throw new MTestException("mock error " + mockMethod, e);
         }
     }
 
@@ -212,7 +212,7 @@ public class MockMaker {
      */
     private void mockStatic(MockMethod mockMethod, Mocker mocker, List<Object[]> mockRequests, List<Object> mockResponses) {
         try {
-            MockedStatic<?> mockedStatic = mockClassStatics.get(mockMethod.getTestClass());
+            MockedStatic<?> mockedStatic = mockClassStatics.get(mockMethod.getMockClass());
             List<Object> args = Lists.newArrayList();
             for (Class<?> parameterType : mockMethod.getMethod().getParameterTypes()) {
                 args.add(Mockito.any(parameterType));
@@ -235,7 +235,7 @@ public class MockMaker {
             }
         } catch (Exception e) {
             Throwables.propagate(e);
-            throw new MTestException("mock error", e);
+            throw new MTestException("mock static error " + mockMethod, e);
         }
     }
 
@@ -269,7 +269,7 @@ public class MockMaker {
         if (mockMethod.getBeanName() != null) {
             return mockBeanObjects.get(mockMethod.getBeanName());
         }
-        return mockClassObjects.get(mockMethod.getTestClass());
+        return mockClassObjects.get(mockMethod.getMockClass());
     }
 
 }

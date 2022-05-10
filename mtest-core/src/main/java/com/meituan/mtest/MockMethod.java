@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  */
 public class MockMethod {
 
-    private Class<?> testClass;
+    private Class<?> mockClass;
 
     private Method method;
 
@@ -21,54 +21,54 @@ public class MockMethod {
 
     /**
      *
-     * @param testClass
+     * @param mockClass
      * @param method
      */
-    public MockMethod(Class<?> testClass, Method method) {
-        this.testClass = testClass;
+    public MockMethod(Class<?> mockClass, Method method) {
+        this.mockClass = mockClass;
         this.method = method;
     }
 
     /**
      *
-     * @param testClass
+     * @param mockClass
      * @param method
      * @param beanName
      */
-    public MockMethod(Class<?> testClass, Method method, String beanName) {
-        this.testClass = testClass;
+    public MockMethod(Class<?> mockClass, Method method, String beanName) {
+        this.mockClass = mockClass;
         this.method = method;
         this.beanName = beanName;
     }
 
     /**
      *
-     * @param testClass
+     * @param mockClass
      * @param method
      * @param overload
      */
-    public MockMethod(Class<?> testClass, Method method, int overload) {
-        this.testClass = testClass;
+    public MockMethod(Class<?> mockClass, Method method, int overload) {
+        this.mockClass = mockClass;
         this.method = method;
         this.overload = overload;
     }
 
     /**
      *
-     * @param testClass
+     * @param mockClass
      * @param method
      * @param beanName
      * @param overload
      */
-    public MockMethod(Class<?> testClass, Method method, String beanName, int overload) {
-        this.testClass = testClass;
+    public MockMethod(Class<?> mockClass, Method method, String beanName, int overload) {
+        this.mockClass = mockClass;
         this.method = method;
         this.beanName = beanName;
         this.overload = overload;
     }
 
-    public Class<?> getTestClass() {
-        return testClass;
+    public Class<?> getMockClass() {
+        return mockClass;
     }
 
     public Method getMethod() {
@@ -88,18 +88,18 @@ public class MockMethod {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MockMethod that = (MockMethod) o;
-        return overload == that.overload && Objects.equal(testClass, that.testClass) && Objects.equal(method, that.method) && Objects.equal(beanName, that.beanName);
+        return overload == that.overload && Objects.equal(mockClass, that.mockClass) && Objects.equal(method, that.method) && Objects.equal(beanName, that.beanName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(testClass, method, beanName, overload);
+        return Objects.hashCode(mockClass, method, beanName, overload);
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", MockMethod.class.getSimpleName() + "[", "]")
-                .add("testClass=" + testClass)
+                .add("mockClass=" + mockClass)
                 .add("method=" + method)
                 .add("beanName='" + beanName + "'")
                 .add("overload=" + overload)
