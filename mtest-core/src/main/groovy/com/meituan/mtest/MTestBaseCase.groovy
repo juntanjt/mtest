@@ -45,8 +45,10 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
     protected Iterable<TestCase> testCase(int testCaseType) {
         if (testCaseType == TestCase.NORMAL) {
             return MTestContext.ContextIterable.of(DataLoaders.loadTestCases(getTestMethod()), context, MTestContext.KeyType.TEST_CASE)
-        } else {
+        } else if (testCaseType == TestCase.EXCEPTION) {
             return MTestContext.ContextIterable.of(DataLoaders.loadExceptionTestCases(getTestMethod()), context, MTestContext.KeyType.TEST_CASE)
+        } else {
+            throw new MTestException("testCaseType " + testCaseType + " is not exists")
         }
     }
 
@@ -65,12 +67,13 @@ abstract class MTestBaseCase extends Specification implements BeanFactoryPostPro
      * @return
      */
     protected Iterable<Object[]> request(int testCaseType) {
+        Iterable<TestCase> testCases = testCase(testCaseType)
         if (testCaseType == TestCase.NORMAL) {
-            Iterable<TestCase> testCases = testCase()
+            return MTestContext.ContextIterable.of(DataLoaders.loadRequests(getTestMethod(), testCases), context, MTestContext.KeyType.REQUEST)
+        } else if (testCaseType == TestCase.EXCEPTION) {
             return MTestContext.ContextIterable.of(DataLoaders.loadRequests(getTestMethod(), testCases), context, MTestContext.KeyType.REQUEST)
         } else {
-            Iterable<TestCase> testCases = testCase(TestCase.EXCEPTION)
-            return MTestContext.ContextIterable.of(DataLoaders.loadRequests(getTestMethod(), testCases), context, MTestContext.KeyType.REQUEST)
+            throw new MTestException("testCaseType " + testCaseType + " is not exists")
         }
     }
 
