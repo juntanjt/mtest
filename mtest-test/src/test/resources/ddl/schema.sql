@@ -1,6 +1,6 @@
-drop table if exists `TABLE_ORDER`;
+drop table if exists `order_table`;
 
-CREATE TABLE `TABLE_ORDER` (
+CREATE TABLE `order_table` (
   `id` INTEGER NOT NULL auto_increment,
   `user_id` INTEGER NOT NULL,
   `item_id` INTEGER NOT NULL,

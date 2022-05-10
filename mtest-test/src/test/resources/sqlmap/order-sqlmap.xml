@@ -16,11 +16,11 @@
     </resultMap>
 
     <insert id="insert" parameterType="com.meituan.mtest.demo.order.dao.OrderDO" useGeneratedKeys="true" keyProperty="id">
-        insert into TABLE_ORDER(user_id, item_id, item_count, amount, order_name, address, telephone, create_time)
+        insert into order_table(user_id, item_id, item_count, amount, order_name, address, telephone, create_time)
         values(#{userId}, #{itemId}, #{itemCount}, #{amount}, #{orderName}, #{address}, #{telephone}, now())
     </insert>
     <select id="queryById" parameterType="long" resultMap="orderMap">
-        SELECT * FROM TABLE_ORDER WHERE id = #{id}
+        SELECT * FROM order_table WHERE id = #{id}
     </select>
 
 </mapper>

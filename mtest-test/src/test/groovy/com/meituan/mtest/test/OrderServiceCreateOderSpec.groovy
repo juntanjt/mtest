@@ -29,7 +29,7 @@ class OrderServiceCreateOderSpec extends MTestBaseCase {
     OrderService orderService
 
     @Unroll
-    def "#testcase"() {
+    def "#testCase"() {
         given: ""
 
         when: ""
@@ -42,14 +42,14 @@ class OrderServiceCreateOderSpec extends MTestBaseCase {
         }
 
         where: ""
-        testcase << testCase()
+        testCase << testCase()
         [userId, orderReqDTO] << request()
         expected << expected()
 
     }
 
     @Unroll
-    def "#testcase exception"() {
+    def "#testCase exception"() {
         given: ""
 
         when: ""
@@ -62,7 +62,7 @@ class OrderServiceCreateOderSpec extends MTestBaseCase {
         }
 
         where: ""
-        testcase << testCase(TestCase.EXCEPTION)
+        testCase << testCase(TestCase.EXCEPTION)
         [userId, orderReqDTO] << request(TestCase.EXCEPTION)
         expectedException << expectedException()
 

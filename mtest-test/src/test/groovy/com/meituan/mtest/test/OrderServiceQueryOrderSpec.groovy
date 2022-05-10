@@ -29,7 +29,7 @@ class OrderServiceQueryOrderSpec extends MTestBaseCase {
     OrderService orderService
 
     @Unroll
-    def "#testcase"() {
+    def "#testCase"() {
         given: ""
 
         when: ""
@@ -44,7 +44,7 @@ class OrderServiceQueryOrderSpec extends MTestBaseCase {
                 .ignoringFields("value.createTime").isEqualTo(expected)
 
         where: ""
-        testcase << testCase()
+        testCase << testCase()
         [userId, orderId] << request()
         expected << expected()
 
