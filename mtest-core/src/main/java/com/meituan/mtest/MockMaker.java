@@ -157,12 +157,16 @@ public class MockMaker {
             Mocker mocker = new Mocker(ClassSimpleNameUtil.getSimpleName(mockMethod.getMockClass()), mockMethod.getMethod().getName(), mockMethod.getOverload());
 
             List<Object[]> mockRequests = mockRequestMap != null ? mockRequestMap.get(mocker) : null;
-            List<Object> mockResponse = mockResponseMap != null ? mockResponseMap.get(mocker) : null;
+            List<Object> mockResponses = mockResponseMap != null ? mockResponseMap.get(mocker) : null;
+
+            if ((mockRequests == null || mockRequests.isEmpty()) && (mockResponses == null || mockResponses.isEmpty())) {
+                continue;
+            }
 
             if (Modifier.isStatic(mockMethod.getMethod().getModifiers())) {
-                mockStatic(mockMethod, mocker, mockRequests, mockResponse);
+                mockStatic(mockMethod, mocker, mockRequests, mockResponses);
             } else {
-                mock(mockMethod, mocker, mockRequests, mockResponse);
+                mock(mockMethod, mocker, mockRequests, mockResponses);
             }
         }
     }
