@@ -93,6 +93,9 @@ public class DBTester {
      */
     public void cleanup() {
         try {
+            if (databaseTester == null) {
+                return;
+            }
             IDataSet dataSet = databaseTester.getConnection().createDataSet();
             if (dataSet != null) {
                 databaseTester.setDataSet(dataSet);

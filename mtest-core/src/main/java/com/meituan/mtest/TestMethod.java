@@ -19,6 +19,8 @@ public class TestMethod {
 
     private int overload = -1;
 
+    private String location;
+
     /**
      *
      * @param testClass
@@ -78,6 +80,7 @@ public class TestMethod {
             this.beanName = mTest.beanName();
         }
         this.overload = mTest.overload();
+        this.location = mTest.location();
     }
 
     public Class<?> getTestClass() {
@@ -94,6 +97,10 @@ public class TestMethod {
 
     public int getOverload() {
         return overload;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     @Override

@@ -1,0 +1,5 @@
+id, name, exception, ignore
+case_id_111, "商品数量1，价格1.5元", ,
+case_id_222, "商品数量4，价格4元", ,
+case_id_555, "商品数量4，价格4元", 0,
+case_id_999, "商品不存在", 1,

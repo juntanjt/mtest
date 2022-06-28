@@ -154,7 +154,7 @@ public class MockMaker {
             return;
         }
         for (MockMethod mockMethod : mockMethods) {
-            Mocker mocker = new Mocker(mockMethod.getMockClass().getSimpleName(), mockMethod.getMethod().getName(), mockMethod.getOverload());
+            Mocker mocker = new Mocker(ClassSimpleNameUtil.getSimpleName(mockMethod.getMockClass()), mockMethod.getMethod().getName(), mockMethod.getOverload());
 
             List<Object[]> mockRequests = mockRequestMap != null ? mockRequestMap.get(mocker) : null;
             List<Object> mockResponse = mockResponseMap != null ? mockResponseMap.get(mocker) : null;

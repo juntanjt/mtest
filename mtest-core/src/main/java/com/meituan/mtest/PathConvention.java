@@ -1,5 +1,7 @@
 package com.meituan.mtest;
 
+import com.google.common.base.Strings;
+
 import java.io.File;
 
 /**
@@ -14,7 +16,8 @@ public class PathConvention {
      * @return
      */
     public static String getTestMethodPath(TestMethod testMethod) {
-        String path = "mtest-data/" + testMethod.getTestClass().getSimpleName() + "-" + testMethod.getMethod();
+        String location = ! Strings.isNullOrEmpty(testMethod.getLocation()) ? testMethod.getLocation().trim() : "mtest-data";
+        String path = location + "/" + ClassSimpleNameUtil.getSimpleName(testMethod.getTestClass()) + "-" + testMethod.getMethod();
         if (testMethod.getOverload() != -1) {
             path += ("-" + testMethod.getOverload());
         }

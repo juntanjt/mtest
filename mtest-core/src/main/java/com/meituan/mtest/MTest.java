@@ -21,4 +21,6 @@ public @interface MTest {
 
     int overload() default -1;
 
+    String location() default "";
+
 }
